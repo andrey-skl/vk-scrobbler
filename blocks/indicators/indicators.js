@@ -131,59 +131,49 @@
           var div = document.createElement('div');
           div.innerHTML = Indicators.htmls.miniIndicator;
           el.appendChild(div.childNodes[0]);
-        }.bind(this));
 
-        ifExist('#nowIndicator').run(function (el) {
-          el.addEventListener('click', this.listeners.togglePauseScrobbling);
+          el.querySelector('#nowIndicator').addEventListener('click', this.listeners.togglePauseScrobbling);
         }.bind(this));
       }
     },
 
     SetAcIndicator: function () {
       if (byId("ac") && !byId("nowIndAC")) {
-        $("#ac_duration").before(Indicators.htmls.acIndicator);
-        ifExist('#nowIndAC').run(function (el) {
-          el.addEventListener('click', this.listeners.togglePauseScrobbling);
-        }.bind(this));
+        byId('ac_duration').insertAdjacentHTML('beforebegin', Indicators.htmls.acIndicator);
+        byId('nowIndAC').addEventListener('click', this.listeners.togglePauseScrobbling);
       }
     },
 
     SetPdIndicator: function () {
       if (byId("pd") && !byId("nowIndPD")) {
-        $("#pd_duration").before(Indicators.htmls.pdIndicator);
-        ifExist('#nowIndPD').run(function (el) {
-          el.addEventListener('click', this.listeners.togglePauseScrobbling);
-        }.bind(this));
+        byId('pd_duration').insertAdjacentHTML('beforebegin', Indicators.htmls.pdIndicator);
+        byId('nowIndPD').addEventListener('click', this.listeners.togglePauseScrobbling);
       }
     },
 
     SetTwitterAC: function () {
       if (byId("ac") && !byId("twitterDivAC")) {
-        $("#ac_duration").before(Indicators.htmls.twitAChtml);
+        byId('ac_duration').insertAdjacentHTML('beforebegin', Indicators.htmls.twitAChtml);
       }
     },
 
     SetTwitterPD: function () {
       if (byId("pd") && !byId("twitterDivPD")) {
-        $("#pd_duration").before(Indicators.htmls.twitPDhtml);
+        byId('pd_duration').insertAdjacentHTML('beforebegin', Indicators.htmls.twitPDhtml);
       }
     },
 
     SetLoveAC: function () {
       if (byId("ac") && !byId("loveDivAC")) {
-        $("#ac_duration").before(Indicators.htmls.loveAC);
-        ifExist('#loveDivAC').run(function (el) {
-          el.addEventListener('click', this.listeners.sendLoveRequest);
-        }.bind(this));
+        byId('ac_duration').insertAdjacentHTML('beforebegin', Indicators.htmls.loveAC);
+        byId('loveDivAC').addEventListener('click', this.listeners.sendLoveRequest);
       }
     },
 
     SetLovePD: function () {
       if (byId("pd") && !byId("loveDivPD")) {
-        $("#pd_duration").before(Indicators.htmls.lovePD);
-        ifExist('#loveDivPD').run(function (el) {
-          el.addEventListener('click', this.listeners.sendLoveRequest);
-        }.bind(this));
+        byId('pd_duration').insertAdjacentHTML('beforebegin', Indicators.htmls.lovePD);
+        byId('loveDivPD').addEventListener('click', this.listeners.sendLoveRequest);
       }
     },
 
