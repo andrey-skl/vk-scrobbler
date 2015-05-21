@@ -13,20 +13,38 @@ LastFMClient.prototype._getApiSignature = function (data) {
   return md5(nameValueString + this.apiSecret);
 };
 
+LastFMClient.prototype._formUrlEncode  = function (obj) {
+  var pairs = [];
+  for (var key in obj) {
+    if (obj.hasOwnProperty(key)) {
+      pairs.push(encodeURIComponent(key) + "=" + encodeURIComponent(obj[key]));
+    }
+  }
+  return pairs.join("&");
+};
 
 LastFMClient.prototype._call = function (type, data, callback, context, async) {
   data.format = 'json';
-  return $.ajax({
-    type: type,
-    url: this.apiUrl,
-    data: data,
-    dataType: 'json',
-    async: async,
-    success: context ? callback.bind(context) : callback,
-    error: function (data) {
-      console.log('Something went wrong', data);
+
+  var request = new XMLHttpRequest();
+  request.open(type, this.apiUrl, async);
+  request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
+
+  request.onload = function() {
+    if (request.status >= 200 && request.status < 400) {
+      // Success!
+      callback && callback.call(context, request.responseText, request);
+    } else {
+      console.error('Something went wrong', request);
     }
-  });
+  };
+
+  request.onerror = function(res) {
+    console.error('Something went wrong', res);
+  };
+
+  var formEncoded = this._formUrlEncode(data);
+  request.send(formEncoded);
 };
 
 
