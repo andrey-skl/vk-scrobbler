@@ -29,6 +29,7 @@
         "blocks/indicators/indicators.js",
         "blocks/content/content__bus.js",
         "blocks/content/content__vk-patcher.js",
+        "blocks/content/content__utils.js",
         "blocks/content/content.js"
       ],
       "css": [

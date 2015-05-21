@@ -56,11 +56,14 @@
 
     checkTrackStatus();
 
-    Indicators.setTwitButtonHref(getTwitLink(artist, track));
+    Indicators.setTwitButtonHref(ContentUils.getTwitLink(artist, track));
 
     setTimeout(parseInfoAndCheck, checkPeriod);
   }
 
+  /**
+   * Updates information, send requests in depend on conditions
+   */
   function updateStatus() {
     if (position != lastPos) {
       if (periodNum > periodsToNowPlay) {
@@ -99,13 +102,6 @@
     } else {
       Indicators.indicatePauseScrobbling();
     }
-  }
-
-  function getTwitLink(artist, track) {
-    if (artist == "vknone") return;
-    var twtLink = 'http://twitter.com/home?status=' + encodeURIComponent("#nowplaying") + " " +
-      encodeURIComponent(artist) + " - " + encodeURIComponent(track) + encodeURIComponent(" via #vkscrobbler") + " http://bit.ly/yQg0uN";
-    return twtLink;
   }
 
 })();
