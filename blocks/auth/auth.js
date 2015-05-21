@@ -20,7 +20,7 @@ else {
   params.api_sig = lastfm._getApiSignature(params);
   params.format = 'json';
 
-  lastfm.signedCall('GET', {
+  lastfm.signedCall('POST', {
     method: 'auth.getSession',
     token: token
   }, function (data) {
@@ -32,7 +32,7 @@ else {
 
     document.getElementById("userName").innerHTML = data.session.name;
     document.getElementById("message").innerHTML = "VK scrobbler подключен к вашему аккуанту. <br>Не забудьте обновить уже открытые вкладки vk.com!";
-  }).fail(function (e) {
+  }).catch(function (e) {
     document.getElementById("message").innerHTML = e.message;
   });
 }

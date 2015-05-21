@@ -7,7 +7,7 @@
   },
   "version": "1.0.1",
   "manifest_version": 2,
-  "minimum_chrome_version": "19.0",
+  "minimum_chrome_version": "35.0",
   "background": {
     "page": "blocks/background/background.html"
   },

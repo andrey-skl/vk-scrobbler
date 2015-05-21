@@ -30,21 +30,28 @@ LastFMClient.prototype._call = function (type, data, callback, context, async) {
   request.open(type, this.apiUrl, async);
   request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
 
-  request.onload = function() {
-    if (request.status >= 200 && request.status < 400) {
-      // Success!
-      callback && callback.call(context, request.responseText, request);
-    } else {
-      console.error('Something went wrong', request);
-    }
-  };
+  var promise = new Promise(function(resolve, reject) {
+    request.onload = function() {
+      if (request.status >= 200 && request.status < 400) {
+        // Success!
+        callback && callback.call(context, JSON.parse(request.responseText), request);
+        resolve(JSON.parse(request.responseText));
+      } else {
+        reject(request);
+        console.error('Something went wrong', request);
+      }
+    };
 
-  request.onerror = function(res) {
-    console.error('Something went wrong', res);
-  };
+    request.onerror = function(res) {
+      reject(res);
+      console.error('Something went wrong', res);
+    };
+  });
 
   var formEncoded = this._formUrlEncode(data);
   request.send(formEncoded);
+
+  return promise;
 };
 
 
