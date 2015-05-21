@@ -4,8 +4,6 @@
 function tryToAttachScrobblerListeners() {
   if (typeof audioPlayer != 'undefined') {
 
-    var CURRENT_POS = 0;
-
     var ARTIST_NUM = 5;
     var TITLE_NUM = 6;
     var SAVE_LINK = 2;
@@ -119,7 +117,7 @@ Function.addCallListener = function (func, callbacks) {
       args: args,
       self: this,
       name: name
-    }
+    };
 
 
     callbacks.before && callbacks.before(props);

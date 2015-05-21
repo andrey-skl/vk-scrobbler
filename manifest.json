@@ -28,9 +28,6 @@
         "lib/jquery-1.8.3.min.js",
         "blocks/indicators/indicators.js",
         "blocks/content/content.js"
-      ],
-      "css": [
-        "html/aes_light.css"
       ]
     }
   ],
