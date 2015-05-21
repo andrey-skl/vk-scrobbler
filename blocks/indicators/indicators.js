@@ -142,14 +142,18 @@
     SetAcIndicator: function () {
       if (byId("ac") && !byId("nowIndAC")) {
         $("#ac_duration").before(Indicators.htmls.acIndicator);
-        $("#nowIndAC").click(this.listeners.togglePauseScrobbling);
+        ifExist('#nowIndAC').run(function (el) {
+          el.addEventListener('click', this.listeners.togglePauseScrobbling);
+        }.bind(this));
       }
     },
 
     SetPdIndicator: function () {
       if (byId("pd") && !byId("nowIndPD")) {
         $("#pd_duration").before(Indicators.htmls.pdIndicator);
-        $("#nowIndPD").click(this.listeners.togglePauseScrobbling);
+        ifExist('#nowIndPD').run(function (el) {
+          el.addEventListener('click', this.listeners.togglePauseScrobbling);
+        }.bind(this));
       }
     },
 
@@ -168,21 +172,26 @@
     SetLoveAC: function () {
       if (byId("ac") && !byId("loveDivAC")) {
         $("#ac_duration").before(Indicators.htmls.loveAC);
-        $("#loveDivAC").click(this.listeners.sendLoveRequest);
+        ifExist('#loveDivAC').run(function (el) {
+          el.addEventListener('click', this.listeners.sendLoveRequest);
+        }.bind(this));
       }
     },
 
     SetLovePD: function () {
       if (byId("pd") && !byId("loveDivPD")) {
         $("#pd_duration").before(Indicators.htmls.lovePD);
-        $("#loveDivPD").click(this.listeners.sendLoveRequest);
+        ifExist('#loveDivPD').run(function (el) {
+          el.addEventListener('click', this.listeners.sendLoveRequest);
+        }.bind(this));
       }
     },
 
     updatePlayingIndicators: function (newImgSrc, newTitle) {
-      var $sel = $("#nowIndAC img, #nowIndPD img, #nowIndicator img");
-      $sel.attr("src", newImgSrc);
-      $sel.attr("title", newTitle);
+      [].forEach.call(qsa("#nowIndAC img, #nowIndPD img, #nowIndicator img"), function(image) {
+        image.src = newImgSrc;
+        image.title = newTitle;
+      });
     },
 
     indicatePlayNow: function () {
@@ -215,14 +224,17 @@
     },
 
     indicateLoved: function () {
-      $("#loveDivAC img, #loveDivPD img").attr("src", chrome.extension.getURL("img/heartB.png"));
+      [].forEach.call(qsa("#loveDivAC img, #loveDivPD img"), function(image) {
+        image.src = chrome.extension.getURL("img/heartB.png");
+      });
 
     },
 
     indicateNotLove: function () {
-      $("#loveDivAC img, #loveDivPD img").attr("src", chrome.extension.getURL("img/heartBW.png"));
+      [].forEach.call(qsa("#loveDivAC img, #loveDivPD img"), function(image) {
+        image.src = chrome.extension.getURL("img/heartBW.png");
+      });
     }
-
   };
 })();
 
