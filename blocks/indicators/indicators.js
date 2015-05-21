@@ -140,73 +140,75 @@
     },
 
     SetAcIndicator: function () {
-      if ($("#ac").length && !$("#nowIndAC").length) {
+      if (byId("ac") && !byId("nowIndAC")) {
         $("#ac_duration").before(Indicators.htmls.acIndicator);
         $("#nowIndAC").click(this.listeners.togglePauseScrobbling);
       }
     },
 
     SetPdIndicator: function () {
-      if ($("#pd").length && !$("#nowIndPD").length) {
+      if (byId("pd") && !byId("nowIndPD")) {
         $("#pd_duration").before(Indicators.htmls.pdIndicator);
         $("#nowIndPD").click(this.listeners.togglePauseScrobbling);
       }
     },
 
     SetTwitterAC: function () {
-
-      if ($("#ac").length && !$("#twitterDivAC").length)
+      if (byId("ac") && !byId("twitterDivAC")) {
         $("#ac_duration").before(Indicators.htmls.twitAChtml);
+      }
     },
 
     SetTwitterPD: function () {
-
-      if ($("#pd").length && !$("#twitterDivPD").length)
+      if (byId("pd") && !byId("twitterDivPD")) {
         $("#pd_duration").before(Indicators.htmls.twitPDhtml);
+      }
     },
 
     SetLoveAC: function () {
-      if ($("#ac").length && !$("#loveDivAC").length) {
+      if (byId("ac") && !byId("loveDivAC")) {
         $("#ac_duration").before(Indicators.htmls.loveAC);
         $("#loveDivAC").click(this.listeners.sendLoveRequest);
       }
     },
 
     SetLovePD: function () {
-      if ($("#pd").length && !$("#loveDivPD").length) {
+      if (byId("pd") && !byId("loveDivPD")) {
         $("#pd_duration").before(Indicators.htmls.lovePD);
         $("#loveDivPD").click(this.listeners.sendLoveRequest);
       }
     },
 
-    updateIndicators: function (newImgSrc, newTitle) {
+    updatePlayingIndicators: function (newImgSrc, newTitle) {
       var $sel = $("#nowIndAC img, #nowIndPD img, #nowIndicator img");
       $sel.attr("src", newImgSrc);
       $sel.attr("title", newTitle);
     },
 
     indicatePlayNow: function () {
-      if (Indicators.indicate != EIndicateState.nowplaying)
-        this.updateIndicators(chrome.extension.getURL('img/icon_eqB.gif'), "VK scrobbler now playing");
+      if (Indicators.indicate != EIndicateState.nowplaying) {
+        this.updatePlayingIndicators(chrome.extension.getURL('img/icon_eqB.gif'), "VK scrobbler now playing");
+      }
 
       Indicators.indicate = EIndicateState.nowplaying;
     },
 
     indicateVKscrobbler: function () {
-      if (Indicators.indicate != EIndicateState.logotype)
-        this.updateIndicators(chrome.extension.getURL('img/icon_eq_pause.png'), "VK scrobbler");
+      if (Indicators.indicate != EIndicateState.logotype) {
+        this.updatePlayingIndicators(chrome.extension.getURL('img/icon_eq_pause.png'), "VK scrobbler");
+      }
 
       Indicators.indicate = EIndicateState.logotype;
     },
 
     indicatePauseScrobbling: function () {
-      this.updateIndicators(chrome.extension.getURL('img/pause.png'), "VK scrobbler paused");
+      this.updatePlayingIndicators(chrome.extension.getURL('img/pause.png'), "VK scrobbler paused");
 
       Indicators.indicate = EIndicateState.paused;
     },
 
     indicateScrobbled: function () {
-      this.updateIndicators(chrome.extension.getURL('img/checkB.png'), "VK scrobbler: scrobbled");
+      this.updatePlayingIndicators(chrome.extension.getURL('img/checkB.png'), "VK scrobbler: scrobbled");
 
 
       Indicators.indicate = EIndicateState.scrobbled;
