@@ -14,7 +14,7 @@
     var element = qs(selector);
     return {
       run: function (callback) {
-        element &&callback(element);
+        element && callback(element);
       }
     }
   };
