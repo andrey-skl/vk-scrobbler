@@ -11,7 +11,7 @@ var periodNum = 0;
 
 parseinfo();
 
-//div, в который будет помещаться информация из vk_inner для последующего принятия этим скриптом
+//div, в который будет помещаться информация из vk-inner для последующего принятия этим скриптом
 var hidded = document.createElement("div");
 hidded.id = "hidedDiv";
 hidded.style.visibility = "hidden";
@@ -22,7 +22,7 @@ document.body.appendChild(hidded);
 //исполнить скрипт vk_inner в контексте vk.com
 var script = document.createElement('script');
 script.type = 'text/javascript';
-script.src = chrome.extension.getURL("js/vk_inner.js");
+script.src = chrome.extension.getURL("blocks/vk-inner/vk-inner.js");
 
 document.body.appendChild(script);
 

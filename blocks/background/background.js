@@ -15,7 +15,7 @@ else {
         if (tabs[i].url.indexOf(succUrl) == 0) {
           chrome.tabs.onUpdated.removeListener(onAuth);
           var arg = tabs[i].url.match(/\?token\=.*/);
-          chrome.tabs.update(tabs[i].id, {url: "/auth.html" + arg, active: true}, null);
+          chrome.tabs.update(tabs[i].id, {url: "blocks/auth/auth.html" + arg, active: true}, null);
           return;
         }
       }

@@ -1,0 +1,13 @@
+.auth {
+  text-align: center;
+  width: 500px;
+  border: solid silver 1px;
+  border-radius: 10px;
+  margin: auto;
+  font-family: arial, serif;
+  font-size: 14px;
+}
+
+.auth__message {
+  color: gray;
+}
