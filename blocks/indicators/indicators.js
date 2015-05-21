@@ -128,11 +128,8 @@
     SetMiniIndicator: function () {
       if (!byId("nowIndicator")) {
         ifExist('#gp_small').run(function (el) {
-          var div = document.createElement('div');
-          div.innerHTML = Indicators.htmls.miniIndicator;
-          el.appendChild(div.childNodes[0]);
-
-          el.querySelector('#nowIndicator').addEventListener('click', this.listeners.togglePauseScrobbling);
+          el.insertAdjacentHTML('afterend', Indicators.htmls.miniIndicator);
+          byId('nowIndicator').addEventListener('click', this.listeners.togglePauseScrobbling);
         }.bind(this));
       }
     },
