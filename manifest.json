@@ -1,0 +1,56 @@
+{
+  "update_url": "https://clients2.google.com/service/update2/crx",
+  "name": "__MSG_extName__",
+  "description": "__MSG_extDescr__",
+  "icons": {
+    "128": "img/icon128.png"
+  },
+  "version": "1.0",
+  "manifest_version": 2,
+  "minimum_chrome_version": "19.0",
+  "background": {
+    "page": "background.html"
+  },
+  "permissions": [
+    "tabs",
+    "notifications",
+    "http://*/*",
+    "https://*/*",
+    "cookies"
+  ],
+  "content_scripts": [
+    {
+      "matches": [
+        "http://vk.com/*",
+        "https://vk.com/*"
+      ],
+      "js": [
+        "lib/jquery-1.8.3.min.js",
+        "js/indicators.js",
+        "js/content.js"
+      ],
+      "css": [
+        "html/aes_light.css"
+      ]
+    }
+  ],
+  "default_locale": "ru",
+  "homepage_url": "http://vkontakte.ru/vk_scrobbler",
+  "web_accessible_resources": [
+    "img/icon_eq.gif",
+    "img/check.png",
+    "img/icon_eqB.gif",
+    "img/checkB.png",
+    "img/heartB.png",
+    "img/icon_eq_pause.png",
+    "img/heartBW.png",
+    "img/twitter.png",
+    "img/icon_eq_pw.png",
+    "img/pause.png",
+    "img/save.gif",
+    "blank.html",
+    "js/vk_inner.js",
+    "html/2.png"
+  ],
+  "content_security_policy": "script-src 'self' https://ws.audioscrobbler.com https://ssl.google-analytics.com; object-src 'self'; style-src 'self' 'unsafe-inline';"
+}
