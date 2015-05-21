@@ -8,36 +8,28 @@
 
   window.Indicators = {
     htmls: {
-      indicate: EIndicateState.logotype, //:EIndicateState: 0 - лого, 1 - науплеинг, 2 - скробблед, 3 - paused
+      indicate: EIndicateState.logotype,
 
-      miniIndicator: "<div id=nowIndicator style='float:left; padding: 3px;'><img title='VK scrobbler' src=" +
-      chrome.extension.getURL("img/icon_eq_pause.png") + "></div>",
+      miniIndicator: '<div id="nowIndicator" class="indicators__now_mini"><img title="VK scrobbler" src=' +
+      chrome.extension.getURL("img/icon_eq_pause.png") + '></div>',
 
-      acIndicator: "<div id=nowIndAC style='float: right; padding-right: 3px; max-height: 14px; cursor: pointer;'><img title='VK scrobbler' src=" +
-      chrome.extension.getURL("img/icon_eq_pause.png") + "></div>",
+      acIndicator: '<div id="nowIndAC" class="indicators__now"><img title="VK scrobbler" src=' +
+      chrome.extension.getURL("img/icon_eq_pause.png") + '></div>',
 
-      pdIndicator: "<div id=nowIndPD style='float: right; padding-right: 3px; max-height: 14px; cursor: pointer;'><img title='VK scrobbler' src=" +
-      chrome.extension.getURL("img/icon_eq_pause.png") + "></div>",
+      pdIndicator: '<div id="nowIndPD" class="indicators__now"><img title="VK scrobbler" src=' +
+      chrome.extension.getURL('img/icon_eq_pause.png') + '></div>',
 
-      twitAChtml: "<div id='twitterDivAC' style='float:right; padding-right:3px; max-height: 14px;'>\
-		<a id=twitLinkAC target=_blank><img title='VK scrobbler TWIT button' src=" + chrome.extension.getURL("img/twitter.png") + "></a>\
-		</div>",
+      twitAChtml: '<div id="twitterDivAC" class="indicators__twit">' +
+      '<a id="twitLinkAC" target="_blank"><img title="VK scrobbler TWIT button" src="' + chrome.extension.getURL("img/twitter.png") +
+      '"></a></div>',
 
-      twitPDhtml: "<div id='twitterDivPD' style='float:right; padding-right:3px; max-height: 14px;'>\
-		<a id=twitLinkPD target=_blank><img title='VK scrobbler TWIT button' src=" + chrome.extension.getURL("img/twitter.png") + "></a>\
-		</div>",
+      twitPDhtml: '<div id="twitterDivPD" class="indicators__twit">' +
+      '<a id="twitLinkPD" target="_blank"><img title="VK scrobbler TWIT button" src=' + chrome.extension.getURL("img/twitter.png") + '></a></div>',
 
-      loveAC: "<div id='loveDivAC' style='float:right; padding-right:3px; max-height: 14px; cursor: pointer;'>\
-		<img title='VK scrobbler LOVE button' src=" + chrome.extension.getURL("img/heartBW.png") + "></div>",
+      loveAC: '<div id="loveDivAC" class="indicators__love">' +
+      '<img title="VK scrobbler LOVE button" src=' + chrome.extension.getURL("img/heartBW.png") + '></div>',
 
-      lovePD: "<div id='loveDivPD' style='float:right; padding-right:3px; max-height: 14px; cursor: pointer;'>\
-		<img title='VK scrobbler LOVE button' src=" + chrome.extension.getURL("img/heartBW.png") + "></div>"
-
-      /*saveAC : "<a id='vkSaveCurrentLinkAC' onclick='event.cancelBubble=true;' style='display:none;'>\
-       <img title='Сохранить трек' src="+chrome.extension.getURL("img/save.gif")+"></a>",
-
-       savePD : "<a id='vkSaveCurrentLinkPD'  onclick='event.cancelBubble=true; style='display:none;'>\
-       <img title='Сохранить трек' src="+chrome.extension.getURL("img/save.gif")+"></a>",*/
+      lovePD: '<div id="loveDivPD" class="indicators__love"><img title="VK scrobbler LOVE button" src=' + chrome.extension.getURL("img/heartBW.png") + '></div>'
     },
 
     setListeners: function (listeners) {

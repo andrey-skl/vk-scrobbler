@@ -1,0 +1,25 @@
+
+.indicators__now {
+  float: right;
+  padding-right: 3px;
+  max-height: 14px;
+  cursor: pointer;
+}
+
+.indicators__now_mini {
+  float: left;
+  padding: 3px;
+}
+
+.indicators__twit {
+  float: right;
+  padding-right: 3px;
+  max-height: 14px;
+}
+
+.indicators__love {
+  float: right;
+  padding-right: 3px;
+  max-height: 14px;
+  cursor: pointer;
+}
