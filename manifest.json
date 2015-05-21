@@ -27,7 +27,12 @@
       "js": [
         "lib/jquery-1.8.3.min.js",
         "blocks/indicators/indicators.js",
+        "blocks/content/content__bus.js",
+        "blocks/content/content__vk-patcher.js",
         "blocks/content/content.js"
+      ],
+      "css": [
+        "blocks/indicators/indicators.css"
       ]
     }
   ],
@@ -45,7 +50,6 @@
     "img/icon_eq_pw.png",
     "img/pause.png",
     "img/save.gif",
-    "blank.html",
     "blocks/vk-inner/vk-inner.js",
     "html/2.png"
   ],
