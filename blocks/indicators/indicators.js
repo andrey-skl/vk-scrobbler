@@ -6,6 +6,19 @@
     paused: 3
   };
 
+  var byId = document.getElementById.bind(document);
+  var qs = document.querySelector.bind(document);
+  var qsa = document.querySelectorAll.bind(document);
+
+  var ifExist = function (selector) {
+    var element = qs(selector);
+    return {
+      run: function (callback) {
+        element &&callback(element);
+      }
+    }
+  };
+
   window.Indicators = {
     htmls: {
       indicate: EIndicateState.logotype,
@@ -84,29 +97,45 @@
     },
 
     setTwitButtonHref: function (link) {
-      $("#twitLinkAC, #twitLinkPD").attr("href", link);
+      [].forEach.call(qsa('#twitLinkAC, #twitLinkPD'), function(twitLink) {
+        twitLink.href = link;
+      });
     },
 
     /**
      * Increases mini player width to make place for equalizer icon
      */
     IncreaseMiniPlayerWidth: function () {
-      $("#gp").css("min-width", "175px");
-      $("#gp_back").css("min-width", "175px");
+      ifExist('#gp').run(function (el) {
+        el.style.minWidth = "175px";
+      });
+      ifExist('#gp_back').run(function (el) {
+        el.style.minWidth = "175px";
+      });
     },
 
     SetAudioPageTimeMargin: function () {
-      $("#ac_duration").css("margin-right", "13px");
+      ifExist('#ac_duration').run(function (el) {
+        el.style.marginRight = "13px";
+      });
     },
     SetFloatingPlayerTimeMargin: function () {
-      $("#pd_duration").css("margin-right", "13px");
+      ifExist('#pd_duration').run(function (el) {
+        el.style.marginRight = "13px";
+      });
     },
 
     SetMiniIndicator: function () {
-      if (!$("#nowIndicator").length) {
-        $("#gp_small").append(Indicators.htmls.miniIndicator);
+      if (!byId("nowIndicator")) {
+        ifExist('#gp_small').run(function (el) {
+          var div = document.createElement('div');
+          div.innerHTML = Indicators.htmls.miniIndicator;
+          el.appendChild(div.childNodes[0]);
+        }.bind(this));
 
-        $("#nowIndicator").click(this.listeners.togglePauseScrobbling);
+        ifExist('#nowIndicator').run(function (el) {
+          el.addEventListener('click', this.listeners.togglePauseScrobbling);
+        }.bind(this));
       }
     },
 
