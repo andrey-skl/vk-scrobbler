@@ -1,48 +1,32 @@
 (function(){
-  var EIndicateState = {
-    logotype: 0,
-    nowplaying: 1,
-    scrobbled: 2,
-    paused: 3
-  };
+  var EIndicateState = IdicatorsUtils.EIndicateState;
+  var PATHES = IdicatorsUtils.PATHES;
 
   var byId = document.getElementById.bind(document);
   var qs = document.querySelector.bind(document);
   var qsa = document.querySelectorAll.bind(document);
 
-  var ifExist = function (selector) {
-    var element = qs(selector);
-    return {
-      run: function (callback) {
-        element && callback(element);
-      }
-    }
-  };
+  var ifExist = IdicatorsUtils.ifExist;
 
   window.Indicators = {
     htmls: {
       indicate: EIndicateState.logotype,
 
-      miniIndicator: '<div id="nowIndicator" class="indicators__now_mini"><img title="VK scrobbler" src=' +
-      chrome.extension.getURL("img/icon_eq_pause.png") + '></div>',
+      miniIndicator: '<div id="nowIndicator" class="indicators__now_mini"><img title="VK scrobbler" src=' + PATHES.PAUSE + '></div>',
 
-      acIndicator: '<div id="nowIndAC" class="indicators__now"><img title="VK scrobbler" src=' +
-      chrome.extension.getURL("img/icon_eq_pause.png") + '></div>',
+      acIndicator: '<div id="nowIndAC" class="indicators__now"><img title="VK scrobbler" src=' + PATHES.PAUSE + '></div>',
 
-      pdIndicator: '<div id="nowIndPD" class="indicators__now"><img title="VK scrobbler" src=' +
-      chrome.extension.getURL('img/icon_eq_pause.png') + '></div>',
+      pdIndicator: '<div id="nowIndPD" class="indicators__now"><img title="VK scrobbler" src=' + PATHES.PAUSE + '></div>',
 
       twitAChtml: '<div id="twitterDivAC" class="indicators__twit">' +
-      '<a id="twitLinkAC" target="_blank"><img title="VK scrobbler TWIT button" src="' + chrome.extension.getURL("img/twitter.png") +
-      '"></a></div>',
+      '<a id="twitLinkAC" target="_blank"><img title="VK scrobbler TWIT button" src="' + PATHES.TWITTER + '"></a></div>',
 
       twitPDhtml: '<div id="twitterDivPD" class="indicators__twit">' +
-      '<a id="twitLinkPD" target="_blank"><img title="VK scrobbler TWIT button" src=' + chrome.extension.getURL("img/twitter.png") + '></a></div>',
+      '<a id="twitLinkPD" target="_blank"><img title="VK scrobbler TWIT button" src=' + PATHES.TWITTER + '></a></div>',
 
-      loveAC: '<div id="loveDivAC" class="indicators__love">' +
-      '<img title="VK scrobbler LOVE button" src=' + chrome.extension.getURL("img/heartBW.png") + '></div>',
+      loveAC: '<div id="loveDivAC" class="indicators__love"><img title="VK scrobbler LOVE button" src=' + PATHES.HEART_GRAY + '></div>',
 
-      lovePD: '<div id="loveDivPD" class="indicators__love"><img title="VK scrobbler LOVE button" src=' + chrome.extension.getURL("img/heartBW.png") + '></div>'
+      lovePD: '<div id="loveDivPD" class="indicators__love"><img title="VK scrobbler LOVE button" src=' + PATHES.HEART_GRAY + '></div>'
     },
 
     setListeners: function (listeners) {
@@ -52,13 +36,10 @@
     addIndicatorsToPage: function () {
       Indicators.IncreaseMiniPlayerWidth();
       Indicators.SetMiniIndicator();
-
       //добавляем индикатор к верхней панели на странице аудиозаписей
       Indicators.SetAllAC();
-
       //Добавляем индикатор к всплывающему плееру
       Indicators.SetAllPD();
-
       Indicators.indicateStatus();
     },
 
@@ -182,44 +163,35 @@
     },
 
     indicatePlayNow: function () {
-      if (Indicators.indicate != EIndicateState.nowplaying) {
-        this.updatePlayingIndicators(chrome.extension.getURL('img/icon_eqB.gif'), "VK scrobbler now playing");
-      }
-
       Indicators.indicate = EIndicateState.nowplaying;
+      this.updatePlayingIndicators(PATHES.PLAYING, "VK scrobbler now playing");
     },
 
     indicateVKscrobbler: function () {
-      if (Indicators.indicate != EIndicateState.logotype) {
-        this.updatePlayingIndicators(chrome.extension.getURL('img/icon_eq_pause.png'), "VK scrobbler");
-      }
-
       Indicators.indicate = EIndicateState.logotype;
+      this.updatePlayingIndicators(PATHES.PAUSE, "VK scrobbler");
     },
 
     indicatePauseScrobbling: function () {
-      this.updatePlayingIndicators(chrome.extension.getURL('img/pause.png'), "VK scrobbler paused");
-
       Indicators.indicate = EIndicateState.paused;
+      this.updatePlayingIndicators(PATHES.DISABLED, "VK scrobbler paused");
     },
 
     indicateScrobbled: function () {
-      this.updatePlayingIndicators(chrome.extension.getURL('img/checkB.png'), "VK scrobbler: scrobbled");
-
-
       Indicators.indicate = EIndicateState.scrobbled;
+      this.updatePlayingIndicators(PATHES.SCROBBLED, "VK scrobbler: scrobbled");
     },
 
     indicateLoved: function () {
       [].forEach.call(qsa("#loveDivAC img, #loveDivPD img"), function(image) {
-        image.src = chrome.extension.getURL("img/heartB.png");
+        image.src = PATHES.HEART_BLUE;
       });
 
     },
 
     indicateNotLove: function () {
       [].forEach.call(qsa("#loveDivAC img, #loveDivPD img"), function(image) {
-        image.src = chrome.extension.getURL("img/heartBW.png");
+        image.src = PATHES.HEART_GRAY;
       });
     }
   };
