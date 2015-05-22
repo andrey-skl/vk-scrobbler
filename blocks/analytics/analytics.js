@@ -9,3 +9,10 @@ _gaq.push(['_trackPageview']);
   var s = document.getElementsByTagName('script')[0];
   s.parentNode.insertBefore(ga, s);
 })();
+
+
+window.onerror = function (msg, url, line) {
+  var preventErrorAlert = true;
+  _gaq.push(['_trackEvent', 'JS Error', msg, navigator.userAgent + ' -> ' + url + " : " + line, 0, true]);
+  return preventErrorAlert;
+};

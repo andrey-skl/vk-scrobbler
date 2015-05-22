@@ -99,9 +99,3 @@ chrome.extension.onRequest.addListener(function (request, sender, sendResponse) 
 RegExp.escape = function (text) {
   return text.replace(/"/g, "'");
 };
-
-window.onerror = function (msg, url, line) {
-  var preventErrorAlert = true;
-  _gaq.push(['_trackEvent', 'JS Error', msg, navigator.userAgent + ' -> ' + url + " : " + line, 0, true]);
-  return preventErrorAlert;
-};
