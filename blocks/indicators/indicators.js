@@ -185,6 +185,7 @@
     indicateLoved: function () {
       [].forEach.call(qsa("#loveDivAC img, #loveDivPD img"), function(image) {
         image.src = PATHES.HEART_BLUE;
+        image.title = "VK scrobbler. Вы любите этот трэк. Кликните, чтобы изменить отношение.";
       });
 
     },
@@ -192,6 +193,7 @@
     indicateNotLove: function () {
       [].forEach.call(qsa("#loveDivAC img, #loveDivPD img"), function(image) {
         image.src = PATHES.HEART_GRAY;
+        image.title = "VK scrobbler. Вы не любите этот трэк. Кликните, чтобы изменить отношение.";
       });
     }
   };
