@@ -11,7 +11,7 @@
         track: title,
         timestamp: ts,
         sk: key
-      }, function (response) {
+      }).then(function (response) {
         console.info("Композиция " + artist + ": " + title + " заскробблена!", response);
       });
     },
@@ -22,9 +22,9 @@
         artist: artist,
         track: title,
         sk: key
-      }, function (response) {
+      }).then(function (response) {
         console.info("Композиция " + artist + ": " + title + " отмечена как проигрываемая!");
-      })
+      });
     },
 
     makeLoved: function makeLoved(artist, title, key) {
@@ -33,7 +33,7 @@
         artist: artist,
         track: title,
         sk: key
-      }, function (response) {
+      }).then(function (response) {
         console.info("Композиция " + artist + ": " + title + " отмечена как любимая!");
       })
     }
