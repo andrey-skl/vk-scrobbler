@@ -27,6 +27,7 @@
       "js": [
         "blocks/indicators/indicators__utils.js",
         "blocks/indicators/indicators.js",
+        "blocks/content/content__messages.js",
         "blocks/content/content__bus.js",
         "blocks/content/content__vk-patcher.js",
         "blocks/content/content__utils.js",

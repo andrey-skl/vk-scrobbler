@@ -1,12 +1,6 @@
 (function () {
   var NONE_VALUE = "vknone";
-
-  var MSG = {
-    NEED_SCROOBLE: "needScrobble",
-    NOW_PLAYING: "nowPlaying",
-    TOGGLE_PAUSE: "togglePauseScrobbling",
-    NEED_LOVE: "needLove"
-  };
+  var MSG = window.connectMessages;
 
   function notNone(artist, title) {
     return artist !== NONE_VALUE && title !== NONE_VALUE

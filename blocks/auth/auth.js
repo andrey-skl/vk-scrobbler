@@ -16,7 +16,7 @@
   };
 
   var sendKeyToBackground = function (key) {
-    chrome.extension.getBackgroundPage().key = key;
+    chrome.extension.getBackgroundPage().backgroundApi.setSecretApiKey(key);
   };
 
   var checkToken = function (token) {
