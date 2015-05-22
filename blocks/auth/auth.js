@@ -15,8 +15,10 @@
       "Не забудьте обновить уже открытые вкладки vk.com!";
   };
 
-  var sendKeyToBackground = function (key) {
-    chrome.extension.getBackgroundPage().backgroundApi.setSecretApiKey(key);
+  var sendKeyToBackground = function (key, name) {
+    var backgroundApi = chrome.extension.getBackgroundPage().backgroundApi;
+    backgroundApi.setSecretApiKey(key);
+    backgroundApi.setUserName(name)
   };
 
   var checkToken = function (token) {
@@ -42,7 +44,7 @@
     console.info("Name: ", userName, ", key: " + secretKey);
 
     saveCredentials(secretKey, userName);
-    sendKeyToBackground(secretKey);
+    sendKeyToBackground(secretKey, userName);
     showInformatoin(userName);
   };
 

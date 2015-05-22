@@ -1,7 +1,7 @@
 (function () {
   var messageActions = window.backgroundActions;
   var secretApiKey = localStorage["skey"] || "";
-
+  var userName = localStorage["userName"] || "";
 
   var activate = function () {
     if (!secretApiKey) {
@@ -12,9 +12,16 @@
 
 
   function listenMessagesFromInjectedScript() {
-    chrome.extension.onRequest.addListener(function (request) {
+    chrome.extension.onMessage.addListener(function (request, sender, sendResponse) {
       if (messageActions[request.message]) {
-        messageActions[request.message](escapeDoubleQuotes(request.artist), escapeDoubleQuotes(request.title), secretApiKey, request);
+        messageActions[request.message]({
+          artist: escapeDoubleQuotes(request.artist),
+          title: escapeDoubleQuotes(request.title),
+          key: secretApiKey,
+          userName: userName,
+          request: request,
+          sendResponse: sendResponse
+        });
       } else {
         throw new Error('Cant find listener for message: ', request.message);
       }
@@ -29,6 +36,9 @@
   window.backgroundApi = {
     setSecretApiKey: function (secretKey) {
       secretApiKey = secretKey;
+    },
+    setUserName: function (name) {
+      userName = name;
     }
   };
 })();

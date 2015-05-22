@@ -1,4 +1,5 @@
 (function () {
+  var connectBus = window.ConnectBus;
   var artist;
   var track;
   var position;
@@ -15,7 +16,7 @@
 
   Indicators.setListeners({
     sendLoveRequest: function sendLoveRequest() {
-      ConnectBus.sendNeedLove(artist, track);
+      connectBus.sendNeedLove(artist, track);
       Indicators.indicateLoved();
     },
     togglePauseScrobbling: function togglePauseScrobbling() {
@@ -25,7 +26,7 @@
       } else {
         Indicators.indicatePauseScrobbling();
       }
-      ConnectBus.sendPauseStatus(artist, track, !scrobbleEnabled);
+      connectBus.sendPauseStatus(artist, track, !scrobbleEnabled);
     }
   });
 
@@ -67,7 +68,7 @@
   function updateStatus() {
     if (position != lastPos) {
       if (periodNum > periodsToNowPlay) {
-        ConnectBus.sendNowPlayingRequest(artist, title, track);
+        connectBus.sendNowPlayingRequest(artist, title, track);
         periodNum = 0;
       }
       Indicators.indicatePlayNow();
@@ -79,7 +80,7 @@
     periodNum++;
 
     if (position >= SCROBBLE_PERCENTAGE) { //отправим после того как половина трека проиграется
-      ConnectBus.sendScrobleRequest(artist, title, track);
+      connectBus.sendScrobleRequest(artist, title, track);
       Indicators.indicateScrobbled();
       needScrobble = false;
     }
@@ -93,7 +94,7 @@
         needScrobble = true;
         periodNum = periodsToNowPlay;
         TrackInfo.setNeedScrobble(false);
-        Indicators.indicateNotLove();
+        checkTrackLove();
       }
 
       if (needScrobble)	{
@@ -102,6 +103,15 @@
     } else {
       Indicators.indicatePauseScrobbling();
     }
+  }
+
+  function checkTrackLove() {
+    Indicators.indicateNotLove();
+    connectBus.getTrackInfoRequest(artist, track)
+      .then(function (response) {
+        debgger;
+      });
+
   }
 
 })();
