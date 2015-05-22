@@ -1,9 +1,12 @@
 {
   "name": "vk-scrobbler",
   "version": "1.0.1",
-  "description": "Scrobbler for vk.com",
-  "main": "auth.js",
+  "description": "Last.fm Scrobbler for vk.com",
   "scripts": {
+    "clear-dist": "rm -rf dist/*",
+    "copy": "npm run clear-dist && cp -rv blocks dist/blocks && cp -rv html dist/html && cp -rv lib dist/lib && cp -rv img dist/img && cp manifest.json dist/",
+    "pack": "zip -r -X dist/vk-scrobbler.zip dist/*",
+    "build": "npm run copy && npm run pack",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
@@ -12,6 +15,5 @@
     "scrobbler"
   ],
   "author": "Andrey Skladchikov",
-  "license": "ISC",
-  "devDependencies": {}
+  "license": "ISC"
 }
