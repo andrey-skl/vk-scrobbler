@@ -5,7 +5,7 @@
   "scripts": {
     "precopy": "rm -rf dist/*",
     "copy": "bash copy.sh",
-    "pack": "zip -r -X dist/vk-scrobbler.zip dist/*",
+    "pack": "cd dist && zip -r -X vk-scrobbler.zip ./*",
     "build": "npm run copy && npm run pack",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
