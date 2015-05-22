@@ -1,142 +1,151 @@
-﻿var timerTryer = setInterval(tryToAttachScrobblerListeners, 1000);
+﻿(function () {
+  var DEBUG = false;
+  var ARTIST_NUM = 5;
+  var TITLE_NUM = 6;
+  var SAVE_LINK = 2;
 
+  var playedTime = 0;
 
-function tryToAttachScrobblerListeners() {
-  if (typeof audioPlayer != 'undefined') {
+  //вызывается ли прямо сейчас метод audioPlayer.operate
+  var IsPlayerOperating = false;
 
-    var ARTIST_NUM = 5;
-    var TITLE_NUM = 6;
-    var SAVE_LINK = 2;
+  var postitionElem = document.getElementById('vkScrobblerPos');
+  var artistElem = document.getElementById('vkScrobblerArtist');
+  var titleElem = document.getElementById('vkScrobblerTrackTitle');
+  var needScrobbleElem = document.getElementById('vkScrobblerNeedScrobble');
+  var saveCurrentLinkElem = document.getElementById('saveCurrentHref');
 
-    var playedTime = 0;
+  var timerTryer = setInterval(tryToAttachScrobblerListeners, 1000);
 
-    //вызывается ли прямо сейчас метод audioPlayer.operate
-    var IsPlayerOperating = false;
+  function tryToAttachScrobblerListeners() {
+    if (typeof audioPlayer != 'undefined') {
 
-    var posElem = document.getElementById('vkScrobblerPos');
-    var artistElem = document.getElementById('vkScrobblerArtist');
-    var titleElem = document.getElementById('vkScrobblerTrackTitle');
-    var needScrobbleElem = document.getElementById('vkScrobblerNeedScrobble');
-    var saveCurrentLinkElem = document.getElementById('saveCurrentHref');
+      //вешаем слушатель переключения песен
+      audioPlayer.operate = addCallListener(audioPlayer.operate, {
+        before: function (props) {
+          IsPlayerOperating = true;
+        },
+        after: function (props) {
+          IsPlayerOperating = false;
+        }
+      });
 
-    //вешаем слушатель переключения песен
-    audioPlayer.operate = Function.addCallListener(audioPlayer.operate, {
-      before: function (props) {
-        //console.log('before operate', props);
-        IsPlayerOperating = true;
-      },
-      after: function (props) {
-        IsPlayerOperating = false;
-      }
-    });
-
-    //вешаем слушатель начала новой песни
-    audioPlayer.loadGlobal = Function.addCallListener(audioPlayer.loadGlobal, {
-      after: function (props) {
-        //слушаем только те loadGlobal, которые вызываются метоом operate
-        if (!IsPlayerOperating) return;
-        IsPlayerOperating = false;
-
-        playedTime = 0;
-
-        var lastVkScrobblerPos = posElem.innerHTML;
-
-        //ждём пока позиция изменится и только тогда говорим, что пора скробблить (чтобы не заскробблить текущую песню дважды)
-        var timeout = setInterval(function () {
-          if (posElem.innerHTML != lastVkScrobblerPos) {
-            needScrobbleElem.innerHTML = 'true';
-            clearInterval(timeout);
+      //вешаем слушатель начала новой песни
+      audioPlayer.loadGlobal = addCallListener(audioPlayer.loadGlobal, {
+        after: function (props) {
+          //слушаем только те loadGlobal, которые вызываются метоом operate
+          if (!IsPlayerOperating) {
+            return;
           }
-        }, 1000);
-        //console.log('after loadGlobal', props);
-      }
-    });
+          IsPlayerOperating = false;
 
-    //вешаем слушатель прогресса песни
-    audioPlayer.onPlayProgress = Function.addCallListener(audioPlayer.onPlayProgress, {
-      after: function (props) {
-        //сохраняем исполнителя и песню
-        artistElem.innerHTML = audioPlayer.lastSong[ARTIST_NUM];
-        titleElem.innerHTML = audioPlayer.lastSong[TITLE_NUM];
+          playedTime = 0;
 
-        saveCurrentLinkElem.innerHTML = audioPlayer.lastSong[SAVE_LINK];
+          var lastVkScrobblerPos = postitionElem.innerHTML;
 
-        if (needScrobbleElem.innerHTML == 'vknone')
-          needScrobbleElem.innerHTML = 'true';
-
-      }
-    });
-
-    var timeStamp = 0;
-
-    setInterval(function () {
-        if (playedTime == 0) {
-          timeStamp = new Date(new Date() - 1000);
+          //ждём пока позиция изменится и только тогда говорим, что пора скробблить (чтобы не заскробблить текущую песню дважды)
+          var timeout = setInterval(function () {
+            if (postitionElem.innerHTML != lastVkScrobblerPos) {
+              needScrobbleElem.innerHTML = 'true';
+              clearInterval(timeout);
+            }
+          }, 1000);
         }
+      });
 
-        var timeDiff = new Date() - timeStamp;
-        timeStamp = new Date();
+      //вешаем слушатель прогресса песни
+      audioPlayer.onPlayProgress = addCallListener(audioPlayer.onPlayProgress, {
+        after: function (props) {
+          //сохраняем исполнителя и песню
+          artistElem.innerHTML = audioPlayer.lastSong[ARTIST_NUM];
+          titleElem.innerHTML = audioPlayer.lastSong[TITLE_NUM];
 
-        if (currentAudioId() && !audioPlayer.player.paused()) {
+          saveCurrentLinkElem.innerHTML = audioPlayer.lastSong[SAVE_LINK];
 
-          //сохраняем проигранного времени в песне
-          playedTime += timeDiff / 1000;
+          if (needScrobbleElem.innerHTML == 'vknone')
+            needScrobbleElem.innerHTML = 'true';
 
-          playedPercent = playedTime / audioPlayer.duration * 100;
-          if (playedPercent == Infinity) curPos = 0;
-          posElem.innerHTML = playedPercent;
-
-          /*console.log("log",{
-           playedTime: playedTime,
-           duration: audioPlayer.duration,
-           playedPercent: playedPercent,
-           timeDiff: timeDiff,
-           timeStamp: timeStamp,
-           });*/
         }
-      }
-      , 1000);
+      });
 
-    //отключаем попытки навесить слушатели
-    clearInterval(timerTryer);
+      var timeStamp = 0;
 
-  }
-}
+      setInterval(function () {
+          if (playedTime == 0) {
+            timeStamp = new Date(new Date() - 1000);
+          }
 
-//добавляем прототип слушатель
-Function.addCallListener = function (func, callbacks) {
-  var successNumber = 0,
-    errorNumber = 0,
-    name = func.name;
+          var timeDiff = new Date() - timeStamp;
+          timeStamp = new Date();
 
-  return function () {
-    var args = [].slice.call(arguments);
-    var result, error;
+          if (currentAudioId() && !audioPlayer.player.paused()) {
 
-    var props = {
-      args: args,
-      self: this,
-      name: name
-    };
+            //сохраняем проигранного времени в песне
+            playedTime += timeDiff / 1000;
 
+            playedPercent = playedTime / audioPlayer.duration * 100;
+            if (playedPercent == Infinity) {
+              curPos = 0;
+            }
+            postitionElem.innerHTML = playedPercent;
 
-    callbacks.before && callbacks.before(props);
+            DEBUG && console.debug("vk scrobbler log", {
+              playedTime: playedTime,
+              duration: audioPlayer.duration,
+              playedPercent: playedPercent,
+              timeDiff: timeDiff,
+              timeStamp: timeStamp
+            });
+          }
+        }
+        , 1000);
 
-    try {
-      result = func.apply(this, arguments);
-      props.successNumber = ++successNumber;
-      props.result = result;
-      props.status = 'success';
-      callbacks.success && callbacks.success(props);
-    } catch (e) {
-      props.errorNumber = ++errorNumber;
-      props.error = e;
-      props.status = 'error';
-      callbacks.error && callbacks.error(props);
+      //отключаем попытки навесить слушатели
+      clearInterval(timerTryer);
+
     }
-
-    callbacks.after && callbacks.after(props);
-
-    return result;
   }
-};
+
+  /**
+   * Adds listener to function's calls by monkey patching
+   * @param func - function to listen
+   * @param callbacks
+   * @returns {Function} - patched function
+   */
+  function addCallListener(func, callbacks) {
+    var successNumber = 0,
+      errorNumber = 0,
+      name = func.name;
+
+    return function () {
+      var args = [].slice.call(arguments);
+      var result, error;
+
+      var props = {
+        args: args,
+        self: this,
+        name: name
+      };
+
+
+      callbacks.before && callbacks.before(props);
+
+      try {
+        result = func.apply(this, arguments);
+        props.successNumber = ++successNumber;
+        props.result = result;
+        props.status = 'success';
+        callbacks.success && callbacks.success(props);
+      } catch (e) {
+        props.errorNumber = ++errorNumber;
+        props.error = e;
+        props.status = 'error';
+        callbacks.error && callbacks.error(props);
+      }
+
+      callbacks.after && callbacks.after(props);
+
+      return result;
+    }
+  }
+})();
