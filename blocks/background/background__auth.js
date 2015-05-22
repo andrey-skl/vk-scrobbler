@@ -10,8 +10,8 @@
     });
   }
 
-  function redirectToAuthPage(urlSearch) {
-    chrome.tabs.update(tabs[i].id, {url: "blocks/auth/auth.html" + urlSearch, active: true}, null);
+  function redirectToAuthPage(tabId, urlSearch) {
+    chrome.tabs.update(tabId, {url: "blocks/auth/auth.html" + urlSearch, active: true}, null);
   }
 
   /**
@@ -29,7 +29,7 @@
 
           if (tabUrl.indexOf(oauthRedirectUrl) == 0) {
             chrome.tabs.onUpdated.removeListener(handleOAuthRedirect);
-            redirectToAuthPage(tabUrl.match(tokenRegEx));
+            redirectToAuthPage(tabs[i].id, tabUrl.match(tokenRegEx));
             return;
           }
         }
