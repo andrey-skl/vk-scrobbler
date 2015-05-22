@@ -20,10 +20,19 @@
     _gaq.push(['_trackEvent', "loved", params.artist + ":" + params.title]);
   };
 
+  requestActions[MSG.NOT_NEED_LOVE] = function (params) {
+    api.makeNotLoved(params);
+    _gaq.push(['_trackEvent', "unloved", params.artist + ":" + params.title]);
+  };
+
   requestActions[MSG.GET_TRACK_INFO] = function (params) {
-    return api.getTrackInfo(params).then(function (res) {
+    api.getTrackInfo(params).then(function (res) {
       params.sendResponse(res);
+    }, function (error) {
+      params.sendResponse(error);
     });
+
+    return true; //mark listener as asynchronous
   };
 
   requestActions[MSG.TOGGLE_PAUSE] = function (params) {

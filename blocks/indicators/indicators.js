@@ -144,14 +144,14 @@
     SetLoveAC: function () {
       if (byId("ac") && !byId("loveDivAC")) {
         byId('ac_duration').insertAdjacentHTML('beforebegin', Indicators.htmls.loveAC);
-        byId('loveDivAC').addEventListener('click', this.listeners.sendLoveRequest);
+        byId('loveDivAC').addEventListener('click', this.listeners.toggleLove);
       }
     },
 
     SetLovePD: function () {
       if (byId("pd") && !byId("loveDivPD")) {
         byId('pd_duration').insertAdjacentHTML('beforebegin', Indicators.htmls.lovePD);
-        byId('loveDivPD').addEventListener('click', this.listeners.sendLoveRequest);
+        byId('loveDivPD').addEventListener('click', this.listeners.toggleLove);
       }
     },
 

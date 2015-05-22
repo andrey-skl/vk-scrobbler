@@ -34,7 +34,18 @@
         track: params.title,
         sk: params.key
       }).then(function (response) {
-        console.info("Композиция " + params.artist + ": " + params.title + " отмечена как любимая!");
+        console.info("Признана любовь к " + params.artist + ": " + params.title);
+      });
+    },
+
+    makeNotLoved: function (params) {
+      return lastfm.signedCall('POST', {
+        method: 'track.unlove',
+        artist: params.artist,
+        track: params.title,
+        sk: params.key
+      }).then(function (response) {
+        console.info("Утеряна любовь к " + params.artist + ": " + params.title);
       });
     },
 

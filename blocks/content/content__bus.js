@@ -9,7 +9,7 @@
   window.ConnectBus = {
     sendScrobleRequest: function sendScrobleRequest(artist, title, track) {
       if (notNone(artist, title)) {
-        chrome.extension.sendMessage({
+        chrome.runtime.sendMessage({
           message: MSG.NEED_SCROOBLE,
           artist: artist,
           title: track
@@ -20,7 +20,7 @@
     },
     sendNowPlayingRequest: function sendNowPlayingRequest(artist, title, track) {
       if (notNone(artist, title)) {
-        chrome.extension.sendMessage({
+        chrome.runtime.sendMessage({
           message: MSG.NOW_PLAYING,
           artist: artist,
           title: track
@@ -30,7 +30,7 @@
       }
     },
     sendPauseStatus: function sendPauseStatus(artist, track, paused) {
-      chrome.extension.sendMessage({
+      chrome.runtime.sendMessage({
         message: MSG.TOGGLE_PAUSE,
         paused: paused,
         artist: artist,
@@ -38,19 +38,26 @@
       });
     },
     sendNeedLove: function (artist, track) {
-      chrome.extension.sendMessage({
+      chrome.runtime.sendMessage({
         message: MSG.NEED_LOVE,
         artist: artist,
         title: track
       });
     },
+    sendUnlove: function (artist, track) {
+      chrome.runtime.sendMessage({
+        message: MSG.NOT_NEED_LOVE,
+        artist: artist,
+        title: track
+      });
+    },
     getTrackInfoRequest: function (artist, track) {
-      return new Promise(function (resolve) {
-        chrome.extension.sendMessage({
+      return new Promise(function (resolve, reject) {
+        chrome.runtime.sendMessage({
           message: MSG.GET_TRACK_INFO,
           artist: artist,
           title: track
-        }, {}, function onResponse(response) {
+        }, function onResponse(response) {
           resolve(response);
         });
       });

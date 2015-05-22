@@ -12,9 +12,9 @@
 
 
   function listenMessagesFromInjectedScript() {
-    chrome.extension.onMessage.addListener(function (request, sender, sendResponse) {
+    chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
       if (messageActions[request.message]) {
-        messageActions[request.message]({
+        return messageActions[request.message]({
           artist: escapeDoubleQuotes(request.artist),
           title: escapeDoubleQuotes(request.title),
           key: secretApiKey,
