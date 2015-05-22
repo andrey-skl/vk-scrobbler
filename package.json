@@ -4,7 +4,7 @@
   "description": "Last.fm Scrobbler for vk.com",
   "scripts": {
     "clear-dist": "rm -rf dist/*",
-    "copy": "npm run clear-dist && cp -rv blocks dist/blocks && cp -rv html dist/html && cp -rv lib dist/lib && cp -rv img dist/img && cp manifest.json dist/",
+    "copy": "npm run clear-dist && cp -rv blocks dist/blocks && cp -rv _locales dist/_locales && cp -rv lib dist/lib && cp -rv img dist/img && cp manifest.json dist/",
     "pack": "zip -r -X dist/vk-scrobbler.zip dist/*",
     "build": "npm run copy && npm run pack",
     "test": "echo \"Error: no test specified\" && exit 1"

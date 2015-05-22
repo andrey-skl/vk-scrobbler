@@ -27,13 +27,6 @@ if (localStorage["skey"]) {
 
 }
 
-//Показываем сообщение об обновлении
-if (!localStorage["updatesShowed"] || localStorage["updatesShowed"].indexOf("43") == -1) {
-  localStorage["updatesShowed"] = "43";
-  if (key != "")
-    chrome.tabs.create({"url": "html/upd43.html", "selected": true});
-}
-
 var lastfm = new LastFMClient({
   apiKey: 'da88971ad8342a0298e9a57e6b137dd3',
   apiSecret: 'd6ab8020fb035272057220eba51d60b3',
