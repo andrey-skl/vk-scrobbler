@@ -2,7 +2,7 @@
   'use strict';
 
   var EIndicateState = vkScrobbler.IdicatorsUtils.EIndicateState;
-  var PATHES = vkScrobbler.IdicatorsUtils.PATHES;
+  var PATHS = vkScrobbler.IdicatorsUtils.PATHS;
 
   var byId = document.getElementById.bind(document);
   var qs = document.querySelector.bind(document);
@@ -14,21 +14,21 @@
     htmls: {
       indicate: EIndicateState.logotype,
 
-      miniIndicator: '<div id="nowIndicator" class="indicators__now_mini"><img title="VK scrobbler" src=' + PATHES.PAUSE + '></div>',
+      miniIndicator: '<div id="nowIndicator" class="indicators__now_mini"><img title="VK scrobbler" src=' + PATHS.PAUSE + '></div>',
 
-      acIndicator: '<div id="nowIndAC" class="indicators__now"><img title="VK scrobbler" src=' + PATHES.PAUSE + '></div>',
+      acIndicator: '<div id="nowIndAC" class="indicators__now"><img title="VK scrobbler" src=' + PATHS.PAUSE + '></div>',
 
-      pdIndicator: '<div id="nowIndPD" class="indicators__now"><img title="VK scrobbler" src=' + PATHES.PAUSE + '></div>',
+      pdIndicator: '<div id="nowIndPD" class="indicators__now"><img title="VK scrobbler" src=' + PATHS.PAUSE + '></div>',
 
       twitAChtml: '<div id="twitterDivAC" class="indicators__twit">' +
-      '<a id="twitLinkAC" target="_blank"><img title="VK scrobbler TWIT button" src="' + PATHES.TWITTER + '"></a></div>',
+      '<a id="twitLinkAC" target="_blank"><img title="VK scrobbler TWIT button" src="' + PATHS.TWITTER + '"></a></div>',
 
       twitPDhtml: '<div id="twitterDivPD" class="indicators__twit">' +
-      '<a id="twitLinkPD" target="_blank"><img title="VK scrobbler TWIT button" src=' + PATHES.TWITTER + '></a></div>',
+      '<a id="twitLinkPD" target="_blank"><img title="VK scrobbler TWIT button" src=' + PATHS.TWITTER + '></a></div>',
 
-      loveAC: '<div id="loveDivAC" class="indicators__love"><img title="VK scrobbler LOVE button" src=' + PATHES.HEART_GRAY + '></div>',
+      loveAC: '<div id="loveDivAC" class="indicators__love"><img title="VK scrobbler LOVE button" src=' + PATHS.HEART_GRAY + '></div>',
 
-      lovePD: '<div id="loveDivPD" class="indicators__love"><img title="VK scrobbler LOVE button" src=' + PATHES.HEART_GRAY + '></div>'
+      lovePD: '<div id="loveDivPD" class="indicators__love"><img title="VK scrobbler LOVE button" src=' + PATHS.HEART_GRAY + '></div>'
     },
 
     setListeners: function (listeners) {
@@ -166,27 +166,27 @@
 
     indicatePlayNow: function () {
       Indicators.indicate = EIndicateState.nowplaying;
-      this.updatePlayingIndicators(PATHES.PLAYING, "VK scrobbler now playing");
+      this.updatePlayingIndicators(PATHS.PLAYING, "VK scrobbler now playing");
     },
 
     indicateVKscrobbler: function () {
       Indicators.indicate = EIndicateState.logotype;
-      this.updatePlayingIndicators(PATHES.PAUSE, "VK scrobbler");
+      this.updatePlayingIndicators(PATHS.PAUSE, "VK scrobbler");
     },
 
     indicatePauseScrobbling: function () {
       Indicators.indicate = EIndicateState.paused;
-      this.updatePlayingIndicators(PATHES.DISABLED, "VK scrobbler paused");
+      this.updatePlayingIndicators(PATHS.DISABLED, "VK scrobbler paused");
     },
 
     indicateScrobbled: function () {
       Indicators.indicate = EIndicateState.scrobbled;
-      this.updatePlayingIndicators(PATHES.SCROBBLED, "VK scrobbler: scrobbled");
+      this.updatePlayingIndicators(PATHS.SCROBBLED, "VK scrobbler: scrobbled");
     },
 
     indicateLoved: function () {
       [].forEach.call(qsa("#loveDivAC img, #loveDivPD img"), function(image) {
-        image.src = PATHES.HEART_BLUE;
+        image.src = PATHS.HEART_BLUE;
         image.title = "VK scrobbler. Вы любите этот трэк. Кликните, чтобы изменить отношение.";
       });
 
@@ -194,7 +194,7 @@
 
     indicateNotLove: function () {
       [].forEach.call(qsa("#loveDivAC img, #loveDivPD img"), function(image) {
-        image.src = PATHES.HEART_GRAY;
+        image.src = PATHS.HEART_GRAY;
         image.title = "VK scrobbler. Вы не любите этот трэк. Кликните, чтобы изменить отношение.";
       });
     }

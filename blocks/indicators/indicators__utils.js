@@ -8,7 +8,7 @@
     paused: 3
   };
 
-  var PATHES = {
+  var PATHS = {
     PLAYING: chrome.extension.getURL('img/icon_eqB.gif'),
     DISABLED: chrome.extension.getURL('img/pause.png'),
     PAUSE: chrome.extension.getURL("img/icon_eq_pause.png"),
@@ -32,7 +32,7 @@
    */
   window.vkScrobbler.IdicatorsUtils = {
     EIndicateState: EIndicateState,
-    PATHES: PATHES,
+    PATHS: PATHS,
     ifExist: ifExist
   }
 })();
