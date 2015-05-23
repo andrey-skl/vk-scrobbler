@@ -1,7 +1,7 @@
 (function () {
   'use strict';
 
-  var MSG = window.connectMessages;
+  var MSG = window.vkScrobbler.contentMessages;
 
   var RequestActions = function (secretKey, userName) {
     this.api = new window.vkScrobbler.LastFmApi(secretKey, userName);

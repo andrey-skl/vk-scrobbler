@@ -2,13 +2,13 @@
   'use strict';
 
   var NONE_VALUE = "vknone";
-  var MSG = window.connectMessages;
+  var MSG = window.vkScrobbler.contentMessages;
 
   function notNone(artist, title) {
     return artist !== NONE_VALUE && title !== NONE_VALUE
   }
 
-  window.ConnectBus = {
+  var ContentBus = {
     sendScrobleRequest: function sendScrobleRequest(artist, title, track) {
       if (notNone(artist, title)) {
         chrome.runtime.sendMessage({
@@ -66,5 +66,6 @@
     }
   }
 
+  window.vkScrobbler.ContentBus = ContentBus;
 
 })();

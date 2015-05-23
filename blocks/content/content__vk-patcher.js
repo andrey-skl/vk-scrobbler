@@ -13,7 +13,7 @@
     "<span id=" + POSITION_ID + ">vknone</span>" +
     "<span id='" + SAVE_ID + "'></span>";
 
-  window.VkPatcher = {
+  window.vkScrobbler.vkPatcher = {
     setUpTrackInfoHolder: function () {
 
       //div, в который будет помещаться информация из vk-inner для последующего принятия этим скриптом

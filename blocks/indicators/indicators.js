@@ -1,16 +1,16 @@
 (function(){
   'use strict';
 
-  var EIndicateState = IdicatorsUtils.EIndicateState;
-  var PATHES = IdicatorsUtils.PATHES;
+  var EIndicateState = vkScrobbler.IdicatorsUtils.EIndicateState;
+  var PATHES = vkScrobbler.IdicatorsUtils.PATHES;
 
   var byId = document.getElementById.bind(document);
   var qs = document.querySelector.bind(document);
   var qsa = document.querySelectorAll.bind(document);
 
-  var ifExist = IdicatorsUtils.ifExist;
+  var ifExist = vkScrobbler.IdicatorsUtils.ifExist;
 
-  window.Indicators = {
+  var Indicators = {
     htmls: {
       indicate: EIndicateState.logotype,
 
@@ -199,6 +199,12 @@
       });
     }
   };
+
+  /**
+   * Export interface
+   */
+
+  window.vkScrobbler.Indicators = Indicators;
 })();
 
 

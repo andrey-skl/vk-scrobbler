@@ -1,7 +1,10 @@
 (function () {
   'use strict';
 
-  var connectBus = window.ConnectBus;
+  var contentBus = window.vkScrobbler.ContentBus;
+  var Indicators = window.vkScrobbler.Indicators;
+  var utils = window.vkScrobbler.ContentUils;
+  var vkPatcher = window.vkScrobbler.vkPatcher;
   var artist;
   var track;
   var position;
@@ -20,10 +23,10 @@
   Indicators.setListeners({
     toggleLove: function sendLoveRequest() {
       if (loved) {
-        connectBus.sendUnlove(artist, track);
+        contentBus.sendUnlove(artist, track);
         Indicators.indicateNotLove();
       } else {
-        connectBus.sendNeedLove(artist, track);
+        contentBus.sendNeedLove(artist, track);
         Indicators.indicateLoved();
       }
       loved = !loved;
@@ -35,13 +38,13 @@
       } else {
         Indicators.indicatePauseScrobbling();
       }
-      connectBus.sendPauseStatus(artist, track, !scrobbleEnabled);
+      contentBus.sendPauseStatus(artist, track, !scrobbleEnabled);
     }
   });
 
   var activate = function () {
-    TrackInfo = VkPatcher.setUpTrackInfoHolder();
-    VkPatcher.patchPlayer();
+    TrackInfo = vkPatcher.setUpTrackInfoHolder();
+    vkPatcher.patchPlayer();
 
     parseInfoAndCheck();
 
@@ -66,7 +69,7 @@
 
     checkTrackStatus();
 
-    Indicators.setTwitButtonHref(ContentUils.getTwitLink(artist, track));
+    Indicators.setTwitButtonHref(utils.getTwitLink(artist, track));
 
     setTimeout(parseInfoAndCheck, checkPeriod);
   }
@@ -77,7 +80,7 @@
   function updateStatus() {
     if (position != lastPos) {
       if (periodNum > periodsToNowPlay) {
-        connectBus.sendNowPlayingRequest(artist, title, track);
+        contentBus.sendNowPlayingRequest(artist, title, track);
         periodNum = 0;
       }
       Indicators.indicatePlayNow();
@@ -89,7 +92,7 @@
     periodNum++;
 
     if (position >= SCROBBLE_PERCENTAGE) { //отправим после того как половина трека проиграется
-      connectBus.sendScrobleRequest(artist, title, track);
+      contentBus.sendScrobleRequest(artist, title, track);
       Indicators.indicateScrobbled();
       needScrobble = false;
     }
@@ -116,7 +119,7 @@
 
   function checkTrackLove() {
     Indicators.indicateNotLove();
-    connectBus.getTrackInfoRequest(artist, track)
+    contentBus.getTrackInfoRequest(artist, track)
       .then(function (response) {
         loved = response.track && response.track.userloved === '1';
         if (loved) {

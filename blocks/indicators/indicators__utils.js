@@ -30,7 +30,7 @@
   /**
    * Interface
    */
-  window.IdicatorsUtils = {
+  window.vkScrobbler.IdicatorsUtils = {
     EIndicateState: EIndicateState,
     PATHES: PATHES,
     ifExist: ifExist

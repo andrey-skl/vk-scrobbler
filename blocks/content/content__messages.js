@@ -1,7 +1,7 @@
 (function () {
   'use strict';
 
-  window.connectMessages = {
+  window.vkScrobbler.contentMessages = {
     NEED_SCROOBLE: "needScrobble",
     NOW_PLAYING: "nowPlaying",
     TOGGLE_PAUSE: "togglePauseScrobbling",

@@ -1,7 +1,7 @@
 (function () {
   'use strict';
 
-  window.ContentUils = {
+  window.vkScrobbler.ContentUils = {
     getTwitLink: function getTwitLink(artist, track) {
       if (artist == "vknone") return;
       return 'http://twitter.com/home?status='
