@@ -1,6 +1,6 @@
 {
   "name": "vk-scrobbler",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Last.fm Scrobbler for vk.com",
   "scripts": {
     "precopy": "rm -rf dist/*",

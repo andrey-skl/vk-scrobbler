@@ -5,7 +5,7 @@
   "icons": {
     "128": "blocks/logo/logo_128.png"
   },
-  "version": "1.0.4",
+  "version": "1.0.5",
   "manifest_version": 2,
   "minimum_chrome_version": "35.0",
   "background": {
