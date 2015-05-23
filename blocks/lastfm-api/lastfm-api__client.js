@@ -55,17 +55,11 @@ LastFMClient.prototype._call = function (type, data, callback, context, async) {
   return promise;
 };
 
-
 LastFMClient.prototype._signedCall = function (type, data, callback, context, async) {
   data.api_key = this.apiKey;
   data.api_sig = this._getApiSignature(data);
   return this._call(type, data, callback, context, async);
 };
-
-LastFMClient.prototype.synchronousSignedCall = function (type, data, callback, context) {
-  return this._signedCall(type, data, callback, context, false);
-};
-
 
 LastFMClient.prototype.signedCall = function (type, data, callback, context) {
   return this._signedCall(type, data, callback, context, true);

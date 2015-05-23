@@ -1,4 +1,4 @@
-describe('API client', function () {
+describe('Last FM api', function () {
   var api = new window.LastFmApi('key');
 
   var fakeParams = {
@@ -36,6 +36,11 @@ describe('API client', function () {
 
     beforeEach(function () {
       api.scrobble(fakeParams);
+    });
+
+    it('Should return promise', function () {
+      var promise = api.scrobble(fakeParams);
+      promise.should.be.instanceOf(Promise);
     });
 
     it('Should send correct method', function () {
