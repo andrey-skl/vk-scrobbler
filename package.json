@@ -2,17 +2,20 @@
   "name": "vk-scrobbler",
   "version": "1.0.5",
   "description": "Last.fm Scrobbler for vk.com",
+  "config": {
+    "src": "blocks",
+    "dist": "dist"
+  },
   "scripts": {
-    "precopy": "rm -rf dist/*",
-    "watch": "rm -rf dist/* && gulp watch-copy",
+    "precopy": "rm -rf $npm_package_config_dist/*",
+    "watch": "rm -rf $npm_package_config_dist/* && gulp watch-copy",
     "copy": "gulp copy",
-    "pack": "cd dist && zip -r -X ../vk-scrobbler.zip ./*",
-    "read-version": "cat manifest.json | grep '\"version\"' | sed 's/[^0-9\\.]//g'",
+    "pack": "cd $npm_package_config_dist && zip -r -X ../vk-scrobbler-$npm_package_version.zip ./*",
     "prebuild": "npm run lint",
     "build": "npm run copy && npm run pack",
     "start": "npm run watch",
     "test": "karma start",
-    "lint": "jshint blocks/*"
+    "lint": "jshint $npm_package_config_src/*"
   },
   "repository": {
     "type": "git",
