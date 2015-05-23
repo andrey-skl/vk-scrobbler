@@ -6,7 +6,7 @@
     "precopy": "rm -rf dist/*",
     "watch": "rm -rf dist/* && gulp watch-copy",
     "copy": "gulp copy",
-    "pack": "cd dist && zip -r -X vk-scrobbler.zip ./*",
+    "pack": "cd dist && zip -r -X ../vk-scrobbler.zip ./*",
     "read-version": "cat manifest.json | grep '\"version\"' | sed 's/[^0-9\\.]//g'",
     "build": "npm run copy && npm run pack",
 
