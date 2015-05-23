@@ -27,46 +27,26 @@
     return this._sendRequest(params, {
       method: 'track.scrobble',
       timestamp: ts
-    }).then(function (response) {
-      console.info("Композиция " + params.artist + ": " + params.title + " заскробблена!", response);
-      return response;
     });
   };
 
   LastFmApi.prototype.nowPlaying = function (params) {
-    return this._sendRequest(params, {method: 'track.updateNowPlaying'})
-      .then(function (response) {
-        console.info("Композиция " + params.artist + ": " + params.title + " заскробблена!", response);
-        return response;
-      });
+    return this._sendRequest(params, {method: 'track.updateNowPlaying'});
   };
 
   LastFmApi.prototype.makeLoved = function (params) {
-    return this._sendRequest(params, {method: 'track.love'})
-      .then(function (response) {
-        console.info("Признана любовь к " + params.artist + ": " + params.title);
-        return response;
-      });
+    return this._sendRequest(params, {method: 'track.love'});
   };
 
   LastFmApi.prototype.makeNotLoved = function (params) {
-    return this._sendRequest(params, {method: 'track.unlove'})
-      .then(function (response) {
-        console.info("Утеряна любовь к " + params.artist + ": " + params.title);
-        return response;
-      });
+    return this._sendRequest(params, {method: 'track.unlove'});
   };
 
   LastFmApi.prototype.getTrackInfo = function (params) {
-
     return this._sendRequest(params, {
       method: 'track.getInfo',
       username: params.userName
-    })
-      .then(function (response) {
-        console.info("Информация о композиции: ", response);
-        return response;
-      });
+    });
   };
 
   window.LastFmApi = LastFmApi;

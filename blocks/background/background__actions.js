@@ -7,28 +7,42 @@
   var requestActions = {};
 
   requestActions[MSG.NEED_SCROOBLE] = function (params) {
-    api.scrobble(params);
     _gaq.push(['_trackPageview', '/scrobbling']);//трекаем как просмотр страницы
     _gaq.push(['_trackEvent', "scrobbled", params.artist + ":" + params.title]);
+
+    return api.scrobble(params).then(function (response) {
+      console.info("Композиция " + params.artist + ": " + params.title + " заскробблена!", response);
+    });
   };
 
   requestActions[MSG.NOW_PLAYING] = function (params) {
-    api.nowPlaying(params);
     _gaq.push(['_trackEvent', "nowPlaying", params.artist + ":" + params.title]);
+
+    return api.nowPlaying(params).then(function (response) {
+      console.info("Композиция " + params.artist + ": " + params.title + " отмечена как проигрываемая!");
+    });
   };
 
   requestActions[MSG.NEED_LOVE] = function (params) {
-    api.makeLoved(params);
     _gaq.push(['_trackEvent', "loved", params.artist + ":" + params.title]);
+
+    return api.makeLoved(params).then(function (response) {
+      console.info("Признана любовь к " + params.artist + ": " + params.title);
+    });
   };
 
   requestActions[MSG.NOT_NEED_LOVE] = function (params) {
-    api.makeNotLoved(params);
     _gaq.push(['_trackEvent', "unloved", params.artist + ":" + params.title]);
+
+    return api.makeNotLoved(params).then(function (response) {
+      console.info("Утеряна любовь к " + params.artist + ": " + params.title);
+      return response;
+    });
   };
 
   requestActions[MSG.GET_TRACK_INFO] = function (params) {
     api.getTrackInfo(params).then(function (res) {
+      console.info("Получена информация о композиции: ", res.track);
       params.sendResponse(res);
     }, function (error) {
       params.sendResponse(error);
