@@ -1,6 +1,6 @@
 {
   "name": "vk-scrobbler",
-  "version": "1.0.1",
+  "version": "1.0.3",
   "description": "Last.fm Scrobbler for vk.com",
   "scripts": {
     "precopy": "rm -rf dist/*",
@@ -8,7 +8,7 @@
     "pack": "cd dist && zip -r -X vk-scrobbler.zip ./*",
     "read-version": "cat manifest.json | grep '\"version\"' | sed 's/[^0-9\\.]//g'",
     "build": "npm run copy && npm run pack",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "karma start"
   },
   "keywords": [
     "vk.com",
@@ -19,5 +19,14 @@
   "license": "ISC",
   "dependencies": {
     "js-md5": "0.3.0"
+  },
+  "devDependencies": {
+    "chai": "^2.3.0",
+    "karma": "^0.12.32",
+    "karma-chai": "^0.1.0",
+    "karma-chrome-launcher": "^0.1.12",
+    "karma-mocha": "^0.1.10",
+    "karma-sinon-chai": "^0.3.0",
+    "mocha": "^2.2.5"
   }
 }
