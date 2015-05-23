@@ -39,13 +39,11 @@ LastFMClient.prototype._call = function (type, data, callback, context, async) {
         resolve(JSON.parse(request.responseText));
       } else {
         reject(request);
-        console.error('Something went wrong', request.status, request.responseText);
       }
     };
 
     request.onerror = function(res) {
       reject(res);
-      console.error('Something went wrong', res);
     };
   });
 

@@ -60,11 +60,11 @@ describe('Last FM API client', function () {
   it('Should reject promise in case of error code response', function (done) {
 
     lastFmClient.signedCall('POST', {test: 'foo'}).then(null, function (xhr) {
-      xhr.responseText.should.be.equal('{"bar":"test"}');
+      xhr.responseText.should.be.equal('{"bar":"Test error"}');
       done();
     });
 
-    this.getLastRequest().respond(503, {"Content-Type": "application/json"}, JSON.stringify({bar: 'test'}));
+    this.getLastRequest().respond(503, {"Content-Type": "application/json"}, JSON.stringify({bar: 'Test error'}));
   });
 
 });
