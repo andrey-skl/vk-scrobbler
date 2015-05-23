@@ -9,4 +9,5 @@ A Chrome extension to send playing tracks to last.fm library.
 3. Load extension as unpacked from `dist` folder.
 4. Make some changes, reload extension in browser (`chrome://extensions`) and test it manually.
 5. Run tests by `npm test`
-4. Commit to your fork and send pull request
+6. Run linting by `npm run lint`
+7. Commit to your fork and send pull request
