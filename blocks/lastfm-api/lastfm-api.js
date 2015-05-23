@@ -9,15 +9,16 @@
     return destination;
   };
 
-  var LastFmApi = function (secretKey) {
+  var LastFmApi = function (secretKey, userName) {
     this.secretKey = secretKey;
+    this.userName = userName;
   };
 
   LastFmApi.prototype._sendRequest = function (params, data) {
     return lastFmClient.signedCall('POST', extend({
       artist: params.artist,
       track: params.title,
-      sk: this.secretKey || params.key
+      sk: this.secretKey
     }, data))
   };
 
@@ -45,7 +46,7 @@
   LastFmApi.prototype.getTrackInfo = function (params) {
     return this._sendRequest(params, {
       method: 'track.getInfo',
-      username: params.userName
+      username: this.userName
     });
   };
 

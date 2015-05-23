@@ -1,10 +1,9 @@
 describe('Last FM api', function () {
-  var api = new window.LastFmApi('key');
+  var api = new window.LastFmApi('key', 'testUser');
 
   var fakeParams = {
     artist: 'Foo',
-    title: 'Bar',
-    userName: 'testUser'
+    title: 'Bar'
   };
 
   beforeEach(function () {

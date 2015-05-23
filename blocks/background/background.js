@@ -1,13 +1,17 @@
 (function () {
   'use strict';
 
-  var messageActions = window.backgroundActions;
+  var RequestActions = window.RequestActions;
+  var requestActions = null;
+
   var secretApiKey = localStorage["skey"] || "";
   var userName = localStorage["userName"] || "";
 
   var activate = function () {
-    if (!secretApiKey) {
+    if (!secretApiKey || !userName) {
       window.backgroundAuth();
+    } else {
+      requestActions = new RequestActions(secretApiKey, userName);
     }
   };
   activate();
@@ -15,17 +19,17 @@
 
   function listenMessagesFromInjectedScript() {
     chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
-      if (messageActions[request.message]) {
-        return messageActions[request.message]({
+
+      if (requestActions && requestActions[request.message]) {
+        return requestActions[request.message]({
           artist: escapeDoubleQuotes(request.artist),
           title: escapeDoubleQuotes(request.title),
-          key: secretApiKey,
-          userName: userName,
           request: request,
           sendResponse: sendResponse
         });
       } else {
-        throw new Error('Cant find listener for message: ', request.message);
+        throw new Error('Cant find listener for message: ' +
+          request.message + ' or maybe requestActoins is null: ' + requestActions);
       }
     });
   }
@@ -36,11 +40,10 @@
   }
 
   window.backgroundApi = {
-    setSecretApiKey: function (secretKey) {
+    setCredentials: function (secretKey, name) {
       secretApiKey = secretKey;
-    },
-    setUserName: function (name) {
       userName = name;
+      requestActions = new RequestActions(secretKey, name);
     }
   };
 })();
