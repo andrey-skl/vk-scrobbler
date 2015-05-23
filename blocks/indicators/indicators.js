@@ -17,21 +17,21 @@
       indicate: EIndicateState.logotype,
       love: false,
 
-      miniIndicator: '<div id="nowIndicator" class="indicators__status_mini"><img class="indicators__icon" title="VK scrobbler" src=' + PATHS.PAUSE + '></div>',
+      miniIndicator: '<div id="nowIndicator" class="indicators__status_mini"><img class="indicators__icon" title="VK scrobbler status" src=' + PATHS.PAUSE + '></div>',
 
-      acIndicator: '<div id="nowIndAC" class="indicators__status"><img class="indicators__icon" title="VK scrobbler" src=' + PATHS.PAUSE + '></div>',
+      acIndicator: '<div id="nowIndAC" class="indicators__status"><img class="indicators__icon" title="VK scrobbler status" src=' + PATHS.PAUSE + '></div>',
 
-      pdIndicator: '<div id="nowIndPD" class="indicators__status"><img class="indicators__icon" title="VK scrobbler" src=' + PATHS.PAUSE + '></div>',
+      pdIndicator: '<div id="nowIndPD" class="indicators__status"><img class="indicators__icon" title="VK scrobbler status" src=' + PATHS.PAUSE + '></div>',
 
       twitAChtml: '<div id="twitterDivAC" class="indicators__twit">' +
-      '<a id="twitLinkAC" target="_blank"><img class="indicators__icon" title="VK scrobbler TWIT button" src="' + PATHS.TWITTER + '"></a></div>',
+      '<a id="twitLinkAC" target="_blank"><img class="indicators__icon" title="VK scrobbler tweet button" src="' + PATHS.TWITTER + '"></a></div>',
 
       twitPDhtml: '<div id="twitterDivPD" class="indicators__twit">' +
-      '<a id="twitLinkPD" target="_blank"><img class="indicators__icon" title="VK scrobbler TWIT button" src=' + PATHS.TWITTER + '></a></div>',
+      '<a id="twitLinkPD" target="_blank"><img class="indicators__icon" title="VK scrobbler tweet button" src=' + PATHS.TWITTER + '></a></div>',
 
-      loveAC: '<div id="loveDivAC" class="indicators__love"><img class="indicators__icon" title="VK scrobbler LOVE button" src=' + PATHS.HEART_GRAY + '></div>',
+      loveAC: '<div id="loveDivAC" class="indicators__love"><img class="indicators__icon" title="VK scrobbler love" src=' + PATHS.HEART_GRAY + '></div>',
 
-      lovePD: '<div id="loveDivPD" class="indicators__love"><img class="indicators__icon" title="VK scrobbler LOVE button" src=' + PATHS.HEART_GRAY + '></div>'
+      lovePD: '<div id="loveDivPD" class="indicators__love"><img class="indicators__icon" title="VK scrobbler love" src=' + PATHS.HEART_GRAY + '></div>'
     },
 
     setListeners: function (listeners) {
@@ -171,7 +171,7 @@
 
     indicatePlayNow: function () {
       Indicators.indicate = EIndicateState.nowplaying;
-      this.updatePlayingIndicators(PATHS.PLAYING, "VK scrobbler now playing");
+      this.updatePlayingIndicators(PATHS.PLAYING, "VK scrobbler: now playing");
     },
 
     indicateVKscrobbler: function () {
@@ -181,7 +181,7 @@
 
     indicatePauseScrobbling: function () {
       Indicators.indicate = EIndicateState.paused;
-      this.updatePlayingIndicators(PATHS.DISABLED, "VK scrobbler paused");
+      this.updatePlayingIndicators(PATHS.DISABLED, "VK scrobbler: paused");
     },
 
     indicateScrobbled: function () {
@@ -193,7 +193,7 @@
       Indicators.love = true;
       [].forEach.call(qsa("#loveDivAC img, #loveDivPD img"), function(image) {
         image.src = PATHS.HEART_BLUE;
-        image.title = "VK scrobbler. Вы любите этот трэк. Кликните, чтобы изменить отношение.";
+        image.title = "VK scrobbler. Вы любите этот трэк. Кликните, чтобы разлюбить.";
       });
 
     },
@@ -202,7 +202,7 @@
       Indicators.love = false;
       [].forEach.call(qsa("#loveDivAC img, #loveDivPD img"), function(image) {
         image.src = PATHS.HEART_GRAY;
-        image.title = "VK scrobbler. Вы не любите этот трэк. Кликните, чтобы изменить отношение.";
+        image.title = "VK scrobbler. Вы не любите этот трэк. Кликните, чтобы полюбить.";
       });
     }
   };
