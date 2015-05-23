@@ -39,7 +39,6 @@
       ]
     }
   ],
-  "default_locale": "ru",
   "homepage_url": "http://vkontakte.ru/vk_scrobbler",
   "web_accessible_resources": [
     "blocks/indicators/__icon/*",
