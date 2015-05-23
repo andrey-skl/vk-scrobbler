@@ -1,4 +1,9 @@
-﻿(function () {
+﻿/**
+ * WARNING: This script is an enormous hack about VK audio player.
+ * There is a lot of debug required here to change something.
+ * Please, be careful. Or write tests. Please.
+ */
+(function () {
   'use strict';
 
   var DEBUG = false;
