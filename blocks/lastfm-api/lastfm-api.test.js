@@ -1,10 +1,9 @@
 describe('API client', function () {
-  var api = window.LastFmApi;
+  var api = new window.LastFmApi('key');
 
   var fakeParams = {
     artist: 'Foo',
     title: 'Bar',
-    key: 'key',
     userName: 'testUser'
   };
 
@@ -53,6 +52,10 @@ describe('API client', function () {
 
     it('Should send track', function () {
       this.getLastRequest().requestBody.should.contain('track=Bar');
+    });
+
+    it('Should send secret key', function () {
+      this.getLastRequest().requestBody.should.contain('sk=key');
     });
 
     it('Should send api key', function () {
@@ -163,7 +166,7 @@ describe('API client', function () {
         done();
       });
 
-      this.getLastRequest().respond(200, { "Content-Type": "application/json" }, JSON.stringify(fakeResponse));
+      this.getLastRequest().respond(200, {"Content-Type": "application/json"}, JSON.stringify(fakeResponse));
     });
   });
 

@@ -1,7 +1,7 @@
 (function () {
   'use strict';
 
-  var api = window.LastFmApi;
+  var api = new window.LastFmApi();
   var MSG = window.connectMessages;
 
   var requestActions = {};
