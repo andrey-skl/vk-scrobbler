@@ -1,4 +1,6 @@
 ﻿(function () {
+  'use strict';
+
   var DEBUG = false;
   var ARTIST_NUM = 5;
   var TITLE_NUM = 6;
@@ -83,10 +85,7 @@
             //сохраняем проигранного времени в песне
             playedTime += timeDiff / 1000;
 
-            playedPercent = playedTime / audioPlayer.duration * 100;
-            if (playedPercent == Infinity) {
-              curPos = 0;
-            }
+            var playedPercent = playedTime / audioPlayer.duration * 100;
             postitionElem.innerHTML = playedPercent;
 
             DEBUG && console.debug("vk scrobbler log", {

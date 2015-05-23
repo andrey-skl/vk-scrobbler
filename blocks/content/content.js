@@ -1,4 +1,6 @@
 (function () {
+  'use strict';
+
   var connectBus = window.ConnectBus;
   var artist;
   var track;

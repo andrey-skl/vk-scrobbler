@@ -1,4 +1,6 @@
 (function () {
+  'use strict';
+
   var lastfm = new LastFMClient(window.LastFmApiConfig);
 
   window.LastFmApi = {

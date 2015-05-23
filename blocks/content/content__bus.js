@@ -1,4 +1,6 @@
 (function () {
+  'use strict';
+
   var NONE_VALUE = "vknone";
   var MSG = window.connectMessages;
 

@@ -1,4 +1,6 @@
 (function () {
+  'use strict';
+
   var GET_SESSION = 'auth.getSession';
   var lastfm = new LastFMClient(window.LastFmApiConfig);
 

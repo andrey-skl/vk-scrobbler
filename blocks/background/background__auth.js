@@ -1,4 +1,6 @@
 (function () {
+  'use strict';
+
   var LastFmApiConfig = window.LastFmApiConfig;
   var oauthRedirectUrl = "https://vk.com/registervkscrobbler";
   var tokenRegEx = /\?token\=.*/;

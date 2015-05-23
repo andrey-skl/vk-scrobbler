@@ -1,4 +1,6 @@
 (function () {
+  'use strict';
+
   var EIndicateState = {
     logotype: 0,
     nowplaying: 1,

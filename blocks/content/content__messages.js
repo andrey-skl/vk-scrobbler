@@ -1,4 +1,6 @@
 (function () {
+  'use strict';
+
   window.connectMessages = {
     NEED_SCROOBLE: "needScrobble",
     NOW_PLAYING: "nowPlaying",

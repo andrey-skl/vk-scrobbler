@@ -1,4 +1,6 @@
 (function () {
+  'use strict';
+
   var messageActions = window.backgroundActions;
   var secretApiKey = localStorage["skey"] || "";
   var userName = localStorage["userName"] || "";

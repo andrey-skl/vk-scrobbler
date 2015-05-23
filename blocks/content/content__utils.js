@@ -1,4 +1,6 @@
 (function () {
+  'use strict';
+
   window.ContentUils = {
     getTwitLink: function getTwitLink(artist, track) {
       if (artist == "vknone") return;

@@ -1,4 +1,6 @@
 (function () {
+  'use strict';
+
   var ARTIST_ID = "vkScrobblerArtist";
   var TITLE_ID = "vkScrobblerTrackTitle";
   var NEED_SCROBBLE_ID = "vkScrobblerNeedScrobble";

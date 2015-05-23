@@ -1,4 +1,6 @@
 (function(){
+  'use strict';
+
   var EIndicateState = IdicatorsUtils.EIndicateState;
   var PATHES = IdicatorsUtils.PATHES;
 

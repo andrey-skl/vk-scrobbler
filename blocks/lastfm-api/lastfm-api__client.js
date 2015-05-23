@@ -1,3 +1,5 @@
+'use strict';
+
 function LastFMClient(options) {
   this.apiKey = options.apiKey || console.error('LastFMClient: apiKey is required');
   this.apiSecret = options.apiSecret || console.error('LastFMClient: apiSecret is required');

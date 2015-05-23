@@ -1,4 +1,6 @@
 (function () {
+  'use strict';
+
   var api = window.LastFmApi;
   var MSG = window.connectMessages;
 
