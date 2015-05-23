@@ -1,7 +1,7 @@
 (function () {
   'use strict';
 
-  var LastFmApiConfig = window.LastFmApiConfig;
+  var LastFmApiConfig = window.vkScrobbler.LastFmApiConfig;
   var oauthRedirectUrl = "https://vk.com/registervkscrobbler";
   var tokenRegEx = /\?token\=.*/;
 
@@ -16,10 +16,7 @@
     chrome.tabs.update(tabId, {url: "blocks/auth/auth.html" + urlSearch, active: true}, null);
   }
 
-  /**
-   * Export authorization function
-   */
-  window.backgroundAuth = function () {
+  var backgroundAuth = function () {
 
     openLastFmAuthTab();
 
@@ -41,4 +38,6 @@
 
     chrome.tabs.onUpdated.addListener(handleOAuthRedirect);
   };
+
+  window.vkScrobbler.backgroundAuth = backgroundAuth;
 })();

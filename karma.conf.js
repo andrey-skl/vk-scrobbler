@@ -16,6 +16,7 @@ module.exports = function(config) {
     // list of files / patterns to load in the browser
     files: [
       'node_modules/js-md5/build/*.js',
+      'blocks/namespace/namespace.js',
 
       //lastfm-api block
       'blocks/lastfm-api/lastfm-api__config.js',

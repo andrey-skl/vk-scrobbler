@@ -1,5 +1,5 @@
 describe('Last FM api', function () {
-  var api = new window.LastFmApi('key', 'testUser');
+  var api = new window.vkScrobbler.LastFmApi('key', 'testUser');
 
   var fakeParams = {
     artist: 'Foo',
@@ -24,7 +24,7 @@ describe('Last FM api', function () {
   });
 
   it('should provide API config', function () {
-    window.LastFmApiConfig.should.been.defined;
+    window.vkScrobbler.LastFmApiConfig.should.been.defined;
   });
 
   it('should provice API', function () {
@@ -63,7 +63,7 @@ describe('Last FM api', function () {
     });
 
     it('Should send api key', function () {
-      this.getLastRequest().requestBody.should.contain('api_key=' + window.LastFmApiConfig.apiKey);
+      this.getLastRequest().requestBody.should.contain('api_key=' + window.vkScrobbler.LastFmApiConfig.apiKey);
     });
 
     it('Should send timestamp', function () {
@@ -91,7 +91,7 @@ describe('Last FM api', function () {
     });
 
     it('Should send api key', function () {
-      this.getLastRequest().requestBody.should.contain('api_key=' + window.LastFmApiConfig.apiKey);
+      this.getLastRequest().requestBody.should.contain('api_key=' + window.vkScrobbler.LastFmApiConfig.apiKey);
     });
   });
 

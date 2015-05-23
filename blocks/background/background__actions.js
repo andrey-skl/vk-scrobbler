@@ -4,7 +4,7 @@
   var MSG = window.connectMessages;
 
   var RequestActions = function (secretKey, userName) {
-    this.api = new window.LastFmApi(secretKey, userName);
+    this.api = new window.vkScrobbler.LastFmApi(secretKey, userName);
   };
 
   RequestActions.prototype[MSG.NEED_SCROOBLE] = function (params) {
@@ -56,5 +56,5 @@
     _gaq.push(['_trackEvent', "toggle pause scrobbling", "new status: " + params.request.paused, params.artist + ":" + params.title]);
   };
 
-  window.RequestActions = RequestActions;
+  window.vkScrobbler.RequestActions = RequestActions;
 })();

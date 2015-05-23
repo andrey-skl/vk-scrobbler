@@ -2,14 +2,9 @@
   'use strict';
 
   var GET_SESSION = 'auth.getSession';
-  var lastfm = new LastFMClient(window.LastFmApiConfig);
+  var lastfm = new LastFMClient(window.vkScrobbler.LastFmApiConfig);
 
   var token = window.location.search.replace('?token=', '');
-
-  var saveCredentials = function (key, name) {
-    localStorage["skey"] = key;
-    localStorage["userName"] = name;
-  };
 
   var showInformatoin = function (userName) {
     document.getElementById("userName").innerHTML = userName;
@@ -18,7 +13,7 @@
   };
 
   var sendCredentialsToBackground = function (key, name) {
-    var backgroundApi = chrome.extension.getBackgroundPage().backgroundApi;
+    var backgroundApi = chrome.extension.getBackgroundPage().vkScrobbler.backgroundApi;
     backgroundApi.setCredentials(key, name);
   };
 
@@ -44,7 +39,6 @@
 
     console.info("Name: ", userName, ", key: " + secretKey);
 
-    saveCredentials(secretKey, userName);
     sendCredentialsToBackground(secretKey, userName);
     showInformatoin(userName);
   };

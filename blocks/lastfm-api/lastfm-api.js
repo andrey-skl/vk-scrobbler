@@ -1,7 +1,7 @@
 (function () {
   'use strict';
 
-  var lastFmClient = new LastFMClient(window.LastFmApiConfig);
+  var lastFmClient = new LastFMClient(window.vkScrobbler.LastFmApiConfig);
 
   var extend = function (destination, source) {
     for (var prop in source)
@@ -50,5 +50,5 @@
     });
   };
 
-  window.LastFmApi = LastFmApi;
+  window.vkScrobbler.LastFmApi = LastFmApi;
 })();

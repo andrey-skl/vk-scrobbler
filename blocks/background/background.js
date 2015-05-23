@@ -1,18 +1,23 @@
 (function () {
   'use strict';
 
-  var RequestActions = window.RequestActions;
+  var backgroundAuth = window.vkScrobbler.backgroundAuth;
+  var RequestActions = window.vkScrobbler.RequestActions;
   var requestActions = null;
 
-  var secretApiKey = localStorage["skey"] || "";
-  var userName = localStorage["userName"] || "";
+  var SECRET_KEY = "skey";
+  var USER_NAME = "userName";
+
+  var secretApiKey = localStorage[SECRET_KEY];
+  var userName = localStorage[USER_NAME];
 
   var activate = function () {
     if (!secretApiKey || !userName) {
-      window.backgroundAuth();
+      backgroundAuth();
     } else {
       requestActions = new RequestActions(secretApiKey, userName);
     }
+    console.info('Background started');
   };
   activate();
 
@@ -28,8 +33,10 @@
           sendResponse: sendResponse
         });
       } else {
-        throw new Error('Cant find listener for message: ' +
-          request.message + ' or maybe requestActoins is null: ' + requestActions);
+        if (requestActions) {
+          throw new Error('Cant find listener for message: ' + request.message);
+        }
+        throw new Error('Trying to make requests while credentials is empty' + requestActions);
       }
     });
   }
@@ -39,11 +46,13 @@
     return text ? text.replace(/"/g, "'") : text;
   }
 
-  window.backgroundApi = {
+  window.vkScrobbler.backgroundApi = {
     setCredentials: function (secretKey, name) {
-      secretApiKey = secretKey;
-      userName = name;
+      localStorage[SECRET_KEY] = secretApiKey = secretKey;
+      localStorage[USER_NAME] = userName = name;
+
       requestActions = new RequestActions(secretKey, name);
+      console.info('Получены данные авторизации', secretKey, name);
     }
   };
 })();
