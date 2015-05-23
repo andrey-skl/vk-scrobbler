@@ -13,6 +13,7 @@
   var Indicators = {
     htmls: {
       indicate: EIndicateState.logotype,
+      love: false,
 
       miniIndicator: '<div id="nowIndicator" class="indicators__now_mini"><img title="VK scrobbler" src=' + PATHS.PAUSE + '></div>',
 
@@ -77,6 +78,8 @@
           Indicators.indicatePauseScrobbling();
           break;
       }
+
+      Indicators.love ? Indicators.indicateLoved() : Indicators.indicateNotLove();
     },
 
     setTwitButtonHref: function (link) {
@@ -185,6 +188,7 @@
     },
 
     indicateLoved: function () {
+      Indicators.love = true;
       [].forEach.call(qsa("#loveDivAC img, #loveDivPD img"), function(image) {
         image.src = PATHS.HEART_BLUE;
         image.title = "VK scrobbler. Вы любите этот трэк. Кликните, чтобы изменить отношение.";
@@ -193,6 +197,7 @@
     },
 
     indicateNotLove: function () {
+      Indicators.love = false;
       [].forEach.call(qsa("#loveDivAC img, #loveDivPD img"), function(image) {
         image.src = PATHS.HEART_GRAY;
         image.title = "VK scrobbler. Вы не любите этот трэк. Кликните, чтобы изменить отношение.";
