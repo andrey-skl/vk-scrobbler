@@ -1,5 +1,7 @@
 # VK Scrobbler
 
+![Promo image](https://lh3.googleusercontent.com/qlB2XjU2JlPnBcMdLF4j1mYvkAneQK2ObFmzhz3bD81vaCCk9UEuRF26MHmB_sAb1JY8OiCLaJg=s1280-h800-e365-rw)
+
 A Chrome extension to send playing tracks to last.fm library.
 
 # Contributing
