@@ -1,14 +1,13 @@
 var gulp = require('gulp');
 var watch = require('gulp-watch');
 
-var source = './*(_locales|blocks)/**/**!(test|foo).*';
+var source = './blocks/**/*';
 var manifest = './manifest.json';
 var components = './node_modules/js-md5/build/*';
 var notTests = '!./**/*.test.js';
+var destination = './dist';
 
 var gulpSources = [manifest, source, components, notTests];
-
-var destination = './dist';
 
 gulp.task('watch-copy', function() {
   return gulp.src(gulpSources, {base: './'})
