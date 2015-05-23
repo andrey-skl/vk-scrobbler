@@ -4,14 +4,14 @@
   height: 16px;
 }
 
-.indicators__now {
+.indicators__status {
   float: right;
-  padding-right: 3px;
-  max-height: 14px;
+  margin-top: -2px;
+  height: 14px;
   cursor: pointer;
 }
 
-.indicators__now_mini {
+.indicators__status_mini {
   float: left;
   padding: 3px;
 }
@@ -19,12 +19,14 @@
 .indicators__twit {
   float: right;
   padding-right: 3px;
-  max-height: 14px;
+  margin-top: -2px;
+  height: 14px;
 }
 
 .indicators__love {
   float: right;
+  margin-top: -2px;
   padding-right: 3px;
-  max-height: 14px;
+  height: 14px;
   cursor: pointer;
 }

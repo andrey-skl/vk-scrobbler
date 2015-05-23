@@ -10,16 +10,18 @@
 
   var ifExist = vkScrobbler.IdicatorsUtils.ifExist;
 
+  var DURATION_MARGIN = '12px';
+
   var Indicators = {
     htmls: {
       indicate: EIndicateState.logotype,
       love: false,
 
-      miniIndicator: '<div id="nowIndicator" class="indicators__now_mini"><img class="indicators__icon" title="VK scrobbler" src=' + PATHS.PAUSE + '></div>',
+      miniIndicator: '<div id="nowIndicator" class="indicators__status_mini"><img class="indicators__icon" title="VK scrobbler" src=' + PATHS.PAUSE + '></div>',
 
-      acIndicator: '<div id="nowIndAC" class="indicators__now"><img class="indicators__icon" title="VK scrobbler" src=' + PATHS.PAUSE + '></div>',
+      acIndicator: '<div id="nowIndAC" class="indicators__status"><img class="indicators__icon" title="VK scrobbler" src=' + PATHS.PAUSE + '></div>',
 
-      pdIndicator: '<div id="nowIndPD" class="indicators__now"><img class="indicators__icon" title="VK scrobbler" src=' + PATHS.PAUSE + '></div>',
+      pdIndicator: '<div id="nowIndPD" class="indicators__status"><img class="indicators__icon" title="VK scrobbler" src=' + PATHS.PAUSE + '></div>',
 
       twitAChtml: '<div id="twitterDivAC" class="indicators__twit">' +
       '<a id="twitLinkAC" target="_blank"><img class="indicators__icon" title="VK scrobbler TWIT button" src="' + PATHS.TWITTER + '"></a></div>',
@@ -102,12 +104,12 @@
 
     SetAudioPageTimeMargin: function () {
       ifExist('#ac_duration').run(function (el) {
-        el.style.marginRight = "13px";
+        el.style.marginRight = DURATION_MARGIN;
       });
     },
     SetFloatingPlayerTimeMargin: function () {
       ifExist('#pd_duration').run(function (el) {
-        el.style.marginRight = "13px";
+        el.style.marginRight = DURATION_MARGIN;
       });
     },
 
