@@ -13,6 +13,10 @@
     "start": "npm run watch",
     "test": "karma start"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/huston007/vk-scrobbler.git"
+  },
   "keywords": [
     "vk.com",
     "last.fm",
