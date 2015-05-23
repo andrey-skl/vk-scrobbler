@@ -2,7 +2,7 @@
   'use strict';
 
   var GET_SESSION = 'auth.getSession';
-  var lastfm = new LastFMClient(window.vkScrobbler.LastFmApiConfig);
+  var lastFmClient = new LastFMClient(window.vkScrobbler.LastFmApiConfig);
 
   var token = window.location.search.replace('?token=', '');
 
@@ -23,7 +23,7 @@
     } else {
       console.info("Token: " + token);
 
-      return lastfm.signedCall('POST', {
+      return lastFmClient.signedCall('POST', {
         method: GET_SESSION,
         token: token
       }).catch(function (e) {
@@ -43,5 +43,8 @@
     showInformatoin(userName);
   };
 
-  checkToken(token).then(processAuthParams);
+  var activate = function () {
+    checkToken(token).then(processAuthParams);
+  };
+  activate();
 })();
