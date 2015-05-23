@@ -42,19 +42,9 @@
   "default_locale": "ru",
   "homepage_url": "http://vkontakte.ru/vk_scrobbler",
   "web_accessible_resources": [
-    "img/icon_eq.gif",
-    "img/check.png",
-    "img/icon_eqB.gif",
-    "img/checkB.png",
-    "img/heartB.png",
-    "img/icon_eq_pause.png",
-    "img/heartBW.png",
-    "img/twitter.png",
-    "img/icon_eq_pw.png",
-    "img/pause.png",
-    "img/save.gif",
-    "blocks/vk-inner/vk-inner.js",
-    "html/2.png"
+    "blocks/indicators/__icon/*",
+    "img/*",
+    "blocks/vk-inner/vk-inner.js"
   ],
   "content_security_policy": "script-src 'self' https://ws.audioscrobbler.com https://ssl.google-analytics.com; object-src 'self'; style-src 'self' 'unsafe-inline';"
 }

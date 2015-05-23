@@ -1,4 +1,9 @@
 
+.indicators__icon {
+  width: 16px;
+  height: 16px;
+}
+
 .indicators__now {
   float: right;
   padding-right: 3px;

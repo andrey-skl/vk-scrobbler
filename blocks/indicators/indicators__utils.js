@@ -9,13 +9,13 @@
   };
 
   var PATHS = {
-    PLAYING: chrome.extension.getURL('img/icon_eqB.gif'),
-    DISABLED: chrome.extension.getURL('img/pause.png'),
-    PAUSE: chrome.extension.getURL("img/icon_eq_pause.png"),
-    SCROBBLED: chrome.extension.getURL('img/checkB.png'),
-    TWITTER: chrome.extension.getURL("img/twitter.png"),
-    HEART_GRAY: chrome.extension.getURL("img/heartBW.png"),
-    HEART_BLUE: chrome.extension.getURL("img/heartB.png")
+    PLAYING: chrome.extension.getURL('blocks/indicators/__icon/indicators__icon-equalizer.gif'),
+    DISABLED: chrome.extension.getURL('blocks/indicators/__icon/indicators__icon-disabled.png'),
+    PAUSE: chrome.extension.getURL('blocks/indicators/__icon/indicators__icon-pause.png'),
+    SCROBBLED: chrome.extension.getURL('blocks/indicators/__icon/indicators__icon-check-blue.png'),
+    TWITTER: chrome.extension.getURL("blocks/indicators/__icon/indicators__icon-tweet.png"),
+    HEART_GRAY: chrome.extension.getURL("blocks/indicators/__icon/indicators__icon-love.png"),
+    HEART_BLUE: chrome.extension.getURL("blocks/indicators/__icon/indicators__icon-unlove.png")
   };
 
   var ifExist = function (selector) {

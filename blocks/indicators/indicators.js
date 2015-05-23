@@ -15,21 +15,21 @@
       indicate: EIndicateState.logotype,
       love: false,
 
-      miniIndicator: '<div id="nowIndicator" class="indicators__now_mini"><img title="VK scrobbler" src=' + PATHS.PAUSE + '></div>',
+      miniIndicator: '<div id="nowIndicator" class="indicators__now_mini"><img class="indicators__icon" title="VK scrobbler" src=' + PATHS.PAUSE + '></div>',
 
-      acIndicator: '<div id="nowIndAC" class="indicators__now"><img title="VK scrobbler" src=' + PATHS.PAUSE + '></div>',
+      acIndicator: '<div id="nowIndAC" class="indicators__now"><img class="indicators__icon" title="VK scrobbler" src=' + PATHS.PAUSE + '></div>',
 
-      pdIndicator: '<div id="nowIndPD" class="indicators__now"><img title="VK scrobbler" src=' + PATHS.PAUSE + '></div>',
+      pdIndicator: '<div id="nowIndPD" class="indicators__now"><img class="indicators__icon" title="VK scrobbler" src=' + PATHS.PAUSE + '></div>',
 
       twitAChtml: '<div id="twitterDivAC" class="indicators__twit">' +
-      '<a id="twitLinkAC" target="_blank"><img title="VK scrobbler TWIT button" src="' + PATHS.TWITTER + '"></a></div>',
+      '<a id="twitLinkAC" target="_blank"><img class="indicators__icon" title="VK scrobbler TWIT button" src="' + PATHS.TWITTER + '"></a></div>',
 
       twitPDhtml: '<div id="twitterDivPD" class="indicators__twit">' +
-      '<a id="twitLinkPD" target="_blank"><img title="VK scrobbler TWIT button" src=' + PATHS.TWITTER + '></a></div>',
+      '<a id="twitLinkPD" target="_blank"><img class="indicators__icon" title="VK scrobbler TWIT button" src=' + PATHS.TWITTER + '></a></div>',
 
-      loveAC: '<div id="loveDivAC" class="indicators__love"><img title="VK scrobbler LOVE button" src=' + PATHS.HEART_GRAY + '></div>',
+      loveAC: '<div id="loveDivAC" class="indicators__love"><img class="indicators__icon" title="VK scrobbler LOVE button" src=' + PATHS.HEART_GRAY + '></div>',
 
-      lovePD: '<div id="loveDivPD" class="indicators__love"><img title="VK scrobbler LOVE button" src=' + PATHS.HEART_GRAY + '></div>'
+      lovePD: '<div id="loveDivPD" class="indicators__love"><img class="indicators__icon" title="VK scrobbler LOVE button" src=' + PATHS.HEART_GRAY + '></div>'
     },
 
     setListeners: function (listeners) {
