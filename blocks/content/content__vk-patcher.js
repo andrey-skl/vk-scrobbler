@@ -47,7 +47,7 @@
         getDownloadCurrentLink: function () {
           return byId(SAVE_ID).textContent;
         }
-      }
+      };
     },
     patchPlayer: function () {
       //исполнить скрипт vk_inner в контексте vk.com

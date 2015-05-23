@@ -1,14 +1,14 @@
 (function(){
   'use strict';
 
-  var EIndicateState = vkScrobbler.IdicatorsUtils.EIndicateState;
-  var PATHS = vkScrobbler.IdicatorsUtils.PATHS;
+  var EIndicateState = window.vkScrobbler.IdicatorsUtils.EIndicateState;
+  var PATHS = window.vkScrobbler.IdicatorsUtils.PATHS;
 
   var byId = document.getElementById.bind(document);
   var qs = document.querySelector.bind(document);
   var qsa = document.querySelectorAll.bind(document);
 
-  var ifExist = vkScrobbler.IdicatorsUtils.ifExist;
+  var ifExist = window.vkScrobbler.IdicatorsUtils.ifExist;
 
   var DURATION_MARGIN = '12px';
 

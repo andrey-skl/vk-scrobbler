@@ -1,5 +1,5 @@
 describe('Last FM API client', function () {
-  var lastFmClient = new LastFMClient(window.vkScrobbler.LastFmApiConfig);
+  var lastFmClient = new window.LastFMClient(window.vkScrobbler.LastFmApiConfig);
 
   beforeEach(function () {
     this.xhr = sinon.useFakeXMLHttpRequest();

@@ -2,7 +2,7 @@
   'use strict';
 
   var GET_SESSION = 'auth.getSession';
-  var lastFmClient = new LastFMClient(window.vkScrobbler.LastFmApiConfig);
+  var lastFmClient = new window.LastFMClient(window.vkScrobbler.LastFmApiConfig);
 
   var token = window.location.search.replace('?token=', '');
 

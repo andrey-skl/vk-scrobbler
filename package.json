@@ -9,9 +9,9 @@
     "pack": "cd dist && zip -r -X ../vk-scrobbler.zip ./*",
     "read-version": "cat manifest.json | grep '\"version\"' | sed 's/[^0-9\\.]//g'",
     "build": "npm run copy && npm run pack",
-
     "start": "npm run watch",
-    "test": "karma start"
+    "test": "karma start",
+    "lint": "jshint blocks/*"
   },
   "repository": {
     "type": "git",
@@ -31,6 +31,7 @@
     "chai": "^2.3.0",
     "gulp": "^3.8.11",
     "gulp-watch": "^4.2.4",
+    "jshint": "^2.7.0",
     "karma": "^0.12.32",
     "karma-chai": "^0.1.0",
     "karma-chrome-launcher": "^0.1.12",

@@ -26,7 +26,7 @@
         for (var i = 0; i < tabs.length; i++) {
           var tabUrl = tabs[i].url;
 
-          if (tabUrl.indexOf(oauthRedirectUrl) == 0) {
+          if (tabUrl.indexOf(oauthRedirectUrl) === 0) {
             chrome.tabs.onUpdated.removeListener(handleOAuthRedirect);
             redirectToAuthPage(tabs[i].id, tabUrl.match(tokenRegEx));
             return;

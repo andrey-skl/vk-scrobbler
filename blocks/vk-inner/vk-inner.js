@@ -25,7 +25,9 @@
   var timerTryer = setInterval(tryToAttachScrobblerListeners, 1000);
 
   function tryToAttachScrobblerListeners() {
-    if (typeof audioPlayer != 'undefined') {
+    var audioPlayer = window.audioPlayer;
+
+    if (typeof audioPlayer !== 'undefined') {
 
       //вешаем слушатель переключения песен
       audioPlayer.operate = addCallListener(audioPlayer.operate, {
@@ -52,7 +54,7 @@
 
           //ждём пока позиция изменится и только тогда говорим, что пора скробблить (чтобы не заскробблить текущую песню дважды)
           var timeout = setInterval(function () {
-            if (postitionElem.innerHTML != lastVkScrobblerPos) {
+            if (postitionElem.innerHTML !== lastVkScrobblerPos) {
               needScrobbleElem.innerHTML = 'true';
               clearInterval(timeout);
             }
@@ -69,8 +71,9 @@
 
           saveCurrentLinkElem.innerHTML = audioPlayer.lastSong[SAVE_LINK];
 
-          if (needScrobbleElem.innerHTML == 'vknone')
+          if (needScrobbleElem.innerHTML === 'vknone') {
             needScrobbleElem.innerHTML = 'true';
+          }
 
         }
       });
@@ -78,14 +81,14 @@
       var timeStamp = 0;
 
       setInterval(function () {
-          if (playedTime == 0) {
+          if (playedTime === 0) {
             timeStamp = new Date(new Date() - 1000);
           }
 
           var timeDiff = new Date() - timeStamp;
           timeStamp = new Date();
 
-          if (currentAudioId() && !audioPlayer.player.paused()) {
+          if (window.currentAudioId() && !audioPlayer.player.paused()) {
 
             //сохраняем проигранного времени в песне
             playedTime += timeDiff / 1000;
@@ -101,8 +104,7 @@
               timeStamp: timeStamp
             });
           }
-        }
-        , 1000);
+        }, 1000);
 
       //отключаем попытки навесить слушатели
       clearInterval(timerTryer);
@@ -150,6 +152,6 @@
       callbacks.after && callbacks.after(props);
 
       return result;
-    }
+    };
   }
 })();

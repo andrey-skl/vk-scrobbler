@@ -24,7 +24,7 @@
       run: function (callback) {
         element && callback(element);
       }
-    }
+    };
   };
 
   /**
@@ -34,5 +34,5 @@
     EIndicateState: EIndicateState,
     PATHS: PATHS,
     ifExist: ifExist
-  }
+  };
 })();

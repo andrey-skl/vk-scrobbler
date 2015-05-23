@@ -1,11 +1,12 @@
 (function () {
   'use strict';
 
-  var lastFmClient = new LastFMClient(window.vkScrobbler.LastFmApiConfig);
+  var lastFmClient = new window.LastFMClient(window.vkScrobbler.LastFmApiConfig);
 
   var extend = function (destination, source) {
-    for (var prop in source)
+    for (var prop in source) {
       destination[prop] = source[prop];
+    }
     return destination;
   };
 
@@ -19,7 +20,7 @@
       artist: params.artist,
       track: params.title,
       sk: this.secretKey
-    }, data))
+    }, data));
   };
 
   LastFmApi.prototype.scrobble = function (params) {

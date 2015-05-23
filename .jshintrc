@@ -1,0 +1,22 @@
+{
+  "curly": true,
+  "eqeqeq": true,
+  "undef": true,
+  "browser": true,
+  "expr": true,
+  "globals": {
+    "jQuery": true,
+    "chrome": true,
+    "document": true,
+    "window": true,
+    "console": true,
+    "_gaq": true,
+    "Promise": true,
+
+    "sinon": true,
+    "describe": true,
+    "it": true,
+    "beforeEach": true,
+    "afterEach": true
+  }
+}

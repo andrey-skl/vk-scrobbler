@@ -50,7 +50,7 @@
 
     //вешаем событие на появление мини плеера, чтобы тут же вставить индикаторы
     document.body.addEventListener('DOMNodeInserted', function (e) {
-      if (e.target.id == 'pad_wrap') {
+      if (e.target.id === 'pad_wrap') {
         setTimeout(Indicators.addIndicatorsToPage.bind(Indicators), 100);
       }
     });
@@ -78,9 +78,9 @@
    * Updates information, send requests in depend on conditions
    */
   function updateStatus() {
-    if (position != lastPos) {
+    if (position !== lastPos) {
       if (periodNum > periodsToNowPlay) {
-        contentBus.sendNowPlayingRequest(artist, title, track);
+        contentBus.sendNowPlayingRequest(artist, track);
         periodNum = 0;
       }
       Indicators.indicatePlayNow();
@@ -92,7 +92,7 @@
     periodNum++;
 
     if (position >= SCROBBLE_PERCENTAGE) { //отправим после того как половина трека проиграется
-      contentBus.sendScrobleRequest(artist, title, track);
+      contentBus.sendScrobleRequest(artist, track);
       Indicators.indicateScrobbled();
       needScrobble = false;
     }
