@@ -1,7 +1,7 @@
 var gulp = require('gulp');
 var watch = require('gulp-watch');
 
-var source = './*(_locales|blocks|img)/**/**!(test|foo).*';
+var source = './*(_locales|blocks)/**/**!(test|foo).*';
 var manifest = './manifest.json';
 var components = './node_modules/js-md5/build/*';
 var notTests = '!./**/*.test.js';
