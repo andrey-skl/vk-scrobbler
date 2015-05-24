@@ -36,7 +36,12 @@ module.exports = function(config) {
       'blocks/content/content__utils.js',
       'blocks/content/content__messages.js',
       'blocks/content/content__bus.js',
-      'blocks/content/*.test.js'
+      'blocks/content/*.test.js',
+
+      //background block
+      'blocks/background/background__actions.js',
+      'blocks/background/background__auth.js',
+      'blocks/background/*.test.js'
     ],
 
 
