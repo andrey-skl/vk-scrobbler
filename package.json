@@ -14,7 +14,7 @@
     "prebuild": "npm run lint",
     "build": "npm run copy && npm run pack",
     "start": "npm run watch",
-    "test": "karma start",
+    "test": "node ./node_modules/karma/bin/karma start",
     "lint": "jshint $npm_package_config_src/*"
   },
   "repository": {
