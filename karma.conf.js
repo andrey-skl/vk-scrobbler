@@ -30,7 +30,13 @@ module.exports = function(config) {
       //indicators block
       'blocks/indicators/indicators__utils.js',
       'blocks/indicators/indicators.js',
-      'blocks/indicators/*.test.js'
+      'blocks/indicators/*.test.js',
+
+      //content block
+      'blocks/content/content__utils.js',
+      'blocks/content/content__messages.js',
+      'blocks/content/content__bus.js',
+      'blocks/content/*.test.js'
     ],
 
 
