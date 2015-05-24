@@ -1,3 +1,4 @@
+/*jshint node: true*/
 var gulp = require('gulp');
 var watch = require('gulp-watch');
 
