@@ -5,7 +5,6 @@
   var PATHS = window.vkScrobbler.IdicatorsUtils.PATHS;
 
   var byId = document.getElementById.bind(document);
-  var qs = document.querySelector.bind(document);
   var qsa = document.querySelectorAll.bind(document);
 
   var ifExist = window.vkScrobbler.IdicatorsUtils.ifExist;
@@ -164,7 +163,9 @@
 
     updatePlayingIndicators: function (newImgSrc, newTitle) {
       [].forEach.call(qsa("#nowIndAC img, #nowIndPD img, #nowIndicator img"), function(image) {
-        image.src = newImgSrc;
+        if (image.src !== newImgSrc) {
+          image.src = newImgSrc;
+        }
         image.title = newTitle;
       });
     },
