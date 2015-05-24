@@ -1,3 +1,5 @@
+/*jshint node: true*/
+
 // Karma configuration
 // Generated on Sat May 23 2015 18:24:14 GMT+0300 (MSK)
 
@@ -68,7 +70,7 @@ module.exports = function(config) {
 
     // start these browsers
     // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
-    browsers: ['Chrome'],
+    browsers: process.env.TRAVIS ? ['Chrome_travis_ci'] : ['Chrome'],
 
 
     // Continuous Integration mode
