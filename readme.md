@@ -1,10 +1,10 @@
-# VK Scrobbler
+# VK Scrobbler ![Build status](https://travis-ci.org/huston007/vk-scrobbler.svg?branch=master)
 
 ![Promo image](https://lh3.googleusercontent.com/qlB2XjU2JlPnBcMdLF4j1mYvkAneQK2ObFmzhz3bD81vaCCk9UEuRF26MHmB_sAb1JY8OiCLaJg=s1280-h800-e365-rw)
 
 A Chrome extension to send playing tracks to last.fm library.
 
-# Contributing
+### Contributing
 
 1. Install dependencies by typing `npm install`
 2. Run watch by `npm run watch`. Now you have `dist` folder with extension prepared for loading
