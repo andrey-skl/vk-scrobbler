@@ -1,5 +1,7 @@
 (function () {
 
+  var TIME_OUT = 60 * 1000;
+
   var BusContent = function (name) {
     this.connection = chrome.runtime.connect({name: name});
     this.activeMessages = {};
@@ -9,6 +11,15 @@
   BusContent.prototype.generateMessageId = function () {
     var random = Math.random() * 1000000000000;
     return random.toFixed();
+  };
+
+  BusContent.prototype.setRejectTimeout = function (messageId) {
+    setTimeout(function () {
+      if (this.activeMessages[messageId]) {
+        this.activeMessages[messageId].reject({message: 'Extension background does not respond'});
+        delete this.activeMessages[messageId];
+      }
+    }.bind(this), TIME_OUT);
   };
 
   BusContent.prototype.startResponsesListening = function () {
@@ -26,13 +37,15 @@
 
       this.activeMessages[id] = {
         resolve: resolve,
-        reject: reject
+        reject: reject,
       };
 
       this.connection.postMessage({
         _messageId: id,
         data: data
       });
+
+      this.setRejectTimeout(id);
 
     }.bind(this));
 

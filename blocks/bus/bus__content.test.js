@@ -18,10 +18,13 @@ describe('Bus', function () {
     chrome.runtime.connect.returns(fakePort);
 
     bus = new BusContent(portName);
+
+    this.clock = sinon.useFakeTimers();
   });
 
   afterEach(function () {
     chrome.runtime.connect.reset();
+    this.clock.restore();
   });
 
   it('Should create port', function () {
@@ -80,6 +83,16 @@ describe('Bus', function () {
       fakePort._fakeListenerCall({_messageId: 'id1', data: {bar: "foo"}});
 
       expect(bus.activeMessages.id1).to.be.undefined;
+    });
+
+    it('Should reject the promise if there is no response in 1 minute', function (done) {
+      var promise = bus.sendMessage({foo: 'bar'});
+
+      promise.catch(function () {
+        done();
+      });
+
+      this.clock.tick(65 * 1000);
     });
   });
 });
