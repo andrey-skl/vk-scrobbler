@@ -24,18 +24,18 @@
 
   BusContent.prototype.startResponsesListening = function () {
     this.connection.onMessage.addListener(function (msg) {
-      var storedMessage = this.activeMessages[msg._messageId];
+      var storedMessage = this.activeMessages[msg.messageId];
       if (msg.error) {
         storedMessage.reject(msg.error);
       } else {
         storedMessage.resolve(msg.data);
       }
       //free memory
-      delete this.activeMessages[msg._messageId];
+      delete this.activeMessages[msg.messageId];
     }.bind(this));
   };
 
-  BusContent.prototype.sendMessage = function (data) {
+  BusContent.prototype.sendMessage = function (message, data) {
     var promise = new Promise(function (resolve, reject) {
       var id = this.generateMessageId();
 
@@ -45,7 +45,8 @@
       };
 
       this.connection.postMessage({
-        _messageId: id,
+        messageId: id,
+        message: message,
         data: data
       });
 

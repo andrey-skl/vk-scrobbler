@@ -3,6 +3,7 @@ describe('Bus', function () {
   var bus;
   var portName = "vk-scrobbler";
   var fakePort;
+  var MSG_ID = 'fooBar';
 
   beforeEach(function () {
     fakePort = {
@@ -40,24 +41,25 @@ describe('Bus', function () {
 
   describe('sendMessage', function () {
     it('Should return promise', function () {
-      var promise = bus.sendMessage({});
+      var promise = bus.sendMessage(MSG_ID, {});
       promise.should.be.instanceOf(Promise);
     });
 
     it('Should store message while response not returned', function () {
       sinon.stub(bus, 'generateMessageId').returns('fakeId');
-      bus.sendMessage({});
+      bus.sendMessage(MSG_ID, {});
 
       bus.activeMessages.fakeId.resolve.should.be.instanceOf(Function);
       bus.activeMessages.fakeId.reject.should.be.instanceOf(Function);
     });
 
-    it('Should wrap data with datamodel with _messageId and post it', function () {
+    it('Should wrap data with datamodel with messageId and post it', function () {
       sinon.stub(bus, 'generateMessageId').returns('fakeId');
-      bus.sendMessage({foo: 'bar'});
+      bus.sendMessage(MSG_ID, {foo: 'bar'});
 
       fakePort.postMessage.should.been.calledWith({
-        _messageId: 'fakeId',
+        messageId: 'fakeId',
+        message: MSG_ID,
         data: {foo: "bar"}
       });
     });
@@ -67,39 +69,39 @@ describe('Bus', function () {
     it('Should resolve stored promise on coming message with same id', function (done) {
       sinon.stub(bus, 'generateMessageId').returns('id1');
 
-      bus.sendMessage({foo: 'bar'}).then(function (response) {
+      bus.sendMessage(MSG_ID, {foo: 'bar'}).then(function (response) {
         response.should.been.deep.equal({bar: "foo"});
         done();
       });
 
-      fakePort._fakeListenerCall({_messageId: 'id1', data: {bar: "foo"}});
+      fakePort._fakeListenerCall({messageId: 'id1', data: {bar: "foo"}});
     });
 
     it('Should remove resolved message to free the memory', function () {
       sinon.stub(bus, 'generateMessageId').returns('id1');
 
-      bus.sendMessage({foo: 'bar'});
+      bus.sendMessage(MSG_ID, {foo: 'bar'});
 
-      fakePort._fakeListenerCall({_messageId: 'id1', data: {bar: "foo"}});
+      fakePort._fakeListenerCall({messageId: 'id1', data: {bar: "foo"}});
 
       expect(bus.activeMessages.id1).to.be.undefined;
     });
 
     it('Should reject the promise if error field exist in response', function (done) {
       sinon.stub(bus, 'generateMessageId').returns('id1');
-      var promise = bus.sendMessage({foo: 'bar'});
+      var promise = bus.sendMessage(MSG_ID, {foo: 'bar'});
 
       promise.catch(function (err) {
         err.should.be.deep.equal({message: 'booo'});
         done();
       });
 
-      fakePort._fakeListenerCall({_messageId: 'id1', error: {message: 'booo'}});
+      fakePort._fakeListenerCall({messageId: 'id1', error: {message: 'booo'}});
 
     });
 
     it('Should reject the promise if there is no response in 1 minute', function (done) {
-      var promise = bus.sendMessage({foo: 'bar'});
+      var promise = bus.sendMessage(MSG_ID, {foo: 'bar'});
 
       promise.catch(function () {
         done();
