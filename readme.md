@@ -3,7 +3,7 @@
 [![bitHound Score](https://www.bithound.io/github/huston007/vk-scrobbler/badges/score.svg)](https://www.bithound.io/github/huston007/vk-scrobbler) 
 [![Dependency Status](https://david-dm.org/huston007/vk-scrobbler.svg)](https://david-dm.org/huston007/vk-scrobbler)
 [![devDependency Status](https://david-dm.org/huston007/vk-scrobbler/dev-status.svg)](https://david-dm.org/huston007/vk-scrobbler#info=devDependencies)
-![Build status](https://travis-ci.org/huston007/vk-scrobbler.svg?branch=master)
+[![Build Status](https://travis-ci.org/huston007/vk-scrobbler.svg?branch=master)](https://travis-ci.org/huston007/vk-scrobbler)
 
 ![Promo image](https://lh3.googleusercontent.com/qlB2XjU2JlPnBcMdLF4j1mYvkAneQK2ObFmzhz3bD81vaCCk9UEuRF26MHmB_sAb1JY8OiCLaJg=s1280-h800-e365-rw)
 
