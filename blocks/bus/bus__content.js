@@ -25,7 +25,11 @@
   BusContent.prototype.startResponsesListening = function () {
     this.connection.onMessage.addListener(function (msg) {
       var storedMessage = this.activeMessages[msg._messageId];
-      storedMessage.resolve(msg.data);
+      if (msg.error) {
+        storedMessage.reject(msg.error);
+      } else {
+        storedMessage.resolve(msg.data);
+      }
       //free memory
       delete this.activeMessages[msg._messageId];
     }.bind(this));
@@ -37,7 +41,7 @@
 
       this.activeMessages[id] = {
         resolve: resolve,
-        reject: reject,
+        reject: reject
       };
 
       this.connection.postMessage({

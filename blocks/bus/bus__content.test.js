@@ -85,6 +85,19 @@ describe('Bus', function () {
       expect(bus.activeMessages.id1).to.be.undefined;
     });
 
+    it('Should reject the promise if error field exist in response', function (done) {
+      sinon.stub(bus, 'generateMessageId').returns('id1');
+      var promise = bus.sendMessage({foo: 'bar'});
+
+      promise.catch(function (err) {
+        err.should.be.deep.equal({message: 'booo'});
+        done();
+      });
+
+      fakePort._fakeListenerCall({_messageId: 'id1', error: {message: 'booo'}});
+
+    });
+
     it('Should reject the promise if there is no response in 1 minute', function (done) {
       var promise = bus.sendMessage({foo: 'bar'});
 
