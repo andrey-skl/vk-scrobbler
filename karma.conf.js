@@ -21,6 +21,11 @@ module.exports = function(config) {
       'node_modules/sinon-chrome/chrome.js',
       'blocks/namespace/namespace.js',
 
+      //bus block
+      'blocks/bus/bus__background.js',
+      'blocks/bus/bus__content.js',
+      'blocks/bus/*.test.js',
+
       //lastfm-api block
       'blocks/lastfm-api/lastfm-api__config.js',
       'blocks/lastfm-api/lastfm-api__client.js',

@@ -51,7 +51,7 @@ describe('Last FM API client', function () {
     var promise = lastFmClient.signedCall('POST', {test: 'foo'});
 
     promise.then(function (res) {
-      res.bar.should.be.equal('test');
+      var err = res.bar.should.be.equal('test');
       done();
     });
     this.getLastRequest().respond(200, {"Content-Type": "application/json"}, JSON.stringify({bar: 'test'}));
