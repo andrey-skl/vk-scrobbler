@@ -77,4 +77,11 @@ describe('BusBackground', function () {
       done();
     });
   });
+
+  it('Should throw error if handler is not exist', function () {
+
+    (function () {
+      fakePort._fakeListenerCall({messageId: 'id1', message: 'nonExist', data: {}});
+    }).should.throw(Error);
+  });
 });
