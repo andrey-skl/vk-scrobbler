@@ -63,6 +63,15 @@ describe('Bus', function () {
         data: {foo: "bar"}
       });
     });
+
+    it('Should throw', function (done) {
+      fakePort.postMessage.throws('Some error');
+
+      bus.sendMessage(MSG_ID, {foo: 'bar'}).catch(function () {
+        done();
+      });
+    });
+
   });
 
   describe('response listening', function () {

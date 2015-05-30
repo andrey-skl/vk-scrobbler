@@ -39,16 +39,20 @@
     var promise = new Promise(function (resolve, reject) {
       var id = this.generateMessageId();
 
+      try {
+        this.connection.postMessage({
+          messageId: id,
+          message: message,
+          data: data
+        });
+      } catch (e) {
+        throw new Error('Can not connect to extension background. Try to reload page.');
+      }
+
       this.activeMessages[id] = {
         resolve: resolve,
         reject: reject
       };
-
-      this.connection.postMessage({
-        messageId: id,
-        message: message,
-        data: data
-      });
 
       this.setRejectTimeout(id);
 
