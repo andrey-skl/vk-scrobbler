@@ -3,8 +3,11 @@ describe('BusBackground', function () {
   var bus;
   var fakePort;
   var fakeHandlers;
+  var fakeBeforeHandler;
 
   beforeEach(function () {
+    fakeBeforeHandler = sinon.stub();
+
     fakeHandlers = {
       doSmth: sinon.stub().returns(new Promise(function(){})),
       successHandler: function () {
@@ -29,7 +32,7 @@ describe('BusBackground', function () {
       }
     };
 
-    bus = new BusBackground(fakeHandlers);
+    bus = new BusBackground(fakeHandlers, fakeBeforeHandler);
 
     chrome.runtime.onConnect.addListener.callArgWith(0, fakePort);
   });
@@ -58,6 +61,25 @@ describe('BusBackground', function () {
   it('Should call correct handler on message receive', function () {
     fakePort._fakeListenerCall({message: 'doSmth', data: {foo: 'bar'}});
     fakeHandlers.doSmth.should.been.calledWith({foo: 'bar'});
+  });
+
+  it('Should call onBeforeHandle before handle message', function () {
+    fakePort._fakeListenerCall({message: 'doSmth', data: {foo: 'bar'}});
+
+    fakeBeforeHandler.should.been.calledWith({message: 'doSmth', data: {foo: 'bar'}});
+
+    fakeHandlers.doSmth.should.been.calledWith({foo: 'bar'});
+  });
+
+  it('Should prevent from handling message and reject promise if beforeHandler throws error', function () {
+    var err = new Error('Foo error');
+    fakeBeforeHandler.throws(err);
+
+    fakePort._fakeListenerCall({messageId: 'id1', message: 'doSmth', data: {foo: 'bar'}});
+
+    fakeHandlers.doSmth.should.not.been.called;
+
+    fakePort.postMessage.should.been.calledWith({messageId: 'id1', error: err});
   });
 
   it('Should send response with result on promise resolving', function (done) {
