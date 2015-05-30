@@ -11,7 +11,8 @@
 
   /**
    * Adds listener to function's calls by monkey patching
-   * @param func - function to listen
+   * @param object - object to patch
+   * @param method - method to replace with monkey patched one
    * @param callbacks, can contain "after" and "before" callbacks
    * @returns {Function} - patched function
    */
