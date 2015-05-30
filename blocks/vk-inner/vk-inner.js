@@ -2,6 +2,8 @@
  * WARNING: This script is an enormous hack about VK audio player.
  * There is a lot of debug required here to change something.
  * Please, be careful. Or write tests. Please.
+ * TODO: use https://developer.chrome.com/extensions/messaging instead of ugly DOM-based talking with content script
+ * TODO: pass extension id as chrome.runtime.id to script
  */
 (function () {
   'use strict';
