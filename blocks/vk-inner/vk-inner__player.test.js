@@ -32,6 +32,7 @@ describe('Vk-inner player', function () {
 
     beforeEach(function () {
       handler = {
+        before: sinon.stub(),
         after: sinon.stub()
       };
       PlayerPatcher.addCallListener(fakeObj, 'method', handler);
@@ -47,6 +48,18 @@ describe('Vk-inner player', function () {
       fakeObj.method('foo', {bar: 'test'});
 
       handler.after.should.have.been.calledWith('foo', {bar: 'test'});
+    });
+
+    it('Should call "before" handler', function () {
+      fakeObj.method('foo', {bar: 'test'});
+
+      handler.before.should.have.been.calledWith('foo', {bar: 'test'});
+    });
+
+    it('Should not miss function call result', function () {
+      method.returns('res');
+      var result = fakeObj.method();
+      result.should.be.equal('res');
     });
   });
 });
