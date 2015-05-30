@@ -9,7 +9,7 @@
   }
 
   var ContentBusWrapper = function () {
-    this.bus = new BusContent();
+    this.bus = new BusContent('vk-scrobbler-bus');
   };
 
   ContentBusWrapper.prototype.sendScrobleRequest = function (artist, track) {
