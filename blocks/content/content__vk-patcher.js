@@ -50,9 +50,15 @@
       };
     },
     patchPlayer: function () {
+      //share vk-inner__player.js to vk.com
+      var playerScript = document.createElement('script');
+      playerScript.src = chrome.extension.getURL("blocks/vk-inner/vk-inner__player.js");
+      document.body.appendChild(playerScript);
+
       //исполнить скрипт vk_inner в контексте vk.com
       var script = document.createElement('script');
-      script.type = 'text/javascript';
+      script.id = 'vk-scrobbler-player-patcher';
+      script.setAttribute('extension-id', chrome.runtime.id);
       script.src = chrome.extension.getURL("blocks/vk-inner/vk-inner.js");
       document.body.appendChild(script);
     }
