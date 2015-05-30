@@ -13,6 +13,29 @@
     chrome.runtime.sendMessage(this.extensionId, msg);
   };
 
+  PlayerPatcher.prototype.onProgress = function () {
+
+  };
+
+  PlayerPatcher.prototype.onPause = function () {
+
+  };
+
+  PlayerPatcher.prototype.onResume = function () {
+
+  };
+
+  PlayerPatcher.prototype.onStop = function () {
+
+  };
+
+  /**
+   * On start new track or start current track playing again
+   */
+  PlayerPatcher.prototype.onPlayNew = function () {
+
+  };
+
   PlayerPatcher.prototype.patchAudioPlayer = function (audioPlayer) {
     PlayerPatcher.addCallListener(audioPlayer, 'onPlayProgress', {
       before: this.onProgress.bind(this)
@@ -45,29 +68,6 @@
         this.isOperating && this.onPlayNew();
       }.bind(this)
     });
-  };
-
-  PlayerPatcher.prototype.onProgress = function () {
-
-  };
-
-  PlayerPatcher.prototype.onPause = function () {
-
-  };
-
-  PlayerPatcher.prototype.onResume = function () {
-
-  };
-
-  PlayerPatcher.prototype.onStop = function () {
-
-  };
-
-  /**
-   * On start new track or start current track playing again
-   */
-  PlayerPatcher.prototype.onPlayNew = function () {
-
   };
 
   /**
