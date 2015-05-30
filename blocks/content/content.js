@@ -1,7 +1,7 @@
 (function () {
   'use strict';
 
-  var contentBus = window.vkScrobbler.ContentBus;
+  var busWrapper = new window.vkScrobbler.ContentBusWrapper();
   var Indicators = window.vkScrobbler.Indicators;
   var utils = window.vkScrobbler.ContentUils;
   var vkPatcher = window.vkScrobbler.vkPatcher;
@@ -23,10 +23,10 @@
   Indicators.setListeners({
     toggleLove: function sendLoveRequest() {
       if (loved) {
-        contentBus.sendUnlove(artist, track);
+        busWrapper.sendUnlove(artist, track);
         Indicators.indicateNotLove();
       } else {
-        contentBus.sendNeedLove(artist, track);
+        busWrapper.sendNeedLove(artist, track);
         Indicators.indicateLoved();
       }
       loved = !loved;
@@ -38,7 +38,7 @@
       } else {
         Indicators.indicatePauseScrobbling();
       }
-      contentBus.sendPauseStatus(artist, track, !scrobbleEnabled);
+      busWrapper.sendPauseStatus(artist, track, !scrobbleEnabled);
     }
   });
 
@@ -80,7 +80,7 @@
   function updateStatus() {
     if (position !== lastPos) {
       if (periodNum > periodsToNowPlay) {
-        contentBus.sendNowPlayingRequest(artist, track);
+        busWrapper.sendNowPlayingRequest(artist, track);
         periodNum = 0;
       }
       Indicators.indicatePlayNow();
@@ -92,7 +92,7 @@
     periodNum++;
 
     if (position >= SCROBBLE_PERCENTAGE) { //отправим после того как половина трека проиграется
-      contentBus.sendScrobleRequest(artist, track);
+      busWrapper.sendScrobleRequest(artist, track);
       Indicators.indicateScrobbled();
       needScrobble = false;
     }
@@ -119,7 +119,7 @@
 
   function checkTrackLove() {
     Indicators.indicateNotLove();
-    contentBus.getTrackInfoRequest(artist, track)
+    busWrapper.getTrackInfoRequest(artist, track)
       .then(function (response) {
         loved = response.track && response.track.userloved === '1';
         if (loved) {

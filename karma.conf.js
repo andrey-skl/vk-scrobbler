@@ -40,7 +40,7 @@ module.exports = function(config) {
       //content block
       'blocks/content/content__utils.js',
       'blocks/content/content__messages.js',
-      'blocks/content/content__bus.js',
+      'blocks/content/content__bus-wrapper.js',
       'blocks/content/*.test.js',
 
       //background block
