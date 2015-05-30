@@ -148,9 +148,14 @@
     },
 
     _loveClickListener: function (e) {
-      e.target.classList.add('indicators__love_pulse');
+      var pulseClassName = 'indicators__love_pulse';
+      if (e.target.classList.contains(pulseClassName)) {
+        return;
+      }
+      e.target.classList.add(pulseClassName);
+
       this.listeners.toggleLove(Indicators.love).then(function () {
-        e.target.classList.remove('indicators__love_pulse');
+        e.target.classList.remove(pulseClassName);
       });
     },
 
