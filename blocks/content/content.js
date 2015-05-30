@@ -12,7 +12,6 @@
 
   var needScrobble = false;
   var scrobbleEnabled = true;
-  var loved = false;
 
   var SCROBBLE_PERCENTAGE = 50;
   var checkPeriod = 1100;
@@ -21,15 +20,12 @@
   var TrackInfo;
 
   Indicators.setListeners({
-    toggleLove: function sendLoveRequest() {
-      if (loved) {
-        busWrapper.sendUnlove(artist, track);
-        Indicators.indicateNotLove();
+    toggleLove: function sendLoveRequest(isLove) {
+      if (isLove) {
+        return busWrapper.sendUnlove(artist, track).then(Indicators.indicateNotLove);
       } else {
-        busWrapper.sendNeedLove(artist, track);
-        Indicators.indicateLoved();
+        return busWrapper.sendNeedLove(artist, track).then(Indicators.indicateLoved);
       }
-      loved = !loved;
     },
     togglePauseScrobbling: function togglePauseScrobbling() {
       scrobbleEnabled = !scrobbleEnabled;
@@ -121,7 +117,7 @@
     Indicators.indicateNotLove();
     busWrapper.getTrackInfoRequest(artist, track)
       .then(function (response) {
-        loved = response.track && response.track.userloved === '1';
+        var loved = response.track && response.track.userloved === '1';
         if (loved) {
           Indicators.indicateLoved();
         }

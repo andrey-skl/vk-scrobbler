@@ -14,7 +14,7 @@
 
   ContentBusWrapper.prototype.sendScrobleRequest = function (artist, track) {
     if (notNone(artist, track)) {
-      this.bus.sendMessage(MSG.NEED_SCROOBLE, {
+      return this.bus.sendMessage(MSG.NEED_SCROOBLE, {
         artist: artist,
         title: track
       });
@@ -25,7 +25,7 @@
 
   ContentBusWrapper.prototype.sendNowPlayingRequest = function (artist, track) {
     if (notNone(artist, track)) {
-      this.bus.sendMessage(MSG.NOW_PLAYING, {
+      return this.bus.sendMessage(MSG.NOW_PLAYING, {
         artist: artist,
         title: track
       });
@@ -35,7 +35,7 @@
   };
 
   ContentBusWrapper.prototype.sendPauseStatus = function (artist, track, paused) {
-    this.bus.sendMessage(MSG.TOGGLE_PAUSE, {
+    return this.bus.sendMessage(MSG.TOGGLE_PAUSE, {
       paused: paused,
       artist: artist,
       title: track
@@ -43,14 +43,14 @@
   };
 
   ContentBusWrapper.prototype.sendNeedLove = function (artist, track) {
-    this.bus.sendMessage(MSG.NEED_LOVE, {
+    return this.bus.sendMessage(MSG.NEED_LOVE, {
       artist: artist,
       title: track
     });
   };
 
   ContentBusWrapper.prototype.sendUnlove = function (artist, track) {
-    this.bus.sendMessage(MSG.NOT_NEED_LOVE, {
+    return this.bus.sendMessage(MSG.NOT_NEED_LOVE, {
       artist: artist,
       title: track
     });

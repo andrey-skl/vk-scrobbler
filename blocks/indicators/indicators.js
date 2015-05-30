@@ -147,17 +147,24 @@
       }
     },
 
+    _loveClickListener: function (e) {
+      e.target.classList.add('indicators__love_pulse');
+      this.listeners.toggleLove(Indicators.love).then(function () {
+        e.target.classList.remove('indicators__love_pulse');
+      });
+    },
+
     SetLoveAC: function () {
       if (byId("ac") && !byId("loveDivAC")) {
         byId('ac_duration').insertAdjacentHTML('beforebegin', Indicators.htmls.loveAC);
-        byId('loveDivAC').addEventListener('click', this.listeners.toggleLove);
+        byId('loveDivAC').addEventListener('click', this._loveClickListener.bind(this));
       }
     },
 
     SetLovePD: function () {
       if (byId("pd") && !byId("loveDivPD")) {
         byId('pd_duration').insertAdjacentHTML('beforebegin', Indicators.htmls.lovePD);
-        byId('loveDivPD').addEventListener('click', this.listeners.toggleLove);
+        byId('loveDivPD').addEventListener('click', this._loveClickListener.bind(this));
       }
     },
 
