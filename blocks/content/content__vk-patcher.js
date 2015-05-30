@@ -50,6 +50,11 @@
       };
     },
     patchPlayer: function () {
+      //namespace
+      var nsScript = document.createElement('script');
+      nsScript.src = chrome.extension.getURL("blocks/namespace/namespace.js");
+      document.body.appendChild(nsScript);
+
       //share vk-inner__player.js to vk.com
       var playerScript = document.createElement('script');
       playerScript.src = chrome.extension.getURL("blocks/vk-inner/vk-inner__player.js");

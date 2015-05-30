@@ -9,7 +9,5 @@
     chrome.runtime.sendMessage(this.extensionId, msg);
   };
 
-  window.vkScrobbler = {
-    PlayerPatcher: PlayerPatcher
-  };
+  window.vkScrobbler.PlayerPatcher = PlayerPatcher;
 })();

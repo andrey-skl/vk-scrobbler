@@ -43,6 +43,7 @@
   "homepage_url": "http://vkontakte.ru/vk_scrobbler",
   "web_accessible_resources": [
     "blocks/indicators/__icon/*",
+    "blocks/namespace/*",
     "blocks/vk-inner/*"
   ],
   "content_security_policy": "script-src 'self' https://ws.audioscrobbler.com https://ssl.google-analytics.com; object-src 'self'; style-src 'self' 'unsafe-inline';"

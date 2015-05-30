@@ -46,7 +46,11 @@ module.exports = function(config) {
       //background block
       'blocks/background/background__actions.js',
       'blocks/background/background__auth.js',
-      'blocks/background/*.test.js'
+      'blocks/background/*.test.js',
+
+      //vk inner
+      'blocks/vk-inner/vk-inner__player.js',
+      'blocks/vk-inner/*.test.js'
     ],
 
 
