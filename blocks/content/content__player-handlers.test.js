@@ -1,4 +1,4 @@
-describe.only('Content PlayerHandlers', function () {
+describe('Content PlayerHandlers', function () {
   var Indicators = window.vkScrobbler.Indicators;
   var PlayerHandlers = window.vkScrobbler.PlayerHandlers;
   var handlers;
