@@ -15,6 +15,7 @@
     htmls: {
       indicate: EIndicateState.logotype,
       love: false,
+      twitLink: '',
 
       miniIndicator: '<div id="nowIndicator" class="indicators__status_mini"><img class="indicators__icon" title="VK scrobbler: status" src=' + PATHS.PAUSE + '></div>',
 
@@ -79,9 +80,11 @@
       }
 
       Indicators.love ? Indicators.indicateLoved() : Indicators.indicateNotLove();
+      this.twitLink && Indicators.setTwitButtonHref(this.this.twitLink);
     },
 
     setTwitButtonHref: function (link) {
+      this.twitLink = link;
       [].forEach.call(qsa('#twitLinkAC, #twitLinkPD'), function(twitLink) {
         twitLink.href = link;
       });
