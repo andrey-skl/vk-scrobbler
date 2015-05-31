@@ -19,6 +19,12 @@
   var periodNum = 0;
   var TrackInfo;
 
+  window.addEventListener("message", function(message){
+    if (message.data.vkPlayerPatcherMessage) {
+      console.info('onmsg', message.data);
+    }
+  }, false);
+
   Indicators.setListeners({
     toggleLove: function sendLoveRequest(isLove) {
       if (isLove) {

@@ -16,7 +16,7 @@
   };
 
   PlayerPatcher.prototype.sendMessage = function (msg) {
-    chrome.runtime.sendMessage(this.extensionId, msg);
+    window.postMessage({vkPlayerPatcherMessage: true, message: msg}, window.location.href);
   };
 
   PlayerPatcher.prototype.onProgress = function (current, total) {

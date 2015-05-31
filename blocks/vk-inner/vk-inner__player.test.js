@@ -8,13 +8,15 @@ describe('Vk-inner player', function () {
   beforeEach(function () {
     sinon.stub(PlayerPatcher.prototype, 'waitForPlayerAndPatch');
     patcher = new PlayerPatcher('fakeId');
+
+    sinon.stub(window, 'postMessage');
   });
 
   afterEach(function () {
     if (PlayerPatcher.prototype.waitForPlayerAndPatch.restore) {
       PlayerPatcher.prototype.waitForPlayerAndPatch.restore();
     }
-    chrome.runtime.sendMessage.reset();
+    window.postMessage.restore();
   });
 
   it('Should init with chrome extension id', function () {
@@ -23,7 +25,7 @@ describe('Vk-inner player', function () {
 
   it('Send message should send message to extension', function () {
     patcher.sendMessage({foo: 'bar'});
-    chrome.runtime.sendMessage.should.have.been.calledWith('fakeId', {foo: 'bar'});
+    window.postMessage.should.have.been.calledWith({vkPlayerPatcherMessage: true, message: {foo: 'bar'}});
   });
 
   describe('callListener', function () {
