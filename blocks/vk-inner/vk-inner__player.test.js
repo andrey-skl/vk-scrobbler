@@ -158,4 +158,35 @@ describe('Vk-inner player', function () {
     });
 
   });
+
+  describe('Player listeners', function () {
+    beforeEach(function () {
+      sinon.stub(patcher, 'sendMessage');
+    });
+
+    it('Should send correct message on progress', function () {
+      patcher.onProgress(10, 20);
+      patcher.sendMessage.should.have.been.calledWith({message: 'progress', data: {current: 10, total: 20}});
+    });
+
+    it('Should send correct message on pause', function () {
+      patcher.onPause();
+      patcher.sendMessage.should.have.been.calledWith({message: 'pause'});
+    });
+
+    it('Should send correct message on resume', function () {
+      patcher.onResume();
+      patcher.sendMessage.should.have.been.calledWith({message: 'resume'});
+    });
+
+    it('Should send correct message on stop', function () {
+      patcher.onStop();
+      patcher.sendMessage.should.have.been.calledWith({message: 'stop'});
+    });
+
+    it('Should send correct message on start playing ', function () {
+      patcher.onPlayStart();
+      patcher.sendMessage.should.have.been.calledWith({message: 'playStart'});
+    });
+  });
 });

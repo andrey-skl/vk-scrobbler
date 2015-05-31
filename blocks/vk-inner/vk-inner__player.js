@@ -1,10 +1,10 @@
 (function () {
   'use strict';
-  var messageProgress = 'onProgress';
-  var messagePause = 'onPause';
-  var messageResume = 'onResume';
-  var messageStop = 'onStop';
-  var messagePlayNew = 'onPlayNew';
+  var messageProgress = 'progress';
+  var messagePause = 'pause';
+  var messageResume = 'resume';
+  var messageStop = 'stop';
+  var messagePlayStart = 'playStart';
   var ARTIST_NUM = 5;
   var TITLE_NUM = 6;
   var SAVE_LINK = 2;
@@ -38,7 +38,7 @@
   };
 
   PlayerPatcher.prototype.onPlayStart = function () {
-    this.sendMessage({message: messagePlayNew});
+    this.sendMessage({message: messagePlayStart});
   };
 
   PlayerPatcher.prototype.patchAudioPlayer = function (audioPlayer) {
