@@ -5,9 +5,10 @@
 
   var utils = window.vkScrobbler.ContentUils;
   var Indicators = window.vkScrobbler.Indicators;
-  var busWrapper = new window.vkScrobbler.ContentBusWrapper();
+  var BusWrapper = window.vkScrobbler.ContentBusWrapper;
 
   function PlayerHandlers() {
+    this.busWrapper = new BusWrapper();
     this.state = {
       enabled: true,
       playing: false,
@@ -70,14 +71,14 @@
 
   PlayerHandlers.prototype.sendNowPlayingIfNeeded = function () {
     if (!this.state.nowPlayingSendTimeStamp || this.isNowPlayingIntervalPassed()) {
-      busWrapper.sendNowPlayingRequest(this.state.artist, this.state.track);
+      this.busWrapper.sendNowPlayingRequest(this.state.artist, this.state.track);
       this.state.nowPlayingSendTimeStamp = Date.now();
     }
   };
 
   PlayerHandlers.prototype.scrobbleIfNeeded = function (percent) {
     if (!this.state.scrobbled && percent > SCROBBLE_PERCENTAGE) {
-      busWrapper.sendScrobleRequest(this.state.artist, this.state.track)
+      this.busWrapper.sendScrobleRequest(this.state.artist, this.state.track)
         .then(function () {
           this.state.scrobbled = true;
           Indicators.indicateScrobbled();
@@ -88,7 +89,7 @@
   PlayerHandlers.prototype.checkTrackLove = function (artist, track) {
     Indicators.indicateNotLove();
 
-    return busWrapper.getTrackInfoRequest(artist, track)
+    return this.busWrapper.getTrackInfoRequest(artist, track)
       .then(function (response) {
         var loved = response.track && response.track.userloved === '1';
         if (loved) {
@@ -116,15 +117,15 @@
           return new Promise(function(resolve, reject) {reject();});
         }
         if (isLove) {
-          return busWrapper.sendUnlove(this.state.artist, this.state.track).then(Indicators.indicateNotLove);
+          return this.busWrapper.sendUnlove(this.state.artist, this.state.track).then(Indicators.indicateNotLove);
         } else {
-          return busWrapper.sendNeedLove(this.state.artist, this.state.track).then(Indicators.indicateLoved);
+          return this.busWrapper.sendNeedLove(this.state.artist, this.state.track).then(Indicators.indicateLoved);
         }
       }.bind(this),
       togglePauseScrobbling: function togglePauseScrobbling() {
         this.state.enabled = !this.state.enabled;
         this.indicateScrobblerStatus();
-        busWrapper.sendPauseStatus(this.state.artist, this.state.track, !this.state.enabled);
+        this.busWrapper.sendPauseStatus(this.state.artist, this.state.track, !this.state.enabled);
       }.bind(this)
     });
   };

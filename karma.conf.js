@@ -41,6 +41,7 @@ module.exports = function(config) {
       'blocks/content/content__utils.js',
       'blocks/content/content__messages.js',
       'blocks/content/content__bus-wrapper.js',
+      'blocks/content/content__player-handlers.js',
       'blocks/content/*.test.js',
 
       //background block
