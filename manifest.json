@@ -14,9 +14,7 @@
   "permissions": [
     "tabs",
     "notifications",
-    "http://*/*",
-    "https://*/*",
-    "cookies"
+    "*://*.vk.com/*"
   ],
   "content_scripts": [
     {
