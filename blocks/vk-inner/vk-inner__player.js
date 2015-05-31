@@ -85,7 +85,7 @@
    * Decodes html special chars into normal text
    */
   PlayerPatcher.decodeHtmlEntity = function(str) {
-    var tmp = document.createElement('span');
+    var tmp = document.createElement('textarea'); //use textarea to be sure that no scripts can be injected
     tmp.innerHTML = str;
     return tmp.textContent;
   };
