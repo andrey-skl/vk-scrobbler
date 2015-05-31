@@ -4,7 +4,7 @@
   var busWrapper = new window.vkScrobbler.ContentBusWrapper();
   var Indicators = window.vkScrobbler.Indicators;
   var utils = window.vkScrobbler.ContentUils;
-  var vkPatcher = window.vkScrobbler.vkPatcher;
+  var scriptInjector = window.vkScrobbler.scriptInjector;
   var artist;
   var track;
   var position;
@@ -19,9 +19,9 @@
   var periodNum = 0;
   var TrackInfo;
 
-  window.addEventListener("message", function(message){
-    if (message.data.vkPlayerPatcherMessage) {
-      console.info('onmsg', message.data);
+  window.addEventListener("message", function(e){
+    if (e.data.vkPlayerPatcherMessage) {
+      console.info('onmsg', e.data.message);
     }
   }, false);
 
@@ -45,15 +45,18 @@
   });
 
   var activate = function () {
-    TrackInfo = vkPatcher.setUpTrackInfoHolder();
-    vkPatcher.patchPlayer();
+    TrackInfo = scriptInjector.setUpTrackInfoHolder();
+    scriptInjector.injectPatcher();
 
     parseInfoAndCheck();
 
     //вешаем событие на появление мини плеера, чтобы тут же вставить индикаторы
     document.body.addEventListener('DOMNodeInserted', function (e) {
-      if (e.target.id === 'pad_wrap') {
-        setTimeout(Indicators.addIndicatorsToPage.bind(Indicators), 100);
+      if (e.target.id === 'pad_controls') {
+        Indicators.SetAllPD();
+      }
+      if(e.target.id === 'wrap2' && e.target.querySelector('#audio') !== null) {
+        Indicators.SetAllAC();
       }
     });
   };

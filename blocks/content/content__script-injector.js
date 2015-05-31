@@ -13,7 +13,7 @@
     "<span id=" + POSITION_ID + ">vknone</span>" +
     "<span id='" + SAVE_ID + "'></span>";
 
-  window.vkScrobbler.vkPatcher = {
+  window.vkScrobbler.scriptInjector = {
     setUpTrackInfoHolder: function () {
 
       //div, в который будет помещаться информация из vk-inner для последующего принятия этим скриптом
@@ -49,7 +49,7 @@
         }
       };
     },
-    patchPlayer: function () {
+    injectPatcher: function () {
       //namespace
       var nsScript = document.createElement('script');
       nsScript.src = chrome.extension.getURL("blocks/namespace/namespace.js");

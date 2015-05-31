@@ -28,7 +28,7 @@
         "blocks/bus/bus__content.js",
         "blocks/content/content__messages.js",
         "blocks/content/content__bus-wrapper.js",
-        "blocks/content/content__vk-patcher.js",
+        "blocks/content/content__script-injector.js",
         "blocks/content/content__utils.js",
         "blocks/content/content.js"
       ],
@@ -37,9 +37,6 @@
       ]
     }
   ],
-  "externally_connectable": {
-    "matches": ["*://*.vk.com/*"]
-  },
   "homepage_url": "http://vkontakte.ru/vk_scrobbler",
   "web_accessible_resources": [
     "blocks/indicators/__icon/*",
