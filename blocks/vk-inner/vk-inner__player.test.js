@@ -7,7 +7,7 @@ describe('Vk-inner player', function () {
 
   beforeEach(function () {
     sinon.stub(PlayerPatcher.prototype, 'waitForPlayerAndPatch');
-    patcher = new PlayerPatcher('fakeId');
+    patcher = new PlayerPatcher();
 
     sinon.stub(window, 'postMessage');
   });
@@ -181,7 +181,7 @@ describe('Vk-inner player', function () {
       });
 
       it('Should wait for audioPLayer in window and patch it', function () {
-        var p = new PlayerPatcher('fakeId');
+        var p = new PlayerPatcher();
         p.patchAudioPlayer = sinon.stub();
 
         this.clock.tick(10000);
@@ -194,7 +194,7 @@ describe('Vk-inner player', function () {
       });
 
       it('Should no try to patch audioPlayer while it not exist on page', function () {
-        var p = new PlayerPatcher('fakeId');
+        var p = new PlayerPatcher();
         p.patchAudioPlayer = sinon.stub();
         this.clock.tick(10000);
         p.patchAudioPlayer.should.not.have.been.calledWith({b: 'foo'});

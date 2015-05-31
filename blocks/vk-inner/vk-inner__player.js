@@ -9,8 +9,7 @@
   var TITLE_NUM = 6;
   var TRY_PATCH_INTERVAL = 300;
 
-  var PlayerPatcher = function (extensionId) {
-    this.extensionId = extensionId;
+  var PlayerPatcher = function () {
     this.osOperating = false; //is audioPlayer.operate function is calling
     this.waitForPlayerAndPatch();
   };
