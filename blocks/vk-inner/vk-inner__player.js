@@ -77,7 +77,6 @@
   PlayerPatcher.prototype.waitForPlayerAndPatch = function () {
     if (window.audioPlayer) {
       this.patchAudioPlayer(window.audioPlayer);
-      console.log('VK scrobbler have patched vk audioPlayer');
     } else {
       setTimeout(this.waitForPlayerAndPatch.bind(this), TRY_PATCH_INTERVAL);
     }
