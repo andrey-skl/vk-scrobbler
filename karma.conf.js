@@ -3,6 +3,19 @@
 // Karma configuration
 // Generated on Sat May 23 2015 18:24:14 GMT+0300 (MSK)
 
+var getReporters = function () {
+  var reporters = ['progress'];
+  if (process.argv.indexOf('coverage') !== -1) {
+    reporters.push('coverage');
+  }
+
+  if (process.env.TRAVIS) {
+    reporters.push('coverage');
+    reporters.push('coveralls');
+  }
+  return reporters;
+};
+
 module.exports = function(config) {
   config.set({
 
@@ -63,13 +76,23 @@ module.exports = function(config) {
     // preprocess matching files before serving them to the browser
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
+      // source files, that you wanna generate coverage for
+      // do not include tests or libraries
+      // (these files will be instrumented by Istanbul)
+      'blocks/**/*.js': ['coverage']
     },
 
 
     // test results reporter to use
     // possible values: 'dots', 'progress'
     // available reporters: https://npmjs.org/browse/keyword/karma-reporter
-    reporters: ['progress'],
+    reporters: getReporters(),
+
+
+    coverageReporter: {
+      type: 'lcov', // lcov or lcovonly are required for generating lcov.info files
+      dir: 'coverage/'
+    },
 
 
     // web server port
