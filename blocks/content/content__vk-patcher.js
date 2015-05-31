@@ -60,12 +60,14 @@
       playerScript.src = chrome.extension.getURL("blocks/vk-inner/vk-inner__player.js");
       document.body.appendChild(playerScript);
 
-      //исполнить скрипт vk_inner в контексте vk.com
-      var script = document.createElement('script');
-      script.id = 'vk-scrobbler-player-patcher';
-      script.setAttribute('extension-id', chrome.runtime.id);
-      script.src = chrome.extension.getURL("blocks/vk-inner/vk-inner.js");
-      document.body.appendChild(script);
+      setTimeout(function () {
+        //исполнить скрипт vk_inner в контексте vk.com
+        var script = document.createElement('script');
+        script.id = 'vk-scrobbler-player-patcher';
+        script.setAttribute('extension-id', chrome.runtime.id);
+        script.src = chrome.extension.getURL("blocks/vk-inner/vk-inner.js");
+        document.body.appendChild(script);
+      });
     }
   };
 

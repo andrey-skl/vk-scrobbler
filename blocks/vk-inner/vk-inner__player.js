@@ -7,10 +7,12 @@
   var messagePlayStart = 'playStart';
   var ARTIST_NUM = 5;
   var TITLE_NUM = 6;
+  var TRY_PATCH_INTERVAL = 300;
 
   var PlayerPatcher = function (extensionId) {
     this.extensionId = extensionId;
-    this.osOperating = false; //is audioPlayer.operate function calling
+    this.osOperating = false; //is audioPlayer.operate function is calling
+    this.waitForPlayerAndPatch();
   };
 
   PlayerPatcher.prototype.sendMessage = function (msg) {
@@ -69,6 +71,16 @@
        */
       this.isOperating && this.onPlayStart();
     }.bind(this));
+  };
+
+
+  PlayerPatcher.prototype.waitForPlayerAndPatch = function () {
+    if (window.audioPlayer) {
+      this.patchAudioPlayer(window.audioPlayer);
+      console.log('VK scrobbler have patched vk audioPlayer');
+    } else {
+      setTimeout(this.waitForPlayerAndPatch.bind(this), TRY_PATCH_INTERVAL);
+    }
   };
 
   /**

@@ -6,10 +6,14 @@ describe('Vk-inner player', function () {
   var PlayerPatcher = window.vkScrobbler.PlayerPatcher;
 
   beforeEach(function () {
+    sinon.stub(PlayerPatcher.prototype, 'waitForPlayerAndPatch');
     patcher = new PlayerPatcher('fakeId');
   });
 
   afterEach(function () {
+    if (PlayerPatcher.prototype.waitForPlayerAndPatch.restore) {
+      PlayerPatcher.prototype.waitForPlayerAndPatch.restore();
+    }
     chrome.runtime.sendMessage.reset();
   });
 
@@ -166,6 +170,33 @@ describe('Vk-inner player', function () {
       fakePlayer.loadGlobal();
 
       patcher.onPlayStart.should.not.have.been.called;
+    });
+
+    describe('waiting and patching window.audioPlayer', function () {
+      beforeEach(function () {
+        PlayerPatcher.prototype.waitForPlayerAndPatch.restore();
+        this.clock = sinon.useFakeTimers();
+      });
+
+      it('Should wait for audioPLayer in window and patch it', function () {
+        var p = new PlayerPatcher('fakeId');
+        p.patchAudioPlayer = sinon.stub();
+
+        this.clock.tick(10000);
+
+        window.audioPlayer = {b: 'foo'};
+
+        this.clock.tick(1000);
+
+        p.patchAudioPlayer.should.have.been.calledWith({b: 'foo'});
+      });
+
+      it('Should no try to patch audioPlayer while it not exist on page', function () {
+        var p = new PlayerPatcher('fakeId');
+        p.patchAudioPlayer = sinon.stub();
+        this.clock.tick(10000);
+        p.patchAudioPlayer.should.not.have.been.calledWith({b: 'foo'});
+      });
     });
 
   });
