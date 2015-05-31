@@ -5,7 +5,7 @@
 
 var getReporters = function () {
   var reporters = ['progress'];
-  if (process.argv.indexOf('coverage') !== -1) {
+  if (process.argv.indexOf('--coverage') !== -1) {
     reporters.push('coverage');
   }
 
