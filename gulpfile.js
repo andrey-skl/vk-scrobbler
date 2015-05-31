@@ -12,7 +12,7 @@ var gulpSources = [manifest, source, components, notTests];
 
 gulp.task('watch-copy', function() {
   return gulp.src(gulpSources, {base: './'})
-    .pipe(watch(gulpSources))
+    .pipe(watch(gulpSources, {verbose: true}))
     .pipe(gulp.dest(destination));
 });
 

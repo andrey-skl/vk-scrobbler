@@ -2,10 +2,10 @@
   'use strict';
 
   var EIndicateState = {
-    logotype: 0,
-    nowplaying: 1,
-    scrobbled: 2,
-    paused: 3
+    logotype: 'logotype',
+    nowplaying: 'nowplaying',
+    scrobbled: 'scrobbled',
+    paused: 'paused'
   };
 
   var PATHS = {

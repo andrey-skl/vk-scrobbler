@@ -15,6 +15,7 @@
     htmls: {
       indicate: EIndicateState.logotype,
       love: false,
+      twitLink: '',
 
       miniIndicator: '<div id="nowIndicator" class="indicators__status_mini"><img class="indicators__icon" title="VK scrobbler: status" src=' + PATHS.PAUSE + '></div>',
 
@@ -37,13 +38,9 @@
       this.listeners = listeners;
     },
 
-    addIndicatorsToPage: function () {
+    SetAllMini: function () {
       Indicators.IncreaseMiniPlayerWidth();
       Indicators.SetMiniIndicator();
-      //добавляем индикатор к верхней панели на странице аудиозаписей
-      Indicators.SetAllAC();
-      //Добавляем индикатор к всплывающему плееру
-      Indicators.SetAllPD();
       Indicators.indicateStatus();
     },
 
@@ -52,6 +49,7 @@
       Indicators.SetAcIndicator();
       Indicators.SetLoveAC();
       Indicators.SetTwitterAC();
+      Indicators.indicateStatus();
     },
 
     SetAllPD: function () {
@@ -59,6 +57,7 @@
       Indicators.SetPdIndicator();
       Indicators.SetLovePD();
       Indicators.SetTwitterPD();
+      Indicators.indicateStatus();
     },
 
     /**
@@ -81,9 +80,11 @@
       }
 
       Indicators.love ? Indicators.indicateLoved() : Indicators.indicateNotLove();
+      this.twitLink && Indicators.setTwitButtonHref(this.this.twitLink);
     },
 
     setTwitButtonHref: function (link) {
+      this.twitLink = link;
       [].forEach.call(qsa('#twitLinkAC, #twitLinkPD'), function(twitLink) {
         twitLink.href = link;
       });
@@ -155,6 +156,8 @@
       e.target.classList.add(pulseClassName);
 
       this.listeners.toggleLove(Indicators.love).then(function () {
+        e.target.classList.remove(pulseClassName);
+      }, function () {
         e.target.classList.remove(pulseClassName);
       });
     },

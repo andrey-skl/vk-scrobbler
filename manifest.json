@@ -20,10 +20,7 @@
   ],
   "content_scripts": [
     {
-      "matches": [
-        "http://vk.com/*",
-        "https://vk.com/*"
-      ],
+      "matches": ["*://*.vk.com/*"],
       "js": [
         "blocks/namespace/namespace.js",
         "blocks/indicators/indicators__utils.js",
@@ -31,8 +28,9 @@
         "blocks/bus/bus__content.js",
         "blocks/content/content__messages.js",
         "blocks/content/content__bus-wrapper.js",
-        "blocks/content/content__vk-patcher.js",
+        "blocks/content/content__script-injector.js",
         "blocks/content/content__utils.js",
+        "blocks/content/content__player-handlers.js",
         "blocks/content/content.js"
       ],
       "css": [
@@ -43,8 +41,8 @@
   "homepage_url": "http://vkontakte.ru/vk_scrobbler",
   "web_accessible_resources": [
     "blocks/indicators/__icon/*",
-    "img/*",
-    "blocks/vk-inner/vk-inner.js"
+    "blocks/namespace/*",
+    "blocks/vk-inner/*"
   ],
   "content_security_policy": "script-src 'self' https://ws.audioscrobbler.com https://ssl.google-analytics.com; object-src 'self'; style-src 'self' 'unsafe-inline';"
 }
