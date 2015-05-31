@@ -133,8 +133,8 @@ describe('Vk-inner player', function () {
       setter.should.have.been.calledTwice;
     });
 
-    it('Should call onPlayNew on start playing new track', function () {
-      sinon.stub(patcher, 'onPlayNew');
+    it('Should call onPlayStart on start playing new track', function () {
+      sinon.stub(patcher, 'onPlayStart');
 
       patcher.patchAudioPlayer(fakePlayer);
 
@@ -142,11 +142,11 @@ describe('Vk-inner player', function () {
 
       fakePlayer.loadGlobal();
 
-      patcher.onPlayNew.should.have.been.called;
+      patcher.onPlayStart.should.have.been.called;
     });
 
-    it('Should not call onPlayNew on calling loadGlobal not from audioPlayer.operate', function () {
-      sinon.stub(patcher, 'onPlayNew');
+    it('Should not call onPlayStart on calling loadGlobal not from audioPlayer.operate', function () {
+      sinon.stub(patcher, 'onPlayStart');
 
       patcher.patchAudioPlayer(fakePlayer);
 
@@ -154,7 +154,7 @@ describe('Vk-inner player', function () {
 
       fakePlayer.loadGlobal();
 
-      patcher.onPlayNew.should.not.have.been.called;
+      patcher.onPlayStart.should.not.have.been.called;
     });
 
   });

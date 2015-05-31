@@ -1,5 +1,10 @@
 (function () {
   'use strict';
+  var messageProgress = 'onProgress';
+  var messagePause = 'onPause';
+  var messageResume = 'onResume';
+  var messageStop = 'onStop';
+  var messagePlayNew = 'onPlayNew';
   var ARTIST_NUM = 5;
   var TITLE_NUM = 6;
   var SAVE_LINK = 2;
@@ -13,27 +18,27 @@
     chrome.runtime.sendMessage(this.extensionId, msg);
   };
 
-  PlayerPatcher.prototype.onProgress = function () {
-
+  PlayerPatcher.prototype.onProgress = function (current, total) {
+    this.sendMessage({message: messageProgress, data: {
+      current: current,
+      total: total
+    }});
   };
 
   PlayerPatcher.prototype.onPause = function () {
-
+    this.sendMessage({message: messagePause});
   };
 
   PlayerPatcher.prototype.onResume = function () {
-
+    this.sendMessage({message: messageResume});
   };
 
   PlayerPatcher.prototype.onStop = function () {
-
+    this.sendMessage({message: messageStop});
   };
 
-  /**
-   * On start new track or start current track playing again
-   */
-  PlayerPatcher.prototype.onPlayNew = function () {
-
+  PlayerPatcher.prototype.onPlayStart = function () {
+    this.sendMessage({message: messagePlayNew});
   };
 
   PlayerPatcher.prototype.patchAudioPlayer = function (audioPlayer) {
@@ -65,7 +70,7 @@
         /**
          * If calling by audioPlayer.operate, then it is starting new track playing
          */
-        this.isOperating && this.onPlayNew();
+        this.isOperating && this.onPlayStart();
       }.bind(this)
     });
   };
