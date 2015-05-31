@@ -37,13 +37,9 @@
       this.listeners = listeners;
     },
 
-    addIndicatorsToPage: function () {
+    SetAllMini: function () {
       Indicators.IncreaseMiniPlayerWidth();
       Indicators.SetMiniIndicator();
-      //добавляем индикатор к верхней панели на странице аудиозаписей
-      Indicators.SetAllAC();
-      //Добавляем индикатор к всплывающему плееру
-      Indicators.SetAllPD();
       Indicators.indicateStatus();
     },
 
@@ -52,6 +48,7 @@
       Indicators.SetAcIndicator();
       Indicators.SetLoveAC();
       Indicators.SetTwitterAC();
+      Indicators.indicateStatus();
     },
 
     SetAllPD: function () {
@@ -59,6 +56,7 @@
       Indicators.SetPdIndicator();
       Indicators.SetLovePD();
       Indicators.SetTwitterPD();
+      Indicators.indicateStatus();
     },
 
     /**

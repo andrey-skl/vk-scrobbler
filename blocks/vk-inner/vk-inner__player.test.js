@@ -241,5 +241,19 @@ describe('Vk-inner player', function () {
         }
       });
     });
+
+    it('Should decode html entities from artist and track', function () {
+      patcher.audioPlayer = {lastSong: []};
+      patcher.audioPlayer.lastSong[ARTIST_NUM] = 'foo &amp; &lt; &quot; &plusmn; &deg;';
+      patcher.audioPlayer.lastSong[TITLE_NUM] = 'bar &amp;&copy;';
+
+      patcher.onPlayStart();
+      patcher.sendMessage.should.have.been.calledWith({
+        message: 'playStart', data: {
+          artist: 'foo & < " ± °',
+          title: 'bar &©'
+        }
+      });
+    });
   });
 });

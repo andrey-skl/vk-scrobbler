@@ -30,6 +30,7 @@
         "blocks/content/content__bus-wrapper.js",
         "blocks/content/content__script-injector.js",
         "blocks/content/content__utils.js",
+        "blocks/content/content__player-handlers.js",
         "blocks/content/content.js"
       ],
       "css": [

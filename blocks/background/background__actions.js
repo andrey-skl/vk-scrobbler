@@ -52,7 +52,7 @@
   };
 
   RequestActions.prototype[MSG.TOGGLE_PAUSE] = function (params) {
-    _gaq.push(['_trackEvent', "toggle pause scrobbling", "new status: " + params.request.paused, params.artist + ":" + params.title]);
+    _gaq.push(['_trackEvent', "toggle pause scrobbling", "new status: " + params.paused, params.artist + ":" + params.title]);
     return new Promise(function (resolve) {
       resolve();
     });

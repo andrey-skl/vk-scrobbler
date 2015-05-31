@@ -39,8 +39,8 @@
 
   PlayerPatcher.prototype.onPlayStart = function () {
     this.sendMessage({message: messagePlayStart, data: {
-      artist: this.audioPlayer.lastSong[ARTIST_NUM],
-      title: this.audioPlayer.lastSong[TITLE_NUM]
+      artist: PlayerPatcher.decodeHtmlEntity(this.audioPlayer.lastSong[ARTIST_NUM]),
+      title: PlayerPatcher.decodeHtmlEntity(this.audioPlayer.lastSong[TITLE_NUM])
     }});
   };
 
@@ -79,6 +79,15 @@
     } else {
       setTimeout(this.waitForPlayerAndPatch.bind(this), TRY_PATCH_INTERVAL);
     }
+  };
+
+  /**
+   * Decodes html special chars into normal text
+   */
+  PlayerPatcher.decodeHtmlEntity = function(str) {
+    var tmp = document.createElement('span');
+    tmp.innerHTML = str;
+    return tmp.textContent;
   };
 
   /**
