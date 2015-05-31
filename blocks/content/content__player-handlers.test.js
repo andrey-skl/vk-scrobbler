@@ -33,6 +33,7 @@ describe('Content PlayerHandlers', function () {
         enabled: true,
         playing: false,
         scrobbled: false,
+        scrobbling: false,
 
         artist: null,
         track: null,

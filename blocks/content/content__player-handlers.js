@@ -13,6 +13,7 @@
       enabled: true,
       playing: false,
       scrobbled: false,
+      scrobbling: false,
 
       artist: null,
       track: null,
@@ -77,11 +78,18 @@
   };
 
   PlayerHandlers.prototype.scrobbleIfNeeded = function (percent) {
-    if (this.state.enabled && !this.state.scrobbled && percent > SCROBBLE_PERCENTAGE) {
+    if (this.state.enabled &&
+      !this.state.scrobbled &&
+      !this.state.scrobbling &&
+      percent > SCROBBLE_PERCENTAGE) {
+      this.state.scrobbling = true;
       this.busWrapper.sendScrobleRequest(this.state.artist, this.state.track)
         .then(function () {
+          this.state.scrobbling = false;
           this.state.scrobbled = true;
           Indicators.indicateScrobbled();
+        }.bind(this), function onError() {
+          this.state.scrobbling = false;
         }.bind(this));
     }
   };
