@@ -19,7 +19,7 @@
       }
     });
 
-    //If audio page is a langing page, then just attaching indicators
+    //If audio page is a landing page, then just attaching indicators
     Indicators.SetAllAC();
     window.addEventListener("load", function () {
       Indicators.SetAllAC();
