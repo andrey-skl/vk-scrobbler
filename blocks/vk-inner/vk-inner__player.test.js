@@ -1,5 +1,7 @@
 describe('Vk-inner player', function () {
   'use strict';
+  var ARTIST_NUM = 5;
+  var TITLE_NUM = 6;
   var patcher;
   var PlayerPatcher = window.vkScrobbler.PlayerPatcher;
 
@@ -194,8 +196,17 @@ describe('Vk-inner player', function () {
     });
 
     it('Should send correct message on start playing ', function () {
+      patcher.audioPlayer = {lastSong: []};
+      patcher.audioPlayer.lastSong[ARTIST_NUM] = 'foo';
+      patcher.audioPlayer.lastSong[TITLE_NUM] = 'bar';
+
       patcher.onPlayStart();
-      patcher.sendMessage.should.have.been.calledWith({message: 'playStart'});
+      patcher.sendMessage.should.have.been.calledWith({
+        message: 'playStart', data: {
+          artist: 'foo',
+          title: 'bar'
+        }
+      });
     });
   });
 });

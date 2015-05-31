@@ -7,7 +7,6 @@
   var messagePlayStart = 'playStart';
   var ARTIST_NUM = 5;
   var TITLE_NUM = 6;
-  var SAVE_LINK = 2;
 
   var PlayerPatcher = function (extensionId) {
     this.extensionId = extensionId;
@@ -38,10 +37,15 @@
   };
 
   PlayerPatcher.prototype.onPlayStart = function () {
-    this.sendMessage({message: messagePlayStart});
+    this.sendMessage({message: messagePlayStart, data: {
+      artist: this.audioPlayer.lastSong[ARTIST_NUM],
+      title: this.audioPlayer.lastSong[TITLE_NUM]
+    }});
   };
 
   PlayerPatcher.prototype.patchAudioPlayer = function (audioPlayer) {
+    this.audioPlayer = audioPlayer;
+
     PlayerPatcher.addCallListener(audioPlayer, 'onPlayProgress', this.onProgress.bind(this));
 
     PlayerPatcher.addCallListener(audioPlayer, 'stop', this.onStop.bind(this));
