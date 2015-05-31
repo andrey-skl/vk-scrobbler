@@ -154,6 +154,8 @@
 
       this.listeners.toggleLove(Indicators.love).then(function () {
         e.target.classList.remove(pulseClassName);
+      }, function () {
+        e.target.classList.remove(pulseClassName);
       });
     },
 
