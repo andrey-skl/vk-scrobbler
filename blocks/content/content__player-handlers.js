@@ -24,10 +24,11 @@
     this.setUpIndicatorsListeners();
   }
 
-  PlayerHandlers.prototype.progress = function (current, total) {
-    var timeDiff = Date.now() - this.playTimeStamp;
-    this.playedTime += timeDiff / 1000;
-    var playedPercent = this.playedTime / total * 100;
+  PlayerHandlers.prototype.progress = function (data) {
+    var timeDiff = Date.now() - (this.state.playTimeStamp || Date.now());
+    this.state.playTimeStamp = Date.now();
+    this.state.playedTime += timeDiff / 1000;
+    var playedPercent = this.state.playedTime / data.total * 100;
 
     this.sendNowPlayingIfNeeded();
     this.scrobbleIfNeeded(playedPercent);
