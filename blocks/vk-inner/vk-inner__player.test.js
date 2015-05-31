@@ -61,6 +61,15 @@ describe('Vk-inner player', function () {
       var result = fakeObj.method();
       result.should.be.equal('res');
     });
+
+    it('Should support function passing and call it before', function () {
+      fakeObj.method = method;
+      var before = sinon.stub();
+      PlayerPatcher.addCallListener(fakeObj, 'method', before);
+      fakeObj.method('foo', {bar: 'test'});
+
+      before.should.have.been.calledWith('foo', {bar: 'test'});
+    });
   });
 
   describe('player patching', function () {

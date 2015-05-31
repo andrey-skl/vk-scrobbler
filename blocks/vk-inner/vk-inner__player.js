@@ -42,19 +42,13 @@
   };
 
   PlayerPatcher.prototype.patchAudioPlayer = function (audioPlayer) {
-    PlayerPatcher.addCallListener(audioPlayer, 'onPlayProgress', {
-      before: this.onProgress.bind(this)
-    });
+    PlayerPatcher.addCallListener(audioPlayer, 'onPlayProgress', this.onProgress.bind(this));
 
-    PlayerPatcher.addCallListener(audioPlayer, 'stop', {
-      before: this.onStop.bind(this)
-    });
+    PlayerPatcher.addCallListener(audioPlayer, 'stop', this.onStop.bind(this));
 
-    PlayerPatcher.addCallListener(audioPlayer, 'playback', {
-      before: function (paused) {
-        paused ? this.onPause() : this.onResume();
-      }.bind(this)
-    });
+    PlayerPatcher.addCallListener(audioPlayer, 'playback', function (paused) {
+      paused ? this.onPause() : this.onResume();
+    }.bind(this));
 
     PlayerPatcher.addCallListener(audioPlayer, 'operate', {
       before: function () {
@@ -65,28 +59,27 @@
       }.bind(this)
     });
 
-    PlayerPatcher.addCallListener(audioPlayer, 'loadGlobal', {
-      before: function () {
-        /**
-         * If calling by audioPlayer.operate, then it is starting new track playing
-         */
-        this.isOperating && this.onPlayStart();
-      }.bind(this)
-    });
+    PlayerPatcher.addCallListener(audioPlayer, 'loadGlobal', function () {
+      /**
+       * If calling by audioPlayer.operate, then it is starting new track playing
+       */
+      this.isOperating && this.onPlayStart();
+    }.bind(this));
   };
 
   /**
    * Adds listener to function's calls by monkey patching
    * @param object - object to patch
    * @param method - method to replace with monkey patched one
-   * @param callbacks, can contain "after" and "before" callbacks
+   * @param callbacks, can contain "after" and "before" callbacks, If function passed, it will be called before original
    * @returns {Function} - patched function
    */
   PlayerPatcher.addCallListener = function (object, method, callbacks) {
+    var before = callbacks.before || callbacks;
     var original = object[method];
 
     object[method] = function callHandler() {
-      callbacks.before && callbacks.before.apply(callbacks, arguments);
+      before && before.apply(callbacks, arguments);
 
       var result = original.apply(this, arguments);
 
