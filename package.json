@@ -44,7 +44,6 @@
     "karma-mocha": "^0.1.10",
     "karma-sinon-chai": "^0.3.0",
     "mocha": "^2.2.5",
-    "phantomjs": "^1.9.17",
     "sinon": "^1.14.1",
     "sinon-chrome": "^0.1.1"
   }
