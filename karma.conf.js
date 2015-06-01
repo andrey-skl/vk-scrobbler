@@ -74,7 +74,7 @@ module.exports = function(config) {
       // source files, that you wanna generate coverage for
       // do not include tests or libraries
       // (these files will be instrumented by Istanbul)
-      'blocks/**/*.js': ['coverage']
+      'blocks/**/!(*test).js': ['coverage']
     },
 
 
@@ -85,7 +85,7 @@ module.exports = function(config) {
 
 
     coverageReporter: {
-      type: process.env.TRAVIS ? 'lcovonly' :'lcov', // lcov or lcovonly are required for generating lcov.info files
+      type: process.env.TRAVIS ? 'lcovonly' :'html', //lcovonly are required for generating lcov.info files
       dir: 'coverage'
     },
 
