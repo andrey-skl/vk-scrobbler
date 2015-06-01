@@ -1,6 +1,7 @@
 /*jshint node: true*/
 var gulp = require('gulp');
 var watch = require('gulp-watch');
+var coveralls = require('gulp-coveralls');
 
 var source = './blocks/**/*';
 var manifest = './manifest.json';
@@ -20,4 +21,9 @@ gulp.task('copy', function() {
   gulp
     .src(gulpSources, {base: './'})
     .pipe(gulp.dest(destination));
+});
+
+gulp.task('coveralls', function () {
+  gulp.src('./coverage/**/lcov.info')
+    .pipe(coveralls());
 });
