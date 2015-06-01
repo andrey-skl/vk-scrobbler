@@ -15,7 +15,7 @@ script:
   - "npm test"
 
 after_success:
-  cat ./coverage/chrome/lcov.info | ./node_modules/.bin/codecov
+  - "cat ./coverage/chrome/lcov.info | ./node_modules/.bin/codecov"
 
 cache:
   directories:
