@@ -80,7 +80,7 @@
       }
 
       Indicators.love ? Indicators.indicateLoved() : Indicators.indicateNotLove();
-      this.twitLink && Indicators.setTwitButtonHref(this.this.twitLink);
+      this.twitLink && Indicators.setTwitButtonHref(this.twitLink);
     },
 
     setTwitButtonHref: function (link) {
