@@ -11,7 +11,7 @@ var getReporters = function () {
 
   if (process.env.TRAVIS) {
     reporters.push('coverage');
-    reporters.push('coveralls');
+    //reporters.push('coveralls');
   }
   return reporters;
 };
