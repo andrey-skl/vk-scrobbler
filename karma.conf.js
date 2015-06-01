@@ -8,11 +8,6 @@ var getReporters = function () {
   if (process.argv.indexOf('--coverage') !== -1) {
     reporters.push('coverage');
   }
-
-  if (process.env.TRAVIS) {
-    reporters.push('coverage');
-    reporters.push('coveralls');
-  }
   return reporters;
 };
 
@@ -91,11 +86,7 @@ module.exports = function(config) {
 
     coverageReporter: {
       type: 'lcov', // lcov or lcovonly are required for generating lcov.info files
-      dir: 'coverage',
-      subdir: function(browser) {
-        // normalization process to keep a consistent browser name accross different OS
-        return browser.toLowerCase().split(/[ /-]/)[0];
-      }
+      dir: 'coverage'
     },
 
 

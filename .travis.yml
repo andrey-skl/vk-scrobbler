@@ -15,7 +15,6 @@ script:
   - "npm test"
 
 after_success:
-  - ls coverage
   - cat coverage/**/lcov.info | ./node_modules/.bin/codecov
 
 cache:
