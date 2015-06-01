@@ -33,7 +33,6 @@
   },
   "devDependencies": {
     "chai": "^2.3.0",
-    "coveralls": "~2.11.2",
     "gulp": "^3.8.11",
     "gulp-watch": "^4.2.4",
     "jshint": "^2.7.0",
