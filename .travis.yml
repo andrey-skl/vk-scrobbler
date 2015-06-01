@@ -16,7 +16,7 @@ script:
 
 after_success:
   - ls coverage
-  - cat coverage/chrome/lcov.info | ./node_modules/.bin/codecov
+  - cat coverage/**/lcov.info | ./node_modules/.bin/codecov
 
 cache:
   directories:
