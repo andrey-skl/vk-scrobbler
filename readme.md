@@ -1,7 +1,7 @@
 # VK Scrobbler 
 
 [![Build Status](https://travis-ci.org/huston007/vk-scrobbler.svg?branch=master)](https://travis-ci.org/huston007/vk-scrobbler)
-[![Coverage Status](https://coveralls.io/repos/huston007/vk-scrobbler/badge.svg)](https://coveralls.io/r/huston007/vk-scrobbler)
+[![codecov.io](http://codecov.io/github/huston007/vk-scrobbler/coverage.svg?branch=master)](http://codecov.io/github/huston007/vk-scrobbler?branch=master)
 [![bitHound Score](https://www.bithound.io/github/huston007/vk-scrobbler/badges/score.svg)](https://www.bithound.io/github/huston007/vk-scrobbler) 
 [![devDependency Status](https://david-dm.org/huston007/vk-scrobbler/dev-status.svg)](https://david-dm.org/huston007/vk-scrobbler#info=devDependencies)
 
