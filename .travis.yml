@@ -9,13 +9,13 @@ before_install:
   - sh -e /etc/init.d/xvfb start
 
 before_script:
-  - "npm run lint"
+  - npm run lint
 
 script:
-  - "npm test"
+  - npm test -- --coverage
 
 after_success:
-  - cat coverage/chromium/lcov.info | ./node_modules/.bin/codecov
+  - cat coverage/*/lcov.info | ./node_modules/.bin/codecov
 
 cache:
   directories:

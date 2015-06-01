@@ -85,7 +85,7 @@ module.exports = function(config) {
 
 
     coverageReporter: {
-      type: 'lcov', // lcov or lcovonly are required for generating lcov.info files
+      type: process.env.TRAVIS ? 'lcovonly' :'lcov', // lcov or lcovonly are required for generating lcov.info files
       dir: 'coverage'
     },
 
