@@ -83,11 +83,11 @@ describe('Vk-inner player', function () {
 
     beforeEach(function () {
       fakePlayer = {
-        onPlayProgress: sinon.stub(),
-        stop: sinon.stub(),
-        playback: sinon.stub(),
-        operate: sinon.stub,
-        loadGlobal: sinon.stub()
+        onPlayProgress: this.sinon.stub(),
+        stop: this.sinon.stub(),
+        playback: this.sinon.stub(),
+        operate: this.sinon.stub(),
+        loadGlobal: this.sinon.stub()
       };
     });
 
@@ -111,7 +111,7 @@ describe('Vk-inner player', function () {
     });
 
     it('Should not send message if total is 0', function () {
-      sinon.stub(patcher, 'sendMessage');
+      this.sinon.stub(patcher, 'sendMessage');
 
       patcher.patchAudioPlayer(fakePlayer);
 
@@ -129,7 +129,7 @@ describe('Vk-inner player', function () {
     });
 
     it('Sould call onResume listener on resume', function () {
-      sinon.stub(patcher, 'onResume');
+      this.sinon.stub(patcher, 'onResume');
 
       patcher.patchAudioPlayer(fakePlayer);
 
@@ -138,7 +138,7 @@ describe('Vk-inner player', function () {
     });
 
     it('Sould call onStop listener on stop', function () {
-      sinon.stub(patcher, 'onStop');
+      this.sinon.stub(patcher, 'onStop');
 
       patcher.patchAudioPlayer(fakePlayer);
 
@@ -147,7 +147,7 @@ describe('Vk-inner player', function () {
     });
 
     it('Should set isOperating while audioPlayer.operate function is calling', function () {
-      var setter = sinon.stub();
+      var setter = this.sinon.stub();
       Object.defineProperty(patcher, 'isOperating', {set: setter});
 
       patcher.patchAudioPlayer(fakePlayer);
@@ -158,7 +158,7 @@ describe('Vk-inner player', function () {
     });
 
     it('Should call onPlayStart on start playing new track', function () {
-      sinon.stub(patcher, 'onPlayStart');
+      this.sinon.stub(patcher, 'onPlayStart');
 
       patcher.patchAudioPlayer(fakePlayer);
 
@@ -170,7 +170,7 @@ describe('Vk-inner player', function () {
     });
 
     it('Should not call onPlayStart on calling loadGlobal not from audioPlayer.operate', function () {
-      sinon.stub(patcher, 'onPlayStart');
+      this.sinon.stub(patcher, 'onPlayStart');
 
       patcher.patchAudioPlayer(fakePlayer);
 
@@ -184,12 +184,12 @@ describe('Vk-inner player', function () {
     describe('waiting and patching window.audioPlayer', function () {
       beforeEach(function () {
         PlayerPatcher.prototype.waitForPlayerAndPatch.restore();
-        this.clock = sinon.useFakeTimers();
+        this.clock = this.sinon.useFakeTimers();
       });
 
       it('Should wait for audioPLayer in window and patch it', function () {
         var p = new PlayerPatcher();
-        p.patchAudioPlayer = sinon.stub();
+        p.patchAudioPlayer = this.sinon.stub();
 
         this.clock.tick(10000);
 
@@ -202,7 +202,7 @@ describe('Vk-inner player', function () {
 
       it('Should no try to patch audioPlayer while it not exist on page', function () {
         var p = new PlayerPatcher();
-        p.patchAudioPlayer = sinon.stub();
+        p.patchAudioPlayer = this.sinon.stub();
         this.clock.tick(10000);
         p.patchAudioPlayer.should.not.have.been.calledWith({b: 'foo'});
       });
@@ -212,7 +212,7 @@ describe('Vk-inner player', function () {
 
   describe('Player listeners', function () {
     beforeEach(function () {
-      sinon.stub(patcher, 'sendMessage');
+      this.sinon.stub(patcher, 'sendMessage');
     });
 
     it('Should send correct message on progress', function () {
