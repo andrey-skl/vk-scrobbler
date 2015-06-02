@@ -15,7 +15,7 @@ module.exports = function(config) {
   config.set({
 
     // base path that will be used to resolve all patterns (eg. files, exclude)
-    basePath: './blocks',
+    basePath: '',
 
 
     // frameworks to use
@@ -25,38 +25,37 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
-      '../node_modules/js-md5/build/*.js',
-      '../node_modules/sinon-chrome/chrome.js',
+      'node_modules/js-md5/build/*.js',
+      'node_modules/sinon-chrome/chrome.js',
 
-      'namespace/*.js',
+      'blocks/namespace/*.js',
 
       //bus block
-      'bus/*.js',
+      'blocks/bus/*.js',
 
       //lastfm-api block
-      'lastfm-api/lastfm-api__config.js',
-      'lastfm-api/lastfm-api__client.js',
-      'lastfm-api/lastfm-api.js',
+      'blocks/lastfm-api/lastfm-api__config.js',
+      'blocks/lastfm-api/lastfm-api__client.js',
+      'blocks/lastfm-api/lastfm-api.js',
 
       //indicators block
-      'indicators/indicators__utils.js',
-      'indicators/indicators.js',
+      'blocks/indicators/indicators__utils.js',
+      'blocks/indicators/indicators.js',
 
       //content block
-      'content/content__utils.js',
-      'content/content__messages.js',
-      'content/content__bus-wrapper.js',
-      'content/content__player-handlers.js',
+      'blocks/content/content__utils.js',
+      'blocks/content/content__messages.js',
+      'blocks/content/content__bus-wrapper.js',
+      'blocks/content/content__player-handlers.js',
 
       //background block
-      'background/background__actions.js',
-      'background/background__auth.js',
-      'background/*.js',
+      'blocks/background/background__actions.js',
+      'blocks/background/background__auth.js',
 
       //vk inner
-      'vk-inner/vk-inner__player.js',
+      'blocks/vk-inner/vk-inner__player.js',
 
-      '**/*.test.js'
+      'blocks/**/*.test.js'
     ],
 
 
