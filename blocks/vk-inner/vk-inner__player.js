@@ -19,6 +19,10 @@
   };
 
   PlayerPatcher.prototype.onProgress = function (current, total) {
+    if (total === 0) {
+      //Fixes #2, #3. On windows, onPlayProgress calls before start by some reasons
+      return;
+    }
     this.sendMessage({message: messageProgress, data: {
       current: current,
       total: total

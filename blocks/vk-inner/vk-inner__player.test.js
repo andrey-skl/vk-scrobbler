@@ -6,17 +6,15 @@ describe('Vk-inner player', function () {
   var PlayerPatcher = window.vkScrobbler.PlayerPatcher;
 
   beforeEach(function () {
-    sinon.stub(PlayerPatcher.prototype, 'waitForPlayerAndPatch');
+    this.sinon = sinon.sandbox.create();
+    this.sinon.stub(PlayerPatcher.prototype, 'waitForPlayerAndPatch');
     patcher = new PlayerPatcher();
 
-    sinon.stub(window, 'postMessage');
+    this.sinon.stub(window, 'postMessage');
   });
 
   afterEach(function () {
-    if (PlayerPatcher.prototype.waitForPlayerAndPatch.restore) {
-      PlayerPatcher.prototype.waitForPlayerAndPatch.restore();
-    }
-    window.postMessage.restore();
+    this.sinon.restore();
   });
 
   it('Should init with chrome extension id', function () {
@@ -34,14 +32,14 @@ describe('Vk-inner player', function () {
     var fakeObj = {};
 
     beforeEach(function () {
-      method = sinon.stub();
+      method = this.sinon.stub();
       fakeObj.method = method;
     });
 
     beforeEach(function () {
       handler = {
-        before: sinon.stub(),
-        after: sinon.stub()
+        before: this.sinon.stub(),
+        after: this.sinon.stub()
       };
       PlayerPatcher.addCallListener(fakeObj, 'method', handler);
     });
@@ -72,7 +70,7 @@ describe('Vk-inner player', function () {
 
     it('Should support function passing and call it before', function () {
       fakeObj.method = method;
-      var before = sinon.stub();
+      var before = this.sinon.stub();
       PlayerPatcher.addCallListener(fakeObj, 'method', before);
       fakeObj.method('foo', {bar: 'test'});
 
@@ -104,7 +102,7 @@ describe('Vk-inner player', function () {
     });
 
     it('Sould call progress listener on progress', function () {
-      sinon.stub(patcher, 'onProgress');
+      this.sinon.stub(patcher, 'onProgress');
 
       patcher.patchAudioPlayer(fakePlayer);
 
@@ -112,8 +110,17 @@ describe('Vk-inner player', function () {
       patcher.onProgress.should.have.been.calledWith(10, 20);
     });
 
+    it('Should not send message if total is 0', function () {
+      sinon.stub(patcher, 'sendMessage');
+
+      patcher.patchAudioPlayer(fakePlayer);
+
+      fakePlayer.onPlayProgress(123, 0);
+      patcher.sendMessage.should.not.have.been.called;
+    });
+
     it('Sould call onPause listener on pause', function () {
-      sinon.stub(patcher, 'onPause');
+      this.sinon.stub(patcher, 'onPause');
 
       patcher.patchAudioPlayer(fakePlayer);
 
