@@ -15,7 +15,7 @@ module.exports = function(config) {
   config.set({
 
     // base path that will be used to resolve all patterns (eg. files, exclude)
-    basePath: '',
+    basePath: './blocks',
 
 
     // frameworks to use
@@ -25,41 +25,38 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
-      'node_modules/js-md5/build/*.js',
-      'node_modules/sinon-chrome/chrome.js',
-      'blocks/namespace/namespace.js',
+      '../node_modules/js-md5/build/*.js',
+      '../node_modules/sinon-chrome/chrome.js',
+
+      'namespace/*.js',
 
       //bus block
-      'blocks/bus/bus__background.js',
-      'blocks/bus/bus__content.js',
-      'blocks/bus/*.test.js',
+      'bus/*.js',
 
       //lastfm-api block
-      'blocks/lastfm-api/lastfm-api__config.js',
-      'blocks/lastfm-api/lastfm-api__client.js',
-      'blocks/lastfm-api/lastfm-api.js',
-      'blocks/lastfm-api/*.test.js',
+      'lastfm-api/lastfm-api__config.js',
+      'lastfm-api/lastfm-api__client.js',
+      'lastfm-api/lastfm-api.js',
 
       //indicators block
-      'blocks/indicators/indicators__utils.js',
-      'blocks/indicators/indicators.js',
-      'blocks/indicators/*.test.js',
+      'indicators/indicators__utils.js',
+      'indicators/indicators.js',
 
       //content block
-      'blocks/content/content__utils.js',
-      'blocks/content/content__messages.js',
-      'blocks/content/content__bus-wrapper.js',
-      'blocks/content/content__player-handlers.js',
-      'blocks/content/*.test.js',
+      'content/content__utils.js',
+      'content/content__messages.js',
+      'content/content__bus-wrapper.js',
+      'content/content__player-handlers.js',
 
       //background block
-      'blocks/background/background__actions.js',
-      'blocks/background/background__auth.js',
-      'blocks/background/*.test.js',
+      'background/background__actions.js',
+      'background/background__auth.js',
+      'background/*.js',
 
       //vk inner
-      'blocks/vk-inner/vk-inner__player.js',
-      'blocks/vk-inner/*.test.js'
+      'vk-inner/vk-inner__player.js',
+
+      '**/*.test.js'
     ],
 
 
