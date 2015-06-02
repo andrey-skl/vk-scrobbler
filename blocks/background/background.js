@@ -2,7 +2,7 @@
   'use strict';
 
   var backgroundAuth = window.vkScrobbler.backgroundAuth;
-  var RequestActions = window.vkScrobbler.RequestActions;
+  var BackgroundHandlers = window.vkScrobbler.BackgroundActions;
   var BusBackground = window.vkScrobbler.BusBackground;
   var bus;
 
@@ -17,8 +17,8 @@
     if (bus) {
       bus.close();
     }
-    var requestActions = new RequestActions(secretApiKey, userName);
-    bus = new BusBackground(requestActions);
+    var handlers = new BackgroundHandlers(secretApiKey, userName);
+    bus = new BusBackground(handlers);
   }
 
   var activate = function () {
