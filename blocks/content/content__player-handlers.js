@@ -27,17 +27,21 @@
   }
 
   PlayerHandlers.prototype.progress = function (data) {
+    if (!this.state.playing) {
+      return;
+    }
     var timeDiff = Date.now() - (this.state.playTimeStamp || Date.now());
-    this.state.playTimeStamp = Date.now();
     this.state.playedTime += timeDiff / 1000;
-    var playedPercent = this.state.playedTime / data.total * 100;
 
+    this.state.playTimeStamp = Date.now();
     this.sendNowPlayingIfNeeded();
+    var playedPercent = this.state.playedTime / data.total * 100;
     this.scrobbleIfNeeded(playedPercent);
   };
 
   PlayerHandlers.prototype.pause = function () {
     this.state.playing = false;
+    this.state.playTimeStamp = null;
     this.indicateScrobblerStatus();
   };
 

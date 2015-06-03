@@ -110,15 +110,6 @@ describe('Vk-inner player', function () {
       patcher.onProgress.should.have.been.calledWith(10, 20);
     });
 
-    it('Should not send message if total is 0', function () {
-      this.sinon.stub(patcher, 'sendMessage');
-
-      patcher.patchAudioPlayer(fakePlayer);
-
-      fakePlayer.onPlayProgress(123, 0);
-      patcher.sendMessage.should.not.have.been.called;
-    });
-
     it('Sould call onPause listener on pause', function () {
       this.sinon.stub(patcher, 'onPause');
 

@@ -54,14 +54,32 @@ describe('Content PlayerHandlers', function () {
   describe('Progress', function () {
     it('Should call sendNowPlayingIfNeeded every time', function () {
       this.sinon.stub(handlers, 'sendNowPlayingIfNeeded');
+      handlers.playStart({});
       handlers.progress({current: 10, total: 20});
       handlers.sendNowPlayingIfNeeded.should.have.been.called;
+    });
+
+    it('Should not handle progress call when state.playing = false (before playStart)', function () {
+      this.sinon.stub(handlers, 'sendNowPlayingIfNeeded');
+
+      handlers.progress({current: 10, total: 20});
+      handlers.sendNowPlayingIfNeeded.should.not.have.been.called;
+    });
+
+    it('Should not handle progress call when state.playing = false (after pause/stop)', function () {
+      this.sinon.stub(handlers, 'sendNowPlayingIfNeeded');
+      handlers.playStart({});
+
+      handlers.pause();
+      handlers.progress({current: 10, total: 20});
+      handlers.sendNowPlayingIfNeeded.should.not.have.been.called;
     });
 
     it('Should calculate percentage and send it to scrobbleIfNeeded', function () {
       var total = 20;
       var half = total / 2;
       this.sinon.stub(handlers, 'scrobbleIfNeeded');
+      handlers.playStart({});
 
       //Emulate that now 5 seconds is stored and 5 passed from last progress call
       handlers.state.playedTime = half/2;
@@ -70,9 +88,27 @@ describe('Content PlayerHandlers', function () {
       handlers.progress({total: total});
       handlers.scrobbleIfNeeded.should.have.been.calledWith(50);
     });
+
+    it('Should not scrobble track when pause one and go to another after big time (calls order from windows, #2 issue)', function () {
+      this.sinon.stub(handlers.busWrapper, 'sendScrobleRequest').returns({then: function(){}});
+      this.sinon.stub(Date, 'now').returns(33333);
+
+      //Start first track and payuse
+      handlers.playStart({artist: 'foo', title: 'bar'});
+      handlers.progress({current: 0, total: 100});
+      handlers.pause();
+      handlers.progress({current: 0, total: 100});
+
+      //handlers.resume();
+      Date.now.restore();
+      handlers.progress({current: 0, total: 100});
+
+      handlers.busWrapper.sendScrobleRequest.should.not.have.been.called;
+    });
   });
 
   describe('pause/resume/stop', function () {
+
     it('Should turn off "playing" flag on pause', function () {
       handlers.state.playing = true;
       handlers.pause();
@@ -91,6 +127,13 @@ describe('Content PlayerHandlers', function () {
       handlers.state.scrobbled = false;
       handlers.pause();
       Indicators.indicateVKscrobbler.should.have.been.called;
+    });
+
+    it('Should clear playTimeStamp on pause', function () {
+      this.sinon.stub(Indicators, 'indicateVKscrobbler');
+      handlers.state.playTimeStamp = 12341234;
+      handlers.pause();
+      expect(handlers.state.playTimeStamp).to.be.null;
     });
 
     it('Should turn on "playing" flag on resume', function () {
