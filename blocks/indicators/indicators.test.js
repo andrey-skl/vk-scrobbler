@@ -6,12 +6,8 @@ describe('Indicators', function () {
 
   beforeEach(function () {
     this.sinon = sinon.sandbox.create();
-    PATHS.PLAYING = 'http://foo.ru/play-now.png';
-    PATHS.SCROBBLED = 'http://foo.ru/scrobbled.png';
-    PATHS.DISABLED = 'http://foo.ru/disabled.png';
-
     Indicators.setListeners({
-      togglePauseScrobbling: sinon.stub()
+      togglePauseScrobbling: this.sinon.stub()
     });
   });
 
@@ -69,21 +65,38 @@ describe('Indicators', function () {
     });
 
     it('Should show equalizer if now playing', function () {
+      PATHS.PLAYING = 'http://foo.ru/play-now.png';
       Indicators.SetAcIndicator();
       Indicators.indicatePlayNow();
       mainPlayer.querySelector('#nowIndAC img').src.should.be.equal(PATHS.PLAYING);
     });
 
     it('Should show scrobbled', function () {
+      PATHS.SCROBBLED = 'http://foo.ru/scrobbled.png';
       Indicators.SetAcIndicator();
       Indicators.indicateScrobbled();
       mainPlayer.querySelector('#nowIndAC img').src.should.be.equal(PATHS.SCROBBLED);
     });
 
     it('Should show disabled if now playing', function () {
+      PATHS.DISABLED = 'http://foo.ru/disabled.png';
       Indicators.SetAcIndicator();
       Indicators.indicatePauseScrobbling();
       mainPlayer.querySelector('#nowIndAC img').src.should.be.equal(PATHS.DISABLED);
+    });
+
+    it('Should indicateLoved', function () {
+      PATHS.HEART_BLUE = 'http://foo.ru/blue.png';
+      Indicators.SetLoveAC();
+      Indicators.indicateLoved();
+      mainPlayer.querySelector('#loveDivAC img').src.should.be.equal(PATHS.HEART_BLUE);
+    });
+
+    it('Should indicateNotLove', function () {
+      PATHS.HEART_GRAY = 'http://foo.ru/gray.png';
+      Indicators.SetLoveAC();
+      Indicators.indicateNotLove();
+      mainPlayer.querySelector('#loveDivAC img').src.should.be.equal(PATHS.HEART_GRAY);
     });
   });
 
@@ -116,4 +129,70 @@ describe('Indicators', function () {
       popupPlayer.querySelector('#twitterDivPD').should.be.defined;
     });
   });
+
+  describe('Mini indicators', function () {
+    var minPLayer;
+
+    beforeEach(function () {
+      minPLayer = document.createElement('div');
+      minPLayer.innerHTML = '<div id="gp_small"></div>';
+      document.body.appendChild(minPLayer);
+    });
+
+    afterEach(function () {
+      document.body.removeChild(minPLayer);
+    });
+
+    it('Should add status indicator to mini audio player', function () {
+      Indicators.SetMiniIndicator();
+      minPLayer.querySelector('#nowIndicator').should.be.defined;
+    });
+  });
+
+  describe('Love buttons actions', function () {
+    var pulseClass = 'indicators__love_pulse';
+    var fakeEvent;
+    var elem;
+    var fakeToggleLove;
+
+    beforeEach(function () {
+      fakeToggleLove = this.sinon.stub();
+      Indicators.setListeners({
+        toggleLove: fakeToggleLove
+      });
+      elem = document.createElement('div');
+      fakeEvent = {target: elem};
+    });
+
+    it('Should add pulsing class while sending love request', function () {
+      fakeToggleLove.returns({then: function() {}});
+      Indicators._loveClickListener(fakeEvent);
+      elem.classList.contains(pulseClass).should.be.true;
+    });
+
+    it('Should remove pulsing class after finish love request', function () {
+      fakeToggleLove.returns({then: function(cb) {
+        cb();
+      }});
+      Indicators._loveClickListener(fakeEvent);
+      elem.classList.contains(pulseClass).should.be.false;
+    });
+
+    it('Should remove pulsing class after fail love request', function () {
+      fakeToggleLove.returns({then: function(cb, errorcallback) {
+        errorcallback();
+      }});
+      Indicators._loveClickListener(fakeEvent);
+      elem.classList.contains(pulseClass).should.be.false;
+    });
+
+    it('Should do nothing if icon is already pulsing', function () {
+      elem.classList.add(pulseClass);
+      fakeToggleLove.returns({then: function() {}});
+      Indicators._loveClickListener(fakeEvent);
+
+      fakeToggleLove.should.not.have.been.called;
+    });
+  });
+
 });

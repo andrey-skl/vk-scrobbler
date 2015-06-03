@@ -209,4 +209,53 @@ describe('Content PlayerHandlers', function () {
       handlers.checkTrackLove.should.have.been.calledWith('foo', 'bar');
     });
   });
+
+  describe('scrobbleIfNeeded', function () {
+    it('Should not scrobble, if not enabled', function () {
+      this.sinon.stub(handlers.busWrapper, 'sendScrobleRequest');
+
+      handlers.state.enabled = false;
+      handlers.state.scrobbled = false;
+      handlers.state.scrobbling = false;
+
+      handlers.scrobbleIfNeeded(90);
+      handlers.busWrapper.sendScrobleRequest.should.not.have.been.called;
+    });
+
+    it('Should not scrobble, if percentage < 50', function () {
+      this.sinon.stub(handlers.busWrapper, 'sendScrobleRequest');
+      handlers.scrobbleIfNeeded(49);
+      handlers.busWrapper.sendScrobleRequest.should.not.have.been.called;
+    });
+
+    it('Should scrobble, if percentage > 50', function () {
+      this.sinon.stub(handlers.busWrapper, 'sendScrobleRequest').returns({then: function(){}});
+      handlers.scrobbleIfNeeded(51);
+      handlers.busWrapper.sendScrobleRequest.should.have.been.called;
+    });
+
+    it('Should set scrobbling flag while scrobbling', function () {
+      this.sinon.stub(handlers.busWrapper, 'sendScrobleRequest').returns({then: function(){}});
+      handlers.scrobbleIfNeeded(51);
+      handlers.state.scrobbling.should.be.true;
+    });
+
+    it('Should update state after success scrobbling', function () {
+      this.sinon.stub(handlers.busWrapper, 'sendScrobleRequest').returns({then: function(callback){
+        callback();
+      }});
+      handlers.scrobbleIfNeeded(51);
+      handlers.state.scrobbling.should.be.false;
+      handlers.state.scrobbled.should.be.true;
+    });
+
+    it('Should indicate scrobbled after successfull scrobble', function () {
+      this.sinon.stub(Indicators, 'indicateScrobbled');
+      this.sinon.stub(handlers.busWrapper, 'sendScrobleRequest').returns({then: function(callback){
+        callback();
+      }});
+      handlers.scrobbleIfNeeded(51);
+      Indicators.indicateScrobbled.should.have.been.called;
+    });
+  });
 });
