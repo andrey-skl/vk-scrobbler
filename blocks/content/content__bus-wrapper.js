@@ -1,37 +1,24 @@
 (function () {
   'use strict';
   var BusContent = window.vkScrobbler.BusContent;
-  var NONE_VALUE = "vknone";
   var MSG = window.vkScrobbler.contentMessages;
-
-  function notNone(artist, track) {
-    return artist !== NONE_VALUE && track !== NONE_VALUE;
-  }
 
   var ContentBusWrapper = function () {
     this.bus = new BusContent('vk-scrobbler-bus');
   };
 
   ContentBusWrapper.prototype.sendScrobleRequest = function (artist, track) {
-    if (notNone(artist, track)) {
-      return this.bus.sendMessage(MSG.NEED_SCROOBLE, {
-        artist: artist,
-        title: track
-      });
-    } else {
-      console.warn("none artist detected while sending scrobble request");
-    }
+    return this.bus.sendMessage(MSG.NEED_SCROOBLE, {
+      artist: artist,
+      title: track
+    });
   };
 
   ContentBusWrapper.prototype.sendNowPlayingRequest = function (artist, track) {
-    if (notNone(artist, track)) {
-      return this.bus.sendMessage(MSG.NOW_PLAYING, {
-        artist: artist,
-        title: track
-      });
-    } else {
-      console.warn("none artist detected while sending now playing request");
-    }
+    return this.bus.sendMessage(MSG.NOW_PLAYING, {
+      artist: artist,
+      title: track
+    });
   };
 
   ContentBusWrapper.prototype.sendPauseStatus = function (artist, track, paused) {
