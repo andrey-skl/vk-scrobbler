@@ -1,5 +1,4 @@
 {
-  "update_url": "https://clients2.google.com/service/update2/crx",
   "name": "VK scrobbler",
   "description": "Скробблинг проигрываемой на vk.com музыки на last.fm",
   "icons": {
