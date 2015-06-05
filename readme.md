@@ -1,9 +1,9 @@
 # VK Scrobbler 
 
-[![Build Status](https://travis-ci.org/huston007/vk-scrobbler.svg?branch=master)](https://travis-ci.org/huston007/vk-scrobbler)
-[![codecov.io](http://codecov.io/github/huston007/vk-scrobbler/coverage.svg?branch=master)](http://codecov.io/github/huston007/vk-scrobbler?branch=master)
-[![bitHound Score](https://www.bithound.io/github/huston007/vk-scrobbler/badges/score.svg)](https://www.bithound.io/github/huston007/vk-scrobbler) 
-[![devDependency Status](https://david-dm.org/huston007/vk-scrobbler/dev-status.svg)](https://david-dm.org/huston007/vk-scrobbler#info=devDependencies)
+[![tag:?](https://img.shields.io/github/tag/huston007/vk-scrobbler.svg?style=flat-square)](https://github.com/huston007/vk-scrobbler/releases) 
+[![Build Status](https://img.shields.io/travis/huston007/vk-scrobbler.svg?style=flat-square)](https://travis-ci.org/huston007/vk-scrobbler)
+[![codecov.io](https://img.shields.io/codecov/c/github/huston007/vk-scrobbler.svg?style=flat-square)](http://codecov.io/github/huston007/vk-scrobbler?branch=master)
+[![devDependency Status](https://img.shields.io/david/dev/huston007/vk-scrobbler.svg?style=flat-square)](https://david-dm.org/huston007/vk-scrobbler#info=devDependencies)
 
 ![Promo image](https://lh3.googleusercontent.com/qlB2XjU2JlPnBcMdLF4j1mYvkAneQK2ObFmzhz3bD81vaCCk9UEuRF26MHmB_sAb1JY8OiCLaJg=s1280-h800-e365-rw)
 
