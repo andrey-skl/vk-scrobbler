@@ -1,6 +1,6 @@
 # VK Scrobbler 
 
-[![tag:?](https://img.shields.io/github/tag/huston007/vk-scrobbler.svg?style=flat-square)](https://github.com/huston007/vk-scrobbler/releases) 
+[![Release](https://img.shields.io/github/release/huston007/vk-scrobbler.svg?style=flat-square&label=v)](https://github.com/huston007/vk-scrobbler/releases) 
 [![Build Status](https://img.shields.io/travis/huston007/vk-scrobbler.svg?style=flat-square)](https://travis-ci.org/huston007/vk-scrobbler)
 [![codecov.io](https://img.shields.io/codecov/c/github/huston007/vk-scrobbler.svg?style=flat-square)](http://codecov.io/github/huston007/vk-scrobbler?branch=master)
 [![devDependency Status](https://img.shields.io/david/dev/huston007/vk-scrobbler.svg?style=flat-square)](https://david-dm.org/huston007/vk-scrobbler#info=devDependencies)
