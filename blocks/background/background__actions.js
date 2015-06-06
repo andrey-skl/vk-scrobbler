@@ -19,8 +19,6 @@
   };
 
   BackgroundActions.prototype[MSG.NOW_PLAYING] = function (params) {
-    _gaq.push(['_trackEvent', "nowPlaying", params.artist + ":" + params.title]);
-
     return this.api.nowPlaying(params).then(function (response) {
       console.info("Композиция " + params.artist + ": " + params.title + " отмечена как проигрываемая!");
       return response;
