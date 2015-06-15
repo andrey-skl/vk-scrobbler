@@ -234,7 +234,7 @@ describe('Content PlayerHandlers', function () {
       handlers.state.track = 'other';
       callback({track: {userloved: '1'}});
 
-      Indicators.indicateLoved.should.not.have.been.called;;
+      Indicators.indicateLoved.should.not.have.been.called;
     });
   });
 
