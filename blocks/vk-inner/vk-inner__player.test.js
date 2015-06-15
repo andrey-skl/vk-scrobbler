@@ -1,6 +1,7 @@
 describe('Vk-inner player', function () {
   'use strict';
   var ARTIST_NUM = 5;
+  var TOTAL_NUM = 3;
   var TITLE_NUM = 6;
   var patcher;
   var PlayerPatcher = window.vkScrobbler.PlayerPatcher;
@@ -87,7 +88,8 @@ describe('Vk-inner player', function () {
         stop: this.sinon.stub(),
         playback: this.sinon.stub(),
         operate: this.sinon.stub(),
-        loadGlobal: this.sinon.stub()
+        loadGlobal: this.sinon.stub(),
+        lastSong: []
       };
     });
 
@@ -207,7 +209,12 @@ describe('Vk-inner player', function () {
     });
 
     it('Should send correct message on progress', function () {
-      patcher.onProgress(10, 20);
+      patcher.audioPlayer = {
+        lastSong: []
+      };
+      patcher.audioPlayer.lastSong[TOTAL_NUM] = 20;
+
+      patcher.onProgress(10);
       patcher.sendMessage.should.have.been.calledWith({message: 'progress', data: {current: 10, total: 20}});
     });
 

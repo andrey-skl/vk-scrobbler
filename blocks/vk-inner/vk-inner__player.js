@@ -7,6 +7,7 @@
   var messagePlayStart = 'playStart';
   var ARTIST_NUM = 5;
   var TITLE_NUM = 6;
+  var TOTAL_NUM = 3;
   var TRY_PATCH_INTERVAL = 300;
 
   var PlayerPatcher = function () {
@@ -18,10 +19,16 @@
     window.postMessage({vkPlayerPatcherMessage: true, message: msg}, window.location.href);
   };
 
-  PlayerPatcher.prototype.onProgress = function (current, total) {
+  PlayerPatcher.prototype.getTotal = function () {
+    //lastSong should be used because total argument of onProgress is unstable with flash-based player (#4 issue)
+    var totalStr = this.audioPlayer.lastSong[TOTAL_NUM];
+    return parseInt(totalStr);
+  };
+
+  PlayerPatcher.prototype.onProgress = function (current) {
     this.sendMessage({message: messageProgress, data: {
       current: current,
-      total: total
+      total: this.getTotal()
     }});
   };
 

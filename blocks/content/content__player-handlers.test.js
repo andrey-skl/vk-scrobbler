@@ -78,12 +78,13 @@ describe('Content PlayerHandlers', function () {
     it('Should calculate percentage and send it to scrobbleIfNeeded', function () {
       var total = 20;
       var half = total / 2;
+      this.sinon.stub(Date, 'now').returns(33333);
       this.sinon.stub(handlers, 'scrobbleIfNeeded');
       handlers.playStart({});
 
       //Emulate that now 5 seconds is stored and 5 passed from last progress call
       handlers.state.playedTime = half/2;
-      handlers.state.playTimeStamp = Date.now() - half/2 * 1000;
+      handlers.state.playTimeStamp = 33333 - half/2 * 1000;
 
       handlers.progress({total: total});
       handlers.scrobbleIfNeeded.should.have.been.calledWith(50);
@@ -207,6 +208,33 @@ describe('Content PlayerHandlers', function () {
       this.sinon.stub(handlers, 'checkTrackLove');
       handlers.playStart({artist: 'foo', title: 'bar'});
       handlers.checkTrackLove.should.have.been.calledWith('foo', 'bar');
+    });
+
+    it('Should indicate track love if track is loved', function () {
+      this.sinon.stub(Indicators, 'indicateLoved');
+      this.sinon.stub(handlers.busWrapper, 'getTrackInfoRequest').returns({then: function(callback){
+        callback({track: {userloved: '1'}});
+      }});
+      handlers.state.artist = 'foo';
+      handlers.state.track = 'bar';
+
+      handlers.checkTrackLove('foo', 'bar');
+      Indicators.indicateLoved.should.have.been.called;
+    });
+
+    it('Should not indicate track love if track is changed while performing request', function () {
+      var callback;
+      this.sinon.stub(Indicators, 'indicateLoved');
+      this.sinon.stub(handlers.busWrapper, 'getTrackInfoRequest').returns({then: function(cb){
+        callback = cb;
+      }});
+      handlers.state.artist = 'foo';
+      handlers.state.track = 'bar';
+      handlers.checkTrackLove('foo', 'bar');
+      handlers.state.track = 'other';
+      callback({track: {userloved: '1'}});
+
+      Indicators.indicateLoved.should.not.have.been.called;;
     });
   });
 
