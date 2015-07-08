@@ -38,13 +38,12 @@
     "gulp-watch": "^4.2.4",
     "jshint": "^2.7.0",
     "karma": "^0.12.32",
-    "karma-chai": "^0.1.0",
-    "karma-chrome-launcher": "^0.1.12",
-    "karma-coverage": "^0.3.1",
-    "karma-mocha": "^0.1.10",
-    "karma-sinon-chai": "^0.3.0",
+    "karma-chrome-launcher": "^0.2",
+    "karma-coverage": "^0.4",
+    "karma-mocha": "^0.2",
+    "karma-sinon-chai": "^1.0.0",
     "mocha": "^2.2.5",
-    "sinon": "^1.14.1",
-    "sinon-chrome": "^0.1.1"
+    "sinon": "^1.15.4",
+    "sinon-chrome": "0.1.2"
   }
 }
