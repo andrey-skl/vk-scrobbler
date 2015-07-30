@@ -239,6 +239,11 @@ describe('Content PlayerHandlers', function () {
   });
 
   describe('scrobbleIfNeeded', function () {
+    beforeEach(function () {
+      handlers.state.artist = 'foo';
+      handlers.state.track = 'bar';
+    });
+
     it('Should not scrobble, if not enabled', function () {
       this.sinon.stub(handlers.busWrapper, 'sendScrobleRequest');
 
@@ -253,6 +258,14 @@ describe('Content PlayerHandlers', function () {
     it('Should not scrobble, if percentage < 50', function () {
       this.sinon.stub(handlers.busWrapper, 'sendScrobleRequest');
       handlers.scrobbleIfNeeded(49);
+      handlers.busWrapper.sendScrobleRequest.should.not.have.been.called;
+    });
+
+    it('Should not scrobble, if there is no track or artist', function () {
+      this.sinon.stub(handlers.busWrapper, 'sendScrobleRequest');
+      handlers.state.artist = null;
+      handlers.state.track = null;
+      handlers.scrobbleIfNeeded(51);
       handlers.busWrapper.sendScrobleRequest.should.not.have.been.called;
     });
 

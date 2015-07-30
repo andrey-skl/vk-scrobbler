@@ -85,6 +85,8 @@
     if (this.state.enabled &&
       !this.state.scrobbled &&
       !this.state.scrobbling &&
+      this.state.artist &&
+      this.state.track &&
       percent > SCROBBLE_PERCENTAGE) {
       this.state.scrobbling = true;
       this.busWrapper.sendScrobleRequest(this.state.artist, this.state.track)
