@@ -14,7 +14,7 @@ describe('Background auth', function () {
 
     chrome.tabs.create.should.been.calledWith({
       selected: true,
-      url: "http://www.lastfm.ru/api/auth/?api_key=" + lastFmConfig.apiKey
+      url: "http://www.lastfm.ru/api/auth?api_key=" + lastFmConfig.apiKey
     });
   });
 
