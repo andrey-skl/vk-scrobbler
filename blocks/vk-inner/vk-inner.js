@@ -1,6 +1,11 @@
 ﻿(function () {
   'use strict';
-  var PlayerPatcher = window.vkScrobbler.PlayerPatcher;
+  var PlayerListener = window.vkScrobbler.PlayerListener;
+  var PlayerPatcher = window.vkScrobbler.PlayerPatcherOld;
 
-  var patcher = new PlayerPatcher();
+  var isOldUI = 'Page' in window; //new UI doesn't have Page object in window
+
+  var PlayerPatcherToUse = isOldUI ? PlayerPatcher : PlayerListener;
+
+  new PlayerPatcherToUse();
 })();

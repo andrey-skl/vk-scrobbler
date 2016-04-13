@@ -5,118 +5,87 @@
   var messageResume = 'resume';
   var messageStop = 'stop';
   var messagePlayStart = 'playStart';
-  var ARTIST_NUM = 5;
-  var TITLE_NUM = 6;
-  var TOTAL_NUM = 3;
+  var ARTIST_NUM = 4;
+  var TITLE_NUM = 3;
+  var TOTAL_NUM = 5;
   var TRY_PATCH_INTERVAL = 300;
 
-  var PlayerPatcher = function () {
-    this.osOperating = false; //is audioPlayer.operate function is calling
-    this.waitForPlayerAndPatch();
+  var PlayerListener = function () {
+    this.waitForPlayerAndSubscribe();
   };
 
-  PlayerPatcher.prototype.sendMessage = function (msg) {
+  PlayerListener.prototype.sendMessage = function (msg) {
     window.postMessage({vkPlayerPatcherMessage: true, message: msg}, window.location.href);
   };
 
-  PlayerPatcher.prototype.getTotal = function () {
-    //lastSong should be used because total argument of onProgress is unstable with flash-based player (#4 issue)
-    var totalStr = this.audioPlayer.lastSong[TOTAL_NUM];
+
+  PlayerListener.prototype.getTotal = function () {
+    //_currentAudio should be used because total argument of onProgress is unstable with flash-based player (#4 issue)
+    var totalStr = this.audioPlayer._currentAudio[TOTAL_NUM];
     return parseInt(totalStr);
   };
 
-  PlayerPatcher.prototype.onProgress = function (current) {
+  /**
+   *
+   * @param track - playing track
+   * @param playedPart - part of zero. like 0.50 for 50%
+     */
+  PlayerListener.prototype.onProgress = function (track, playedPart) {
     this.sendMessage({message: messageProgress, data: {
-      current: current,
+      current: this.getTotal() * playedPart,
       total: this.getTotal()
     }});
   };
 
-  PlayerPatcher.prototype.onPause = function () {
+  PlayerListener.prototype.onPause = function () {
     this.sendMessage({message: messagePause});
   };
 
-  PlayerPatcher.prototype.onResume = function () {
+  PlayerListener.prototype.onResume = function () {
     this.sendMessage({message: messageResume});
   };
 
-  PlayerPatcher.prototype.onStop = function () {
+  PlayerListener.prototype.onStop = function () {
     this.sendMessage({message: messageStop});
   };
 
-  PlayerPatcher.prototype.onPlayStart = function () {
+  PlayerListener.prototype.onPlayStart = function (track, isNewTrackStarted) {
+    if (!isNewTrackStarted) {
+      return this.onResume();
+    }
+
     this.sendMessage({message: messagePlayStart, data: {
-      artist: PlayerPatcher.decodeHtmlEntity(this.audioPlayer.lastSong[ARTIST_NUM]),
-      title: PlayerPatcher.decodeHtmlEntity(this.audioPlayer.lastSong[TITLE_NUM])
+      artist: PlayerListener.decodeHtmlEntity(this.audioPlayer._currentAudio[ARTIST_NUM]),
+      title: PlayerListener.decodeHtmlEntity(this.audioPlayer._currentAudio[TITLE_NUM])
     }});
   };
 
-  PlayerPatcher.prototype.patchAudioPlayer = function (audioPlayer) {
+  PlayerListener.prototype.subscribeToPlayerEvents = function (audioPlayer) {
     this.audioPlayer = audioPlayer;
 
-    PlayerPatcher.addCallListener(audioPlayer, 'onPlayProgress', this.onProgress.bind(this));
-
-    PlayerPatcher.addCallListener(audioPlayer, 'stop', this.onStop.bind(this));
-
-    PlayerPatcher.addCallListener(audioPlayer, 'playback', function (paused) {
-      paused ? this.onPause() : this.onResume();
-    }.bind(this));
-
-    PlayerPatcher.addCallListener(audioPlayer, 'operate', {
-      before: function () {
-        this.isOperating = true;
-      }.bind(this),
-      after: function () {
-        this.isOperating = false;
-      }.bind(this)
-    });
-
-    PlayerPatcher.addCallListener(audioPlayer, 'loadGlobal', function () {
-      /**
-       * If calling by audioPlayer.operate, then it is starting new track playing
-       */
-      this.isOperating && this.onPlayStart();
-    }.bind(this));
-  };
-
-
-  PlayerPatcher.prototype.waitForPlayerAndPatch = function () {
-    if (window.audioPlayer) {
-      this.patchAudioPlayer(window.audioPlayer);
-    } else {
-      setTimeout(this.waitForPlayerAndPatch.bind(this), TRY_PATCH_INTERVAL);
-    }
+    audioPlayer.subscribers.push({et: 'start', cb: this.onPlayStart.bind(this)});
+    audioPlayer.subscribers.push({et: 'progress', cb: this.onProgress.bind(this)});
+    audioPlayer.subscribers.push({et: 'pause', cb: this.onProgress.bind(this)});
+    audioPlayer.subscribers.push({et: 'stop', cb: this.onProgress.bind(this)});
   };
 
   /**
    * Decodes html special chars into normal text
    */
-  PlayerPatcher.decodeHtmlEntity = function(str) {
+  PlayerListener.decodeHtmlEntity = function(str) {
     var tmp = document.createElement('textarea'); //use textarea to be sure that no scripts can be injected
     tmp.innerHTML = str;
     return tmp.textContent;
   };
 
-  /**
-   * Adds listener to function's calls by monkey patching
-   * @param object - object to patch
-   * @param method - method to replace with monkey patched one
-   * @param callbacks, can contain "after" and "before" callbacks, If function passed, it will be called before original
-   * @returns {Function} - patched function
-   */
-  PlayerPatcher.addCallListener = function (object, method, callbacks) {
-    var before = callbacks.before || callbacks;
-    var original = object[method];
-
-    object[method] = function callHandler() {
-      before && before.apply(callbacks, arguments);
-
-      var result = original.apply(this, arguments);
-
-      callbacks.after && callbacks.after.apply(callbacks, arguments);
-      return result;
-    };
+  PlayerListener.prototype.waitForPlayerAndSubscribe = function () {
+    if (window.ap) {
+      this.subscribeToPlayerEvents(window.ap);
+    } else {
+      setTimeout(this.waitForPlayerAndSubscribe.bind(this), TRY_PATCH_INTERVAL);
+    }
   };
 
-  window.vkScrobbler.PlayerPatcher = PlayerPatcher;
+
+  window.vkScrobbler.PlayerListener = PlayerListener;
 })();

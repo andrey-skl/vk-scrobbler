@@ -13,6 +13,10 @@
       var playerScript = document.createElement('script');
       playerScript.src = chrome.extension.getURL("blocks/vk-inner/vk-inner__player.js");
       document.body.appendChild(playerScript);
+
+      var playerScriptOld = document.createElement('script');
+      playerScriptOld.src = chrome.extension.getURL("blocks/vk-inner/vk-inner__player_old.js");
+      document.body.appendChild(playerScriptOld);
     },
     injectVkInner: function () {
       //исполнить скрипт vk_inner в контексте vk.com

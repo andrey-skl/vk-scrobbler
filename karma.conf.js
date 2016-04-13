@@ -54,6 +54,7 @@ module.exports = function(config) {
 
       //vk inner
       'blocks/vk-inner/vk-inner__player.js',
+      'blocks/vk-inner/vk-inner__player_old.js',
 
       'blocks/**/*.test.js'
     ],

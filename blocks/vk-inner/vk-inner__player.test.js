@@ -1,15 +1,15 @@
 describe('Vk-inner player', function () {
   'use strict';
-  var ARTIST_NUM = 5;
-  var TOTAL_NUM = 3;
-  var TITLE_NUM = 6;
+  var ARTIST_NUM = 4;
+  var TITLE_NUM = 3;
+  var TOTAL_NUM = 5;
   var patcher;
-  var PlayerPatcher = window.vkScrobbler.PlayerPatcher;
+  var PlayerListener = window.vkScrobbler.PlayerListener;
 
   beforeEach(function () {
     this.sinon = sinon.sandbox.create();
-    this.sinon.stub(PlayerPatcher.prototype, 'waitForPlayerAndPatch');
-    patcher = new PlayerPatcher();
+    this.sinon.stub(PlayerListener.prototype, 'waitForPlayerAndSubscribe');
+    patcher = new PlayerListener();
 
     this.sinon.stub(window, 'postMessage');
   });
@@ -27,177 +27,43 @@ describe('Vk-inner player', function () {
     window.postMessage.should.have.been.calledWith({vkPlayerPatcherMessage: true, message: {foo: 'bar'}});
   });
 
-  describe('callListener', function () {
-    var method;
-    var handler;
-    var fakeObj = {};
-
-    beforeEach(function () {
-      method = this.sinon.stub();
-      fakeObj.method = method;
-    });
-
-    beforeEach(function () {
-      handler = {
-        before: this.sinon.stub(),
-        after: this.sinon.stub()
-      };
-      PlayerPatcher.addCallListener(fakeObj, 'method', handler);
-    });
-
-    it('Should pass call to original', function () {
-      fakeObj.method('foo', {bar: 'test'});
-
-      method.should.have.been.calledWith('foo', {bar: 'test'});
-    });
-
-    it('Should call "after" handler', function () {
-      fakeObj.method('foo', {bar: 'test'});
-
-      handler.after.should.have.been.calledWith('foo', {bar: 'test'});
-    });
-
-    it('Should call "before" handler', function () {
-      fakeObj.method('foo', {bar: 'test'});
-
-      handler.before.should.have.been.calledWith('foo', {bar: 'test'});
-    });
-
-    it('Should not miss function call result', function () {
-      method.returns('res');
-      var result = fakeObj.method();
-      result.should.be.equal('res');
-    });
-
-    it('Should support function passing and call it before', function () {
-      fakeObj.method = method;
-      var before = this.sinon.stub();
-      PlayerPatcher.addCallListener(fakeObj, 'method', before);
-      fakeObj.method('foo', {bar: 'test'});
-
-      before.should.have.been.calledWith('foo', {bar: 'test'});
-    });
-  });
-
   describe('player patching', function () {
-    var fakePlayer;
-
-    beforeEach(function () {
-      fakePlayer = {
-        onPlayProgress: this.sinon.stub(),
-        stop: this.sinon.stub(),
-        playback: this.sinon.stub(),
-        operate: this.sinon.stub(),
-        loadGlobal: this.sinon.stub(),
-        lastSong: []
-      };
-    });
-
-    it('Should patch audioPlayer methods', function () {
-      patcher.patchAudioPlayer(fakePlayer);
-
-      fakePlayer.onPlayProgress.name.should.be.equal('callHandler');
-      fakePlayer.stop.name.should.be.equal('callHandler');
-      fakePlayer.playback.name.should.be.equal('callHandler');
-      fakePlayer.operate.name.should.be.equal('callHandler');
-      fakePlayer.loadGlobal.name.should.be.equal('callHandler');
-    });
-
-    it('Sould call progress listener on progress', function () {
-      this.sinon.stub(patcher, 'onProgress');
-
-      patcher.patchAudioPlayer(fakePlayer);
-
-      fakePlayer.onPlayProgress(10, 20);
-      patcher.onProgress.should.have.been.calledWith(10, 20);
-    });
-
-    it('Sould call onPause listener on pause', function () {
-      this.sinon.stub(patcher, 'onPause');
-
-      patcher.patchAudioPlayer(fakePlayer);
-
-      fakePlayer.playback(true);
-      patcher.onPause.should.have.been.called;
-    });
-
-    it('Sould call onResume listener on resume', function () {
-      this.sinon.stub(patcher, 'onResume');
-
-      patcher.patchAudioPlayer(fakePlayer);
-
-      fakePlayer.playback();
-      patcher.onResume.should.have.been.called;
-    });
-
-    it('Sould call onStop listener on stop', function () {
-      this.sinon.stub(patcher, 'onStop');
-
-      patcher.patchAudioPlayer(fakePlayer);
-
-      fakePlayer.stop();
-      patcher.onStop.should.have.been.called;
-    });
-
-    it('Should set isOperating while audioPlayer.operate function is calling', function () {
-      var setter = this.sinon.stub();
-      Object.defineProperty(patcher, 'isOperating', {set: setter});
-
-      patcher.patchAudioPlayer(fakePlayer);
-
-      fakePlayer.operate();
-
-      setter.should.have.been.calledTwice;
-    });
-
-    it('Should call onPlayStart on start playing new track', function () {
-      this.sinon.stub(patcher, 'onPlayStart');
-
-      patcher.patchAudioPlayer(fakePlayer);
-
-      patcher.isOperating = true;
-
-      fakePlayer.loadGlobal();
-
-      patcher.onPlayStart.should.have.been.called;
-    });
-
-    it('Should not call onPlayStart on calling loadGlobal not from audioPlayer.operate', function () {
-      this.sinon.stub(patcher, 'onPlayStart');
-
-      patcher.patchAudioPlayer(fakePlayer);
-
-      patcher.isOperating = false;
-
-      fakePlayer.loadGlobal();
-
-      patcher.onPlayStart.should.not.have.been.called;
-    });
-
-    describe('waiting and patching window.audioPlayer', function () {
+    describe('waiting and patching window.ap (audioPlayer)', function () {
       beforeEach(function () {
-        PlayerPatcher.prototype.waitForPlayerAndPatch.restore();
+        PlayerListener.prototype.waitForPlayerAndSubscribe.restore();
         this.clock = this.sinon.useFakeTimers();
       });
 
-      it('Should wait for audioPLayer in window and patch it', function () {
-        var p = new PlayerPatcher();
-        p.patchAudioPlayer = this.sinon.stub();
+      it('Should wait for ap in window and patch it', function () {
+        var p = new PlayerListener();
+        p.subscribeToPlayerEvents = this.sinon.stub();
 
         this.clock.tick(10000);
 
-        window.audioPlayer = {b: 'foo'};
+        window.ap = {b: 'foo', subscribers: []};
 
         this.clock.tick(1000);
 
-        p.patchAudioPlayer.should.have.been.calledWith({b: 'foo'});
+        p.subscribeToPlayerEvents.should.have.been.calledWith(window.ap);
       });
 
-      it('Should no try to patch audioPlayer while it not exist on page', function () {
-        var p = new PlayerPatcher();
-        p.patchAudioPlayer = this.sinon.stub();
+      it('Should no try to patch ap while it not exist on page', function () {
+        var p = new PlayerListener();
+        p.subscribeToPlayerEvents = this.sinon.stub();
         this.clock.tick(10000);
-        p.patchAudioPlayer.should.not.have.been.calledWith({b: 'foo'});
+        p.subscribeToPlayerEvents.should.not.have.been.calledWith({b: 'foo'});
+      });
+
+      it('should add subscribers', function () {
+        var p = new PlayerListener();
+
+        var fakePlayer = {
+          subscribers: []
+        };
+
+        p.subscribeToPlayerEvents(fakePlayer);
+
+        fakePlayer.subscribers.length.should.equal(4);
       });
     });
 
@@ -210,11 +76,11 @@ describe('Vk-inner player', function () {
 
     it('Should send correct message on progress', function () {
       patcher.audioPlayer = {
-        lastSong: []
+        _currentAudio: []
       };
-      patcher.audioPlayer.lastSong[TOTAL_NUM] = 20;
+      patcher.audioPlayer._currentAudio[TOTAL_NUM] = 20;
 
-      patcher.onProgress(10);
+      patcher.onProgress(patcher.audioPlayer._currentAudio, 0.5);
       patcher.sendMessage.should.have.been.calledWith({message: 'progress', data: {current: 10, total: 20}});
     });
 
@@ -234,11 +100,11 @@ describe('Vk-inner player', function () {
     });
 
     it('Should send correct message on start playing ', function () {
-      patcher.audioPlayer = {lastSong: []};
-      patcher.audioPlayer.lastSong[ARTIST_NUM] = 'foo';
-      patcher.audioPlayer.lastSong[TITLE_NUM] = 'bar';
+      patcher.audioPlayer = {_currentAudio: []};
+      patcher.audioPlayer._currentAudio[ARTIST_NUM] = 'foo';
+      patcher.audioPlayer._currentAudio[TITLE_NUM] = 'bar';
 
-      patcher.onPlayStart();
+      patcher.onPlayStart(patcher.audioPlayer._currentAudio, true);
       patcher.sendMessage.should.have.been.calledWith({
         message: 'playStart', data: {
           artist: 'foo',
@@ -247,12 +113,17 @@ describe('Vk-inner player', function () {
       });
     });
 
-    it('Should decode html entities from artist and track', function () {
-      patcher.audioPlayer = {lastSong: []};
-      patcher.audioPlayer.lastSong[ARTIST_NUM] = 'foo &amp; &lt; &quot; &plusmn; &deg;';
-      patcher.audioPlayer.lastSong[TITLE_NUM] = 'bar &amp;&copy;';
+    it('Should send resume message onPlayStart if new song flag is not passed', function () {
+      patcher.onPlayStart({}, false);
+      patcher.sendMessage.should.have.been.calledWith({message: 'resume'});
+    });
 
-      patcher.onPlayStart();
+    it('Should decode html entities from artist and track', function () {
+      patcher.audioPlayer = {_currentAudio: []};
+      patcher.audioPlayer._currentAudio[ARTIST_NUM] = 'foo &amp; &lt; &quot; &plusmn; &deg;';
+      patcher.audioPlayer._currentAudio[TITLE_NUM] = 'bar &amp;&copy;';
+
+      patcher.onPlayStart(patcher.audioPlayer._currentAudio, true);
       patcher.sendMessage.should.have.been.calledWith({
         message: 'playStart', data: {
           artist: 'foo & < " ± °',
