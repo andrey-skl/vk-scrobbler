@@ -65,8 +65,8 @@
 
     audioPlayer.subscribers.push({et: 'start', cb: this.onPlayStart.bind(this)});
     audioPlayer.subscribers.push({et: 'progress', cb: this.onProgress.bind(this)});
-    audioPlayer.subscribers.push({et: 'pause', cb: this.onProgress.bind(this)});
-    audioPlayer.subscribers.push({et: 'stop', cb: this.onProgress.bind(this)});
+    audioPlayer.subscribers.push({et: 'pause', cb: this.onPause.bind(this)});
+    audioPlayer.subscribers.push({et: 'stop', cb: this.onStop.bind(this)});
   };
 
   /**

@@ -65,6 +65,31 @@ describe('Vk-inner player', function () {
 
         fakePlayer.subscribers.length.should.equal(4);
       });
+
+      it('should call pause listener on pause', function () {
+        const p = new PlayerListener();
+        this.sinon.stub(p, 'onPause');
+        const fakePlayer = {
+          subscribers: []
+        };
+
+        p.subscribeToPlayerEvents(fakePlayer);
+
+        fakePlayer.subscribers.find(s => s.et === 'pause').cb();
+
+        p.onPause.should.have.been.called;
+      });
+
+      it('should call stop listener on pause', function () {
+        const p = new PlayerListener();
+        this.sinon.stub(p, 'onStop');
+        const fakePlayer = {subscribers: []};
+        p.subscribeToPlayerEvents(fakePlayer);
+
+        fakePlayer.subscribers.find(s => s.et === 'stop').cb();
+
+        p.onStop.should.have.been.called;
+      });
     });
 
   });
