@@ -109,6 +109,10 @@ describe('Content PlayerHandlers', function () {
   });
 
   describe('pause/resume/stop', function () {
+    beforeEach(function() {
+      handlers.state.artist = 'foo';
+      handlers.state.track = 'bar';
+    });
 
     it('Should turn off "playing" flag on pause', function () {
       handlers.state.playing = true;
@@ -167,6 +171,14 @@ describe('Content PlayerHandlers', function () {
       this.sinon.stub(Indicators, 'indicateVKscrobbler');
       handlers.stop();
       Indicators.indicateVKscrobbler.should.have.been.called;
+    });
+
+    it('Should call playStart if resume is called for saved track after page reload', function () {
+      this.sinon.stub(handlers, 'playStart');
+      handlers.state.artist = null;
+      handlers.state.track = null;
+      handlers.resume({artist: 'foo', track: 'bar'});
+      handlers.playStart.should.have.been.calledWith({artist: 'foo', track: 'bar'});
     });
   });
 

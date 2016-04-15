@@ -40,21 +40,15 @@
   PlayerListener.prototype.onPause = function () {
     this.sendMessage({message: messagePause});
   };
-
-  PlayerListener.prototype.onResume = function () {
-    this.sendMessage({message: messageResume});
-  };
-
+  
   PlayerListener.prototype.onStop = function () {
     this.sendMessage({message: messageStop});
   };
 
   PlayerListener.prototype.onPlayStart = function (track, isNewTrackStarted) {
-    if (!isNewTrackStarted) {
-      return this.onResume();
-    }
+    var message = isNewTrackStarted ? messagePlayStart : messageResume;
 
-    this.sendMessage({message: messagePlayStart, data: {
+    this.sendMessage({message: message, data: {
       artist: PlayerListener.decodeHtmlEntity(this.audioPlayer._currentAudio[ARTIST_NUM]),
       title: PlayerListener.decodeHtmlEntity(this.audioPlayer._currentAudio[TITLE_NUM])
     }});

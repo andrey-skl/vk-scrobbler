@@ -45,7 +45,11 @@
     this.indicateScrobblerStatus();
   };
 
-  PlayerHandlers.prototype.resume = function () {
+  PlayerHandlers.prototype.resume = function (data) {
+    if (!this.state.artist && !this.state.artist) {
+      return this.playStart(data);
+    }
+
     this.state.playing = true;
     this.indicateScrobblerStatus();
   };

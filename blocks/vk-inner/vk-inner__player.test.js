@@ -114,11 +114,6 @@ describe('Vk-inner player', function () {
       patcher.sendMessage.should.have.been.calledWith({message: 'pause'});
     });
 
-    it('Should send correct message on resume', function () {
-      patcher.onResume();
-      patcher.sendMessage.should.have.been.calledWith({message: 'resume'});
-    });
-
     it('Should send correct message on stop', function () {
       patcher.onStop();
       patcher.sendMessage.should.have.been.calledWith({message: 'stop'});
@@ -139,8 +134,15 @@ describe('Vk-inner player', function () {
     });
 
     it('Should send resume message onPlayStart if new song flag is not passed', function () {
+      patcher.audioPlayer = {_currentAudio: []};
+      patcher.audioPlayer._currentAudio[ARTIST_NUM] = 'foo';
+      patcher.audioPlayer._currentAudio[TITLE_NUM] = 'bar';
+
       patcher.onPlayStart({}, false);
-      patcher.sendMessage.should.have.been.calledWith({message: 'resume'});
+      patcher.sendMessage.should.have.been.calledWith({message: 'resume', data: {
+        artist: 'foo',
+        title: 'bar'
+      }});
     });
 
     it('Should decode html entities from artist and track', function () {
