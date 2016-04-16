@@ -98,8 +98,8 @@
     },
 
     SetMiniIndicator: function () {
-      if (!byId('nowIndicator') && qs('.top_audio_player')) {
-        qs('.top_audio_player').insertAdjacentHTML('beforebegin', Indicators.htmls.headerIndicator);
+      if (!byId('nowIndicator') && byId('top_audio')) {
+        byId('top_audio').insertAdjacentHTML('beforebegin', Indicators.htmls.headerIndicator);
         byId('nowIndicator').addEventListener('click', this.listeners.togglePauseScrobbling);
       }
     },

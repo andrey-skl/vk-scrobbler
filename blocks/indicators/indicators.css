@@ -13,8 +13,9 @@
 }
 
 .indicators__status_mini {
-  float: left;
-  margin-top: 11px;
+  position: relative;
+  display: inline-block;
+  top: -17px;
   padding: 2px;
   cursor: pointer;
 

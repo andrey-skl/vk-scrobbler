@@ -6,7 +6,7 @@
   var scriptInjector = window.vkScrobbler.scriptInjector;
   var isOldUI = Boolean(document.getElementById('top_new_msg')); //new UI doesn't have this element
   console.info('vk scrobbler. New ui detected = ', !isOldUI);
-  
+
   function instantIndicatorsInserter () {
     //listen to players inserting in document to instantly insert indicators nodes
     document.body.addEventListener('DOMNodeInserted', function (e) {
@@ -14,11 +14,6 @@
         Indicators.SetDropdownIndicators();
         Indicators.SetAudioPageIndicators();
         return;
-      }
-      if (e.target.parentNode &&
-        e.target.parentNode.classList &&
-        e.target.parentNode.classList.contains('top_audio_player_title')) {
-        return Indicators.SetHeaderIndicator();
       }
     });
 
