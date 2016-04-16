@@ -104,16 +104,17 @@ module.exports = function(config) {
     // enable / disable watching file and executing tests whenever any file changes
     autoWatch: true,
 
-    customLaunchers: {
-      Chrome_travis_ci: {
-        base: 'Chrome',
-        flags: ['--no-sandbox']
+    electronOpts: {
+      show: false,
+      skipTaskbar: true,
+      webPreferences: {
+        pageVisibility: true
       }
     },
 
     // start these browsers
     // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
-    browsers: process.env.TRAVIS ? ['Chrome_travis_ci'] : ['Chrome'],
+    browsers: ['Electron'],
 
 
     // Continuous Integration mode
