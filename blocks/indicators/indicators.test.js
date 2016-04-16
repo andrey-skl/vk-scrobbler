@@ -139,7 +139,7 @@ describe('Indicators', function () {
 
     beforeEach(function () {
       minPLayer = document.createElement('div');
-      minPLayer.innerHTML = '<div class="top_audio_player"></div>';
+      minPLayer.innerHTML = '<div id="top_audio"></div>';
       document.body.appendChild(minPLayer);
     });
 
