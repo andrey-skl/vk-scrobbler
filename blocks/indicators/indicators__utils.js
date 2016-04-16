@@ -18,21 +18,11 @@
     HEART_BLUE: chrome.extension.getURL("blocks/indicators/__icon/indicators__icon-love.png")
   };
 
-  var ifExist = function (selector) {
-    var element = document.querySelector(selector);
-    return {
-      run: function (callback) {
-        element && callback(element);
-      }
-    };
-  };
-
   /**
    * Interface
    */
   window.vkScrobbler.IdicatorsUtils = {
     EIndicateState: EIndicateState,
-    PATHS: PATHS,
-    ifExist: ifExist
+    PATHS: PATHS
   };
 })();

@@ -8,21 +8,25 @@
   function instantIndicatorsInserter () {
     //listen to players inserting in document to instantly insert indicators nodes
     document.body.addEventListener('DOMNodeInserted', function (e) {
-      if (e.target.id === 'pad_controls') {
-        Indicators.SetAllPD();
+      if (e.target.classList && e.target.classList.contains('audio_page_player_volume_line')) {
+        Indicators.SetDropdownIndicators();
+        Indicators.SetAudioPageIndicators();
+        return;
       }
-      if (e.target.classList && e.target.classList.contains('wrap') && e.target.querySelector('#gp_info')) {
-        Indicators.SetAllMini();
-      }
-      if(e.target.id === 'wrap2' && e.target.querySelector('#audio') !== null) {
-        Indicators.SetAllAC();
+      if (e.target.parentNode &&
+        e.target.parentNode.classList &&
+        e.target.parentNode.classList.contains('top_audio_player_title')) {
+        return Indicators.SetHeaderIndicator();
       }
     });
 
     //If audio page is a landing page, then just attaching indicators
-    Indicators.SetAllAC();
-    window.addEventListener("load", function () {
-      Indicators.SetAllAC();
+    Indicators.SetAudioPageIndicators();
+    Indicators.SetHeaderIndicator();
+
+    window.addEventListener('load', function () {
+      Indicators.SetAudioPageIndicators();
+      Indicators.SetHeaderIndicator();
     });
   }
 

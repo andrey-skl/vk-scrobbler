@@ -18,29 +18,31 @@ describe('Indicators', function () {
   describe('Setting up indicators', function () {
     it('Should set up mini indicators', function () {
       this.sinon.stub(Indicators, 'SetMiniIndicator');
-      Indicators.SetAllMini();
+      Indicators.SetHeaderIndicator();
       Indicators.SetMiniIndicator.should.have.been.called;
     });
 
     it('Should set up AC indicators', function () {
       this.sinon.stub(Indicators, 'SetAcIndicator');
-      Indicators.SetAllAC();
+      Indicators.SetAudioPageIndicators();
       Indicators.SetAcIndicator.should.have.been.called;
     });
 
     it('Should set up PD indicators', function () {
       this.sinon.stub(Indicators, 'SetPdIndicator');
-      Indicators.SetAllPD();
+      Indicators.SetDropdownIndicators();
       Indicators.SetPdIndicator.should.have.been.called;
     });
   });
 
   describe('Main (AC) indicators', function() {
-
     beforeEach(function () {
       mainPlayer = document.createElement('div');
-      mainPlayer.id = 'ac';
-      mainPlayer.innerHTML = '<div id="ac_duration"></div>';
+      mainPlayer.className = 'page_block';
+
+      mainPlayer.innerHTML = `<div class="audio_page_player">
+        <div class="audio_page_player_volume_line"></div>
+      </div>`;
 
       document.body.appendChild(mainPlayer);
     });
@@ -105,8 +107,10 @@ describe('Indicators', function () {
 
     beforeEach(function () {
       popupPlayer = document.createElement('div');
-      popupPlayer.id = 'pd';
-      popupPlayer.innerHTML = '<div id="pd_duration"></div>';
+      popupPlayer.id = 'audio_layer_tt';
+
+      popupPlayer.innerHTML = `<div class="audio_page_player_volume_line"></div>`;
+
       document.body.appendChild(popupPlayer);
     });
 
@@ -135,7 +139,7 @@ describe('Indicators', function () {
 
     beforeEach(function () {
       minPLayer = document.createElement('div');
-      minPLayer.innerHTML = '<div id="gp_small"></div>';
+      minPLayer.innerHTML = '<div class="top_audio_player"></div>';
       document.body.appendChild(minPLayer);
     });
 

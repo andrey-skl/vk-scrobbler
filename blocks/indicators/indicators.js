@@ -5,11 +5,8 @@
   var PATHS = window.vkScrobbler.IdicatorsUtils.PATHS;
 
   var byId = document.getElementById.bind(document);
+  var qs = document.querySelector.bind(document);
   var qsa = document.querySelectorAll.bind(document);
-
-  var ifExist = window.vkScrobbler.IdicatorsUtils.ifExist;
-
-  var DURATION_MARGIN = '12px';
 
   var Indicators = {
     htmls: {
@@ -17,43 +14,53 @@
       love: false,
       twitLink: '',
 
-      miniIndicator: '<div id="nowIndicator" class="indicators__status_mini"><img class="indicators__icon" title="VK scrobbler: status" src=' + PATHS.PAUSE + '></div>',
+      headerIndicator: `<div id="nowIndicator" class="indicators__status_mini">
+          <img class="indicators__icon" title="VK scrobbler: status" src="${PATHS.PAUSE}">
+        </div>`,
 
-      acIndicator: '<div id="nowIndAC" class="indicators__status"><img class="indicators__icon" title="VK scrobbler: status" src=' + PATHS.PAUSE + '></div>',
+      acIndicator: `<div id="nowIndAC" class="indicators__status">
+          <img class="indicators__icon" title="VK scrobbler: status" src="${PATHS.PAUSE}">
+        </div>`,
 
-      pdIndicator: '<div id="nowIndPD" class="indicators__status"><img class="indicators__icon" title="VK scrobbler: status" src=' + PATHS.PAUSE + '></div>',
+      pdIndicator: `<div id="nowIndPD" class="indicators__status">
+          <img class="indicators__icon" title="VK scrobbler: status" src="${PATHS.PAUSE}">
+        </div>`,
 
-      twitAChtml: '<div id="twitterDivAC" class="indicators__twit">' +
-      '<a id="twitLinkAC" target="_blank"><img class="indicators__icon" title="VK scrobbler: tweet button" src="' + PATHS.TWITTER + '"></a></div>',
+      //inline styles is to avoid ADBlock cutting
+      twitAChtml: `<div id="twitterDivAC" class="indicators__twit">
+          <a id="twitLinkAC" target="_blank" style="display: inline!important;">
+            <img class="indicators__icon" title="VK scrobbler: tweet button" src="${PATHS.TWITTER}">
+          </a>
+        </div>`,
 
-      twitPDhtml: '<div id="twitterDivPD" class="indicators__twit">' +
-      '<a id="twitLinkPD" target="_blank"><img class="indicators__icon" title="VK scrobbler: tweet button" src=' + PATHS.TWITTER + '></a></div>',
+      twitPDhtml: `<div id="twitterDivPD" class="indicators__twit">
+          <a id="twitLinkPD" target="_blank" style="display: inline!important;">
+            <img class="indicators__icon" title="VK scrobbler: tweet button" src="${PATHS.TWITTER}">
+          </a>
+        </div>`,
 
-      loveAC: '<div id="loveDivAC" class="indicators__love"><img class="indicators__icon" title="VK scrobbler: love" src=' + PATHS.HEART_GRAY + '></div>',
+      loveAC: `<div id="loveDivAC" class="indicators__love"><img class="indicators__icon" title="VK scrobbler: love" src="${PATHS.HEART_GRAY}"></div>`,
 
-      lovePD: '<div id="loveDivPD" class="indicators__love"><img class="indicators__icon" title="VK scrobbler: love" src=' + PATHS.HEART_GRAY + '></div>'
+      lovePD: `<div id="loveDivPD" class="indicators__love"><img class="indicators__icon" title="VK scrobbler: love" src="${PATHS.HEART_GRAY}"></div>`
     },
 
     setListeners: function (listeners) {
       this.listeners = listeners;
     },
 
-    SetAllMini: function () {
-      Indicators.IncreaseMiniPlayerWidth();
+    SetHeaderIndicator: function () {
       Indicators.SetMiniIndicator();
       Indicators.indicateStatus();
     },
 
-    SetAllAC: function () {
-      Indicators.SetAudioPageTimeMargin(); //смещаем таймер, чтобы не уплыл
+    SetAudioPageIndicators: function () {
       Indicators.SetAcIndicator();
       Indicators.SetLoveAC();
       Indicators.SetTwitterAC();
       Indicators.indicateStatus();
     },
 
-    SetAllPD: function () {
-      Indicators.SetFloatingPlayerTimeMargin();
+    SetDropdownIndicators: function () {
       Indicators.SetPdIndicator();
       Indicators.SetLovePD();
       Indicators.SetTwitterPD();
@@ -90,61 +97,36 @@
       });
     },
 
-    /**
-     * Increases mini player width to make place for equalizer icon
-     */
-    IncreaseMiniPlayerWidth: function () {
-      ifExist('#gp').run(function (el) {
-        el.style.minWidth = "175px";
-      });
-      ifExist('#gp_back').run(function (el) {
-        el.style.minWidth = "175px";
-      });
-    },
-
-    SetAudioPageTimeMargin: function () {
-      ifExist('#ac_duration').run(function (el) {
-        el.style.marginRight = DURATION_MARGIN;
-      });
-    },
-    SetFloatingPlayerTimeMargin: function () {
-      ifExist('#pd_duration').run(function (el) {
-        el.style.marginRight = DURATION_MARGIN;
-      });
-    },
-
     SetMiniIndicator: function () {
-      if (!byId("nowIndicator")) {
-        ifExist('#gp_small').run(function (el) {
-          el.insertAdjacentHTML('afterend', Indicators.htmls.miniIndicator);
-          byId('nowIndicator').addEventListener('click', this.listeners.togglePauseScrobbling);
-        }.bind(this));
+      if (!byId('nowIndicator') && qs('.top_audio_player')) {
+        qs('.top_audio_player').insertAdjacentHTML('beforebegin', Indicators.htmls.headerIndicator);
+        byId('nowIndicator').addEventListener('click', this.listeners.togglePauseScrobbling);
       }
     },
 
     SetAcIndicator: function () {
-      if (byId("ac") && !byId("nowIndAC")) {
-        byId('ac_duration').insertAdjacentHTML('beforebegin', Indicators.htmls.acIndicator);
+      if (qs(".page_block .audio_page_player") && !byId("nowIndAC")) {
+        qs('.page_block .audio_page_player_volume_line').insertAdjacentHTML('beforebegin', Indicators.htmls.acIndicator);
         byId('nowIndAC').addEventListener('click', this.listeners.togglePauseScrobbling);
       }
     },
 
     SetPdIndicator: function () {
-      if (byId("pd") && !byId("nowIndPD")) {
-        byId('pd_duration').insertAdjacentHTML('beforebegin', Indicators.htmls.pdIndicator);
+      if (byId('audio_layer_tt') && !byId('nowIndPD')) {
+        qs('#audio_layer_tt .audio_page_player_volume_line').insertAdjacentHTML('beforebegin', Indicators.htmls.pdIndicator);
         byId('nowIndPD').addEventListener('click', this.listeners.togglePauseScrobbling);
       }
     },
 
     SetTwitterAC: function () {
-      if (byId("ac") && !byId("twitterDivAC")) {
-        byId('ac_duration').insertAdjacentHTML('beforebegin', Indicators.htmls.twitAChtml);
+      if (qs(".page_block .audio_page_player") && !byId("twitterDivAC")) {
+        qs('.page_block .audio_page_player_volume_line').insertAdjacentHTML('beforebegin', Indicators.htmls.twitAChtml);
       }
     },
 
     SetTwitterPD: function () {
-      if (byId("pd") && !byId("twitterDivPD")) {
-        byId('pd_duration').insertAdjacentHTML('beforebegin', Indicators.htmls.twitPDhtml);
+      if (byId('audio_layer_tt') && !byId("twitterDivPD")) {
+        qs('#audio_layer_tt .audio_page_player_volume_line').insertAdjacentHTML('beforebegin', Indicators.htmls.twitPDhtml);
       }
     },
 
@@ -163,21 +145,21 @@
     },
 
     SetLoveAC: function () {
-      if (byId("ac") && !byId("loveDivAC")) {
-        byId('ac_duration').insertAdjacentHTML('beforebegin', Indicators.htmls.loveAC);
+      if (qs('.page_block .audio_page_player') && !byId('loveDivAC')) {
+        qs('.page_block .audio_page_player_volume_line').insertAdjacentHTML('beforebegin', Indicators.htmls.loveAC);
         byId('loveDivAC').addEventListener('click', this._loveClickListener.bind(this));
       }
     },
 
     SetLovePD: function () {
-      if (byId("pd") && !byId("loveDivPD")) {
-        byId('pd_duration').insertAdjacentHTML('beforebegin', Indicators.htmls.lovePD);
+      if (byId('audio_layer_tt') && !byId('loveDivPD')) {
+        qs('#audio_layer_tt .audio_page_player_volume_line').insertAdjacentHTML('beforebegin', Indicators.htmls.lovePD);
         byId('loveDivPD').addEventListener('click', this._loveClickListener.bind(this));
       }
     },
 
     updatePlayingIndicators: function (newImgSrc, newTitle) {
-      [].forEach.call(qsa("#nowIndAC img, #nowIndPD img, #nowIndicator img"), function(image) {
+      [].forEach.call(qsa('#nowIndAC img, #nowIndPD img, #nowIndicator img'), function(image) {
         if (image.src !== newImgSrc) {
           image.src = newImgSrc;
         }

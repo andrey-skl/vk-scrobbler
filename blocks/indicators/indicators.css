@@ -5,28 +5,38 @@
 }
 
 .indicators__status {
+  position: relative;
+  top: -18px;
   float: right;
-  margin-top: -2px;
   height: 14px;
   cursor: pointer;
 }
 
 .indicators__status_mini {
   float: left;
-  padding: 3px;
+  margin-top: 11px;
+  padding: 2px;
   cursor: pointer;
+
+  -webkit-filter: grayscale(80%) brightness(185%);
+}
+
+.indicators__status_mini:hover {
+  -webkit-filter: grayscale(80%) brightness(300%);
 }
 
 .indicators__twit {
   float: right;
+  position: relative;
+  top: -18px;
   padding-right: 3px;
-  margin-top: -2px;
   height: 14px;
 }
 
 .indicators__love {
   float: right;
-  margin-top: -2px;
+  position: relative;
+  top: -18px;
   padding-right: 3px;
   height: 14px;
   cursor: pointer;
