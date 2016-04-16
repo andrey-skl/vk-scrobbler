@@ -1,10 +1,12 @@
 (function () {
   'use strict';
+  var isOldUI = Boolean(document.getElementById('top_new_msg')); //new UI doesn't have this element
+
   var SCROBBLE_PERCENTAGE = 50;
   var nowPlayingInterval = 15 * 1000;
 
   var utils = window.vkScrobbler.ContentUils;
-  var Indicators = window.vkScrobbler.Indicators;
+  var Indicators = isOldUI ? window.vkScrobbler.IndicatorsOld : window.vkScrobbler.Indicators;
   var BusWrapper = window.vkScrobbler.ContentBusWrapper;
 
   function PlayerHandlers() {

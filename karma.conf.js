@@ -41,6 +41,7 @@ module.exports = function(config) {
       //indicators block
       'blocks/indicators/indicators__utils.js',
       'blocks/indicators/indicators.js',
+      'blocks/indicators/indicators__old.js',
 
       //content block
       'blocks/content/content__utils.js',
