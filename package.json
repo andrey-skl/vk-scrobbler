@@ -42,7 +42,8 @@
     "karma-coverage": "^0.4",
     "karma-mocha": "^0.2",
     "karma-sinon": "1.0",
-    "karma-sinon-chai": "^1.0.0",
+    "karma-sinon-chai": "1.0.0",
+    "sinon-chai": "2.8.0",
     "mocha": "^2.2.5",
     "sinon": "^1.15.4",
     "sinon-chrome": "0.1.2"
