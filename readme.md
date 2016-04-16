@@ -4,7 +4,7 @@
 [![Release](https://img.shields.io/github/release/huston007/vk-scrobbler.svg?style=flat-square&label=v)](https://github.com/huston007/vk-scrobbler/releases) 
 [![codecov.io](https://img.shields.io/codecov/c/github/huston007/vk-scrobbler.svg?style=flat-square)](http://codecov.io/github/huston007/vk-scrobbler?branch=master)
 [![devDependency Status](https://img.shields.io/david/dev/huston007/vk-scrobbler.svg?style=flat-square)](https://david-dm.org/huston007/vk-scrobbler#info=devDependencies)
-[![Webstore](https://img.shields.io/badge/users-40200-ff69b4.svg?style=flat-square)](https://chrome.google.com/webstore/detail/vk-scrobbler/fddcgfefplodcggebdfbddbmfgmaeeeo)
+[![Webstore](https://img.shields.io/badge/users-38600-ff69b4.svg?style=flat-square)](https://chrome.google.com/webstore/detail/vk-scrobbler/fddcgfefplodcggebdfbddbmfgmaeeeo)
 
 ![Promo image](https://lh3.googleusercontent.com/qlB2XjU2JlPnBcMdLF4j1mYvkAneQK2ObFmzhz3bD81vaCCk9UEuRF26MHmB_sAb1JY8OiCLaJg=s1280-h800-e365-rw)
 
