@@ -4,8 +4,9 @@
   var MSG = window.vkScrobbler.contentMessages;
   var LastFmApi = window.vkScrobbler.LastFmApi;
 
+
   var BackgroundActions = function (secretKey, userName) {
-    this.api = new LastFmApi(secretKey, userName);
+    this.api = new LastFmApi(secretKey, userName, this.onReauth.bind(this));
   };
 
   BackgroundActions.prototype[MSG.NEED_SCROOBLE] = function (params) {
@@ -55,6 +56,11 @@
     return new Promise(function (resolve) {
       resolve();
     });
+  };
+
+  BackgroundActions.prototype.onReauth = function () {
+    localStorage.clear();
+    chrome.runtime.reload();
   };
 
   window.vkScrobbler.BackgroundActions = BackgroundActions;
