@@ -10,9 +10,10 @@
     return destination;
   };
 
-  var LastFmApi = function (secretKey, userName) {
+  var LastFmApi = function (secretKey, userName, onReauth) {
     this.secretKey = secretKey;
     this.userName = userName;
+    this.onReauth = onReauth;
   };
 
   LastFmApi.prototype._sendRequest = function (params, data) {
@@ -20,7 +21,13 @@
       artist: params.artist,
       track: params.title,
       sk: this.secretKey
-    }, data));
+    }, data))
+      .catch(function (err) {
+        if (err.status === 403 || err.status === 401) {
+          return this.onReauth && this.onReauth(err);
+        }
+        throw err;
+      }.bind(this));
   };
 
   LastFmApi.prototype.scrobble = function (params) {

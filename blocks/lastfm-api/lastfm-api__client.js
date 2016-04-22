@@ -27,33 +27,22 @@
     return pairs.join("&");
   };
 
-  LastFMClient.prototype._call = function (type, data, callback, context, async) {
+  LastFMClient.prototype._call = function (type, data) {
     data.format = 'json';
 
-    var request = new XMLHttpRequest();
-    request.open(type, this.apiUrl, async);
-    request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
-
-    var promise = new Promise(function (resolve, reject) {
-      request.onload = function () {
-        if (request.status >= 200 && request.status < 400) {
-          // Success!
-          callback && callback.call(context, JSON.parse(request.responseText), request);
-          resolve(JSON.parse(request.responseText));
-        } else {
-          reject(request);
+    return window.fetch(this.apiUrl, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+        },
+        body: this._formUrlEncode(data)
+      })
+      .then(function (res) {
+        if (res.status >= 200 && res.status < 400) {
+          return res.json();
         }
-      };
-
-      request.onerror = function (res) {
-        reject(res);
-      };
-    });
-
-    var formEncoded = this._formUrlEncode(data);
-    request.send(formEncoded);
-
-    return promise;
+        throw res;
+      });
   };
 
   LastFMClient.prototype._signedCall = function (type, data, callback, context, async) {
