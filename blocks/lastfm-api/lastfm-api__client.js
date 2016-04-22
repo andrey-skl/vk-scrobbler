@@ -31,7 +31,7 @@
     data.format = 'json';
 
     return window.fetch(this.apiUrl, {
-        method: 'POST',
+        method: type,
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
         },

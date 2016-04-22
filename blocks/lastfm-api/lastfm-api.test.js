@@ -7,12 +7,19 @@ describe('Last FM api', function () {
   };
 
   beforeEach(function () {
-    this.xhr = sinon.useFakeXMLHttpRequest();
     var requests = this.requests = [];
 
-    this.xhr.onCreate = function (xhr) {
-      requests.push(xhr);
-    };
+    sinon.stub(window, 'fetch', function(url, options) {
+      return new Promise(function(resolve, reject) {
+        requests.push({
+          url: url,
+          options: options,
+          requestBody: options.body,
+          resolve: resolve,
+          reject: reject
+        });
+      });
+    });
 
     this.getLastRequest = function () {
       return requests[requests.length - 1];
@@ -20,7 +27,7 @@ describe('Last FM api', function () {
   });
 
   afterEach(function () {
-    this.xhr.restore();
+    window.fetch.restore();
   });
 
   it('should provide API config', function () {
@@ -170,7 +177,12 @@ describe('Last FM api', function () {
         done();
       });
 
-      this.getLastRequest().respond(200, {"Content-Type": "application/json"}, JSON.stringify(fakeResponse));
+      this.getLastRequest().resolve({
+        status: 200,
+        json: function() {
+          return fakeResponse;
+        }
+      });
     });
   });
 

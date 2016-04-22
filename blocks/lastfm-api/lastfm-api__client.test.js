@@ -2,12 +2,19 @@ describe('Last FM API client', function () {
   var lastFmClient = new window.LastFMClient(window.vkScrobbler.LastFmApiConfig);
 
   beforeEach(function () {
-    this.xhr = sinon.useFakeXMLHttpRequest();
     var requests = this.requests = [];
 
-    this.xhr.onCreate = function (xhr) {
-      requests.push(xhr);
-    };
+    sinon.stub(window, 'fetch', function(url, options) {
+      return new Promise(function(resolve, reject) {
+        requests.push({
+          url: url,
+          options: options,
+          requestBody: options.body,
+          resolve: resolve,
+          reject: reject
+        });
+      });
+    });
 
     this.getLastRequest = function () {
       return requests[requests.length - 1];
@@ -15,7 +22,7 @@ describe('Last FM API client', function () {
   });
 
   afterEach(function () {
-    this.xhr.restore();
+    window.fetch.restore();
   });
 
   it('Should init', function () {
@@ -29,7 +36,7 @@ describe('Last FM API client', function () {
 
   it('Should send http requests with provided METHOD', function () {
     lastFmClient.signedCall('GET', {test: 'foo'});
-    this.getLastRequest().method.should.be.equal('GET');
+    this.getLastRequest().options.method.should.be.equal('GET');
   });
 
   it('Should return promise', function () {
@@ -51,20 +58,28 @@ describe('Last FM API client', function () {
     var promise = lastFmClient.signedCall('POST', {test: 'foo'});
 
     promise.then(function (res) {
-      var err = res.bar.should.be.equal('test');
+      res.bar.should.be.equal('test');
       done();
     });
-    this.getLastRequest().respond(200, {"Content-Type": "application/json"}, JSON.stringify({bar: 'test'}));
+
+    this.getLastRequest().resolve({
+      status: 200,
+      json: function() {
+        return {bar: 'test'};
+      }
+    });
   });
 
   it('Should reject promise in case of error code response', function (done) {
 
-    lastFmClient.signedCall('POST', {test: 'foo'}).then(null, function (xhr) {
-      xhr.responseText.should.be.equal('{"bar":"Test error"}');
+    lastFmClient.signedCall('POST', {test: 'foo'}).catch(function (error) {
+      error.status.should.be.equal(503);
       done();
     });
 
-    this.getLastRequest().respond(503, {"Content-Type": "application/json"}, JSON.stringify({bar: 'Test error'}));
+    this.getLastRequest().resolve({
+      status: 503
+    });
   });
 
 });
