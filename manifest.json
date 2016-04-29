@@ -10,33 +10,36 @@
   "background": {
     "page": "blocks/background/background.html"
   },
+  "applications": {
+    "gecko": {
+      "id": "vk-scrobbler@stsdc.org"
+    }
+  },
   "permissions": [
     "tabs",
     "notifications",
     "*://*.vk.com/*"
   ],
-  "content_scripts": [
-    {
-      "matches": ["*://*.vk.com/*"],
-      "js": [
-        "blocks/namespace/namespace.js",
-        "blocks/indicators/indicators__utils.js",
-        "blocks/indicators/indicators.js",
-        "blocks/indicators/indicators__old.js",
-        "blocks/bus/bus__content.js",
-        "blocks/content/content__messages.js",
-        "blocks/content/content__bus-wrapper.js",
-        "blocks/content/content__script-injector.js",
-        "blocks/content/content__utils.js",
-        "blocks/content/content__player-handlers.js",
-        "blocks/content/content.js"
-      ],
-      "css": [
-        "blocks/indicators/indicators.css",
-        "blocks/indicators/indicators__old.css"
-      ]
-    }
-  ],
+  "content_scripts": [{
+    "matches": ["*://*.vk.com/*"],
+    "js": [
+      "blocks/namespace/namespace.js",
+      "blocks/indicators/indicators__utils.js",
+      "blocks/indicators/indicators.js",
+      "blocks/indicators/indicators__old.js",
+      "blocks/bus/bus__content.js",
+      "blocks/content/content__messages.js",
+      "blocks/content/content__bus-wrapper.js",
+      "blocks/content/content__script-injector.js",
+      "blocks/content/content__utils.js",
+      "blocks/content/content__player-handlers.js",
+      "blocks/content/content.js"
+    ],
+    "css": [
+      "blocks/indicators/indicators.css",
+      "blocks/indicators/indicators__old.css"
+    ]
+  }],
   "homepage_url": "http://vkontakte.ru/vk_scrobbler",
   "web_accessible_resources": [
     "blocks/indicators/__icon/*",
