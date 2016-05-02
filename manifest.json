@@ -10,11 +10,11 @@
   "background": {
     "scripts": [
       "blocks/namespace/namespace.js",
-      "node_modules/js-md5/build/md5.min.js",
+      "md5.min.js",
       "blocks/lastfm-api/lastfm-api__client.js",
       "blocks/lastfm-api/lastfm-api__config.js",
       "blocks/lastfm-api/lastfm-api.js",
-      "bus/bus__background.js",
+      "blocks/bus/bus__background.js",
       "blocks/content/content__messages.js",
       "blocks/background/background__auth.js",
       "blocks/background/background__actions.js",
