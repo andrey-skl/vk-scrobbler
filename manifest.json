@@ -23,7 +23,8 @@
   },
   "applications": {
     "gecko": {
-      "id": "vk-scrobbler@stsdc.org"
+      "id": "vk-scrobbler@stsdc.org",
+      "strict_min_version": "45.0"
     }
   },
   "permissions": [
