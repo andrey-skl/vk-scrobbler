@@ -8,7 +8,7 @@
   },
   "scripts": {
     "precopy": "rm -rf $npm_package_config_dist/*",
-    "watch": "rm -rf $npm_package_config_dist/* && gulp watch-copy",
+    "watch": "gulp dist",
     "copy": "gulp copy",
     "pack": "mkdir build && cd $npm_package_config_dist && zip -r -X ../build/vk-scrobbler-$npm_package_version.zip ./*",
     "packff": "mkdir build && cd $npm_package_config_dist && zip -r -X ../build/vk-scrobbler-$npm_package_version.xpi ./*",

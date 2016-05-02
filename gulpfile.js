@@ -1,23 +1,36 @@
 /*jshint node: true*/
 var gulp = require('gulp');
-var watch = require('gulp-watch');
+var path = {
+    src: {
+        blocks:'blocks/**',
+        manifest:'manifest.json',
+        node_modules: 'node_modules/js-md5/build/*'
+    },
+    notTests: '!./**/*.test.js',
+    dest: {
+        blocks: 'dist/blocks',
+        manifest: 'dist',
+        node_modules: 'dist'
+    }
+};
 
-var source = './blocks/**/*';
-var manifest = './manifest.json';
-var components = './node_modules/js-md5/build/*';
-var notTests = '!./**/*.test.js';
-var destination = './dist';
-
-var gulpSources = [manifest, source, components, notTests];
-
-gulp.task('watch-copy', function() {
-  return gulp.src(gulpSources, {base: './'})
-    .pipe(watch(gulpSources, {verbose: true}))
-    .pipe(gulp.dest(destination));
+gulp.task('cp-blocks', function(){
+    gulp.src(path.src.blocks)
+        .pipe(gulp.dest(path.dest.blocks));
+});
+gulp.task('cp-manifest', function(){
+    gulp.src(path.src.manifest)
+        .pipe(gulp.dest(path.dest.manifest));
+});
+gulp.task('cp-node_modules', function(){
+    gulp.src(path.src.node_modules)
+        .pipe(gulp.dest(path.dest.node_modules));
 });
 
-gulp.task('copy', function() {
-  gulp
-    .src(gulpSources, {base: './'})
-    .pipe(gulp.dest(destination));
+gulp.task('watch', function() {
+    gulp.watch(path.src.blocks, ['cp-blocks']);
+    gulp.watch(path.src.manifest, ['cp-manifest']);
+    gulp.watch(path.src.node_modules, ['cp-node_modules']);
+
 });
+gulp.task('dist', ['cp-blocks', 'cp-manifest', 'cp-node_modules', 'watch']);

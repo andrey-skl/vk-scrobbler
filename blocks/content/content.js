@@ -1,5 +1,6 @@
 (function () {
   'use strict';
+
   var Indicators = window.vkScrobbler.Indicators;
   var IndicatorsOld = window.vkScrobbler.IndicatorsOld;
   var playerHandlers = new window.vkScrobbler.PlayerHandlers();
