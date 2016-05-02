@@ -8,7 +8,7 @@
   function openLastFmAuthTab() {
     chrome.tabs.create({
       "url": "http://www.lastfm.ru/api/auth?api_key=" + LastFmApiConfig.apiKey,
-      "selected": true
+      "active": true
     });
   }
 

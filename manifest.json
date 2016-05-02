@@ -8,7 +8,18 @@
   "manifest_version": 2,
   "minimum_chrome_version": "41.0",
   "background": {
-    "page": "blocks/background/background.html"
+    "scripts": [
+      "blocks/namespace/namespace.js",
+      "node_modules/js-md5/build/md5.min.js",
+      "blocks/lastfm-api/lastfm-api__client.js",
+      "blocks/lastfm-api/lastfm-api__config.js",
+      "blocks/lastfm-api/lastfm-api.js",
+      "bus/bus__background.js",
+      "blocks/content/content__messages.js",
+      "blocks/background/background__auth.js",
+      "blocks/background/background__actions.js",
+      "blocks/background/background.js"
+    ]
   },
   "applications": {
     "gecko": {
