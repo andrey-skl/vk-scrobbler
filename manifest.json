@@ -43,8 +43,18 @@
   "homepage_url": "http://vkontakte.ru/vk_scrobbler",
   "web_accessible_resources": [
     "blocks/indicators/__icon/*",
+    "blocks/indicators/__icon/indicators__icon-tweet.png",
+    "blocks/indicators/__icon/indicators__icon-love.png",
+    "blocks/indicators/__icon/indicators__icon-unlove.png",
+    "blocks/indicators/__icon/indicators__icon-disabled.png",
+    "blocks/indicators/__icon/indicators__icon-equalizer.gif",
+    "blocks/indicators/__icon/indicators__icon-pause.png",
+    "blocks/indicators/__icon/indicators__icon-check-blue.png",
     "blocks/namespace/*",
-    "blocks/vk-inner/*"
+    "blocks/namespace/namespace.js",
+    "blocks/vk-inner/vk-inner__player_old.js",
+    "blocks/vk-inner/vk-inner__player.js",
+    "blocks/vk-inner/vk-inner.js"
   ],
   "content_security_policy": "script-src 'self' https://ws.audioscrobbler.com https://ssl.google-analytics.com; object-src 'self'; style-src 'self' 'unsafe-inline';"
 }
