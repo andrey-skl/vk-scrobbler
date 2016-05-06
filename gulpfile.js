@@ -47,24 +47,26 @@ gulp.task('watch', function() {
 env(path.env);
 
 var execSign = 'web-ext -v sign' +
+  ' -s ' + path.dest.itself +
+  ' -a ' + path.build +
   ' --api-secret ' + process.env.secret +
   ' --api-key ' + process.env.issuer;
 
 // -a build dir, -s source dir
-var execBuild = 'web-ext -v build' +
+var execPack = 'web-ext -v build' +
   ' -s ' + path.dest.itself +
   ' -a ' + path.build;
 
 gulp.task('sign', function(cb) {
   exec(execSign, function(err, stdout, stderr) {
-    console.log(stdout);
+    // console.log(stdout);
     console.log(stderr);
     cb(err);
   });
 });
 
-gulp.task('build', function(cb) {
-  exec(execSign, function(err, stdout, stderr) {
+gulp.task('pack', function(cb) {
+  exec(execPack, function(err, stdout, stderr) {
     console.log(stdout);
     console.log(stderr);
     cb(err);
@@ -72,4 +74,11 @@ gulp.task('build', function(cb) {
 
 });
 
-gulp.task('dist', ['cp-blocks', 'cp-manifest', 'cp-node_modules', 'watch']);
+// Copy task
+gulp.task('cp', ['cp-blocks', 'cp-manifest', 'cp-node_modules']);
+
+// Recopy all to dist before watch
+gulp.task('dist', ['cp', 'watch']);
+
+// Copy all changes before packing
+gulp.task('build', ['cp', 'pack']);
