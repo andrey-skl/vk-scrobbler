@@ -30,16 +30,16 @@
   float: right;
   position: relative;
   top: -18px;
-  padding-right: 3px;
-  height: 14px;
+  padding-right: 1px;
+  height: 12px;
 }
 
 .indicators__love {
   float: right;
   position: relative;
   top: -18px;
-  padding-right: 3px;
-  height: 14px;
+  padding-right: 1px;
+  height: 12px;
   cursor: pointer;
 }
 

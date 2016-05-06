@@ -41,7 +41,7 @@ describe('Indicators', function () {
       mainPlayer.className = 'page_block';
 
       mainPlayer.innerHTML = `<div class="audio_page_player">
-        <div class="audio_page_player_volume_line"></div>
+        <div class="audio_page_player_volume_slider"></div>
       </div>`;
 
       document.body.appendChild(mainPlayer);
@@ -107,9 +107,9 @@ describe('Indicators', function () {
 
     beforeEach(function () {
       popupPlayer = document.createElement('div');
-      popupPlayer.id = 'audio_layer_tt';
+      popupPlayer.className = 'top_audio_layer';
 
-      popupPlayer.innerHTML = `<div class="audio_page_player_volume_line"></div>`;
+      popupPlayer.innerHTML = `<div class="audio_page_player_volume_slider"></div>`;
 
       document.body.appendChild(popupPlayer);
     });

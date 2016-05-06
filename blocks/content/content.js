@@ -10,7 +10,7 @@
   function instantIndicatorsInserter () {
     //listen to players inserting in document to instantly insert indicators nodes
     document.body.addEventListener('DOMNodeInserted', function (e) {
-      if (e.target.classList && e.target.classList.contains('audio_page_player_volume_line')) {
+      if (e.target.classList && e.target.classList.contains('audio_page_player_volume_slider')) {
         Indicators.SetDropdownIndicators();
         Indicators.SetAudioPageIndicators();
         return;
