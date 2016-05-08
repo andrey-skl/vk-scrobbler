@@ -1,24 +1,25 @@
 {
-  "esnext": true,
-  "curly": true,
-  "eqeqeq": true,
-  "undef": true,
+  "esnext":  true,
+  "curly":   true,
+  "eqeqeq":  true,
+  "undef":   true,
   "browser": true,
-  "expr": true,
+  "expr":    true,
   "globals": {
-    "jQuery": true,
-    "chrome": true,
-    "document": true,
-    "window": true,
-    "console": true,
-    "_gaq": true,
-    "Promise": true,
+    "jQuery":     true,
+    "chrome":     true,
+    "moz":        true,
+    "document":   true,
+    "window":     true,
+    "console":    true,
+    "_gaq":       true,
+    "Promise":    true,
 
-    "sinon": true,
-    "describe": true,
-    "it": true,
+    "sinon":      true,
+    "describe":   true,
+    "it":         true,
     "beforeEach": true,
-    "afterEach": true,
-    "expect": true
+    "afterEach":  true,
+    "expect":     true
   }
 }
