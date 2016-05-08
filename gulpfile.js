@@ -5,6 +5,8 @@ var exec = require('child_process').exec;
 var env = require('gulp-env');
 var zip = require('gulp-zip');
 var clean = require('gulp-clean');
+var jshint = require('gulp-jshint');
+
 
 var path = {
   src: {
@@ -15,6 +17,7 @@ var path = {
   notTests: '!./**/*.test.js',
   dist: {
     all: 'dist/**',
+    alljs: 'dist/blocks/**/*.js',
     blocks: 'dist/blocks',
     manifest: 'dist',
     node_modules: 'dist'
@@ -66,6 +69,13 @@ gulp.task('watch', ['cp'], function() {
 
 });
 
+// Linter
+gulp.task('lint', function() {
+  return gulp.src(path.dist.alljs)
+    .pipe(jshint())
+    .pipe(jshint.reporter('default'));
+});
+
 // getting issuer and secret from env file
 env(path.env);
 
@@ -91,7 +101,7 @@ gulp.task('sign:fx', function(cb) {
   });
 });
 
-gulp.task('pack:fx', function(cb) {
+gulp.task('pack:fx', ['lint'], function(cb) {
   exec(execPack, function(err, stdout, stderr) {
     console.log(stdout);
     console.log(stderr);
@@ -101,7 +111,7 @@ gulp.task('pack:fx', function(cb) {
 });
 
 // Packing for Chrome
-gulp.task('pack:chrome', function() {
+gulp.task('pack:chrome', ['lint'], function() {
   var manifest = require('./' + path.dist.manifest + '/manifest.json'),
     distFileName = manifest.name + '-' + manifest.version + '.zip';
   // Build distributable extension

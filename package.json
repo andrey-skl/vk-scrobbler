@@ -7,15 +7,7 @@
     "dist": "dist"
   },
   "scripts": {
-    "precopy": "rm -rf $npm_package_config_dist/*",
-    "watch": "gulp dist",
-    "copy": "gulp copy",
-    "pack": "mkdir build && cd $npm_package_config_dist && zip -r -X ../build/vk-scrobbler-$npm_package_version.zip ./*",
-    "prebuild": "npm run lint",
-    "build": "npm run copy && npm run pack",
-    "start": "npm run watch",
     "test": "node ./node_modules/karma/bin/karma start",
-    "lint": "jshint $npm_package_config_src/*"
   },
   "repository": {
     "type": "git",
@@ -38,9 +30,10 @@
     "gulp": "^3.8.11",
     "gulp-clean": "^0.3.2",
     "gulp-env": "^0.4.0",
+    "gulp-jshint": "^2.0.0",
     "gulp-vinyl-zip": "^1.2.2",
     "gulp-zip": "^3.2.0",
-    "jshint": "^2.7.0",
+    "jshint": "^2.9.2",
     "karma": "^0.13.22",
     "karma-chrome-launcher": "^0.2",
     "karma-coverage": "0.5.5",
