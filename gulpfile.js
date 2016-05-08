@@ -3,6 +3,8 @@ var gulp = require('gulp');
 
 var exec = require('child_process').exec;
 var env = require('gulp-env');
+var zip = require('gulp-zip');
+var clean = require('gulp-clean');
 
 var path = {
   src: {
@@ -11,32 +13,53 @@ var path = {
     node_modules: 'node_modules/js-md5/build/*'
   },
   notTests: '!./**/*.test.js',
-  dest: {
-    itself: 'dist',
+  dist: {
+    all: 'dist/**',
     blocks: 'dist/blocks',
     manifest: 'dist',
     node_modules: 'dist'
   },
-  build: 'build',
-  // environment file, where stored API Credentials
+  build: {
+    itself: 'build',
+    fx: 'build/firefox',
+    chrome: 'build/chrome'
+  },
+  // environment file, where are stored API Credentials
   // from addons.mozilla.org
+  // looks like:
+  // {
+  // "issuer": "************",
+  // "secret": "************************************************************"
+  // }
+
   env: '.env.json'
 };
 
+// Clean build directory
+gulp.task('clean', function() {
+  return gulp.src(path.build.itself, {
+      read: false
+    })
+    .pipe(clean());
+});
+
 gulp.task('cp-blocks', function() {
   gulp.src(path.src.blocks)
-    .pipe(gulp.dest(path.dest.blocks));
+    .pipe(gulp.dest(path.dist.blocks));
 });
 gulp.task('cp-manifest', function() {
   gulp.src(path.src.manifest)
-    .pipe(gulp.dest(path.dest.manifest));
+    .pipe(gulp.dest(path.dist.manifest));
 });
 gulp.task('cp-node_modules', function() {
   gulp.src(path.src.node_modules)
-    .pipe(gulp.dest(path.dest.node_modules));
+    .pipe(gulp.dest(path.dist.node_modules));
 });
+// Copy task
+gulp.task('cp', ['cp-blocks', 'cp-manifest', 'cp-node_modules']);
 
-gulp.task('watch', function() {
+// Recopy all before watch
+gulp.task('watch', ['cp'], function() {
   gulp.watch(path.src.blocks, ['cp-blocks']);
   gulp.watch(path.src.manifest, ['cp-manifest']);
   gulp.watch(path.src.node_modules, ['cp-node_modules']);
@@ -46,26 +69,29 @@ gulp.task('watch', function() {
 // getting issuer and secret from env file
 env(path.env);
 
-var execSign = 'web-ext -v sign' +
-  ' -s ' + path.dest.itself +
-  ' -a ' + path.build +
+var execSign = 'web-ext sign' +
+  ' -s dist' +
+  ' -a ' + path.build.fx +
   ' --api-secret ' + process.env.secret +
   ' --api-key ' + process.env.issuer;
 
 // -a build dir, -s source dir
-var execPack = 'web-ext -v build' +
-  ' -s ' + path.dest.itself +
-  ' -a ' + path.build;
+var execPack = 'web-ext build' +
+  ' -s dist' +
+  ' -a ' + path.build.fx;
 
-gulp.task('sign', function(cb) {
+// Executing signing of Firefox WebExtension.
+// It will send package to AMO and return
+// signed extension to `build` folder
+gulp.task('sign:fx', function(cb) {
   exec(execSign, function(err, stdout, stderr) {
-    // console.log(stdout);
+    console.log(stdout);
     console.log(stderr);
     cb(err);
   });
 });
 
-gulp.task('pack', function(cb) {
+gulp.task('pack:fx', function(cb) {
   exec(execPack, function(err, stdout, stderr) {
     console.log(stdout);
     console.log(stderr);
@@ -74,11 +100,15 @@ gulp.task('pack', function(cb) {
 
 });
 
-// Copy task
-gulp.task('cp', ['cp-blocks', 'cp-manifest', 'cp-node_modules']);
+// Packing for Chrome
+gulp.task('pack:chrome', function() {
+  var manifest = require('./' + path.dist.manifest + '/manifest.json'),
+    distFileName = manifest.name + '-' + manifest.version + '.zip';
+  // Build distributable extension
+  return gulp.src(path.dist.all)
+    .pipe(zip(distFileName))
+    .pipe(gulp.dest(path.build.chrome));
+});
 
-// Recopy all to dist before watch
-gulp.task('dist', ['cp', 'watch']);
-
-// Copy all changes before packing
-gulp.task('build', ['cp', 'pack']);
+// Copy all changes to dist and clean `build` before packing
+gulp.task('build', ['cp', 'sign:fx', 'pack:chrome']);
