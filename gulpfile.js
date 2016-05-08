@@ -27,7 +27,7 @@ var path = {
     fx: 'build/firefox',
     chrome: 'build/chrome'
   },
-  // environment file, where are stored API Credentials
+  // environment file with API Credentials
   // from addons.mozilla.org
   // looks like:
   // {
@@ -101,7 +101,7 @@ gulp.task('sign:fx', function(cb) {
   });
 });
 
-gulp.task('pack:fx', ['lint'], function(cb) {
+gulp.task('pack:fx', function(cb) {
   exec(execPack, function(err, stdout, stderr) {
     console.log(stdout);
     console.log(stderr);
@@ -111,7 +111,7 @@ gulp.task('pack:fx', ['lint'], function(cb) {
 });
 
 // Packing for Chrome
-gulp.task('pack:chrome', ['lint'], function() {
+gulp.task('pack:chrome', function() {
   var manifest = require('./' + path.dist.manifest + '/manifest.json'),
     distFileName = manifest.name + '-' + manifest.version + '.zip';
   // Build distributable extension

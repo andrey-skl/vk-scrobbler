@@ -7,7 +7,13 @@
     "dist": "dist"
   },
   "scripts": {
+    "watch": "gulp watch",
+    "copy": "gulp cp",
+    "prebuild": "npm run lint",
+    "build": "gulp build",
+    "start": "npm run watch",
     "test": "node ./node_modules/karma/bin/karma start",
+    "lint": "gulp lint"
   },
   "repository": {
     "type": "git",
@@ -19,7 +25,7 @@
     "scrobbler"
   ],
   "author": "Andrey Skladchikov",
-  "license": "MIT",
+  "license": "ISC",
   "dependencies": {
     "js-md5": "0.3.0"
   },
@@ -28,12 +34,8 @@
     "codecov.io": "^0.1.2",
     "electron-prebuilt": "^0.37.6",
     "gulp": "^3.8.11",
-    "gulp-clean": "^0.3.2",
-    "gulp-env": "^0.4.0",
-    "gulp-jshint": "^2.0.0",
-    "gulp-vinyl-zip": "^1.2.2",
-    "gulp-zip": "^3.2.0",
-    "jshint": "^2.9.2",
+    "gulp-watch": "^4.2.4",
+    "jshint": "^2.7.0",
     "karma": "^0.13.22",
     "karma-chrome-launcher": "^0.2",
     "karma-coverage": "0.5.5",
@@ -44,7 +46,6 @@
     "mocha": "^2.2.5",
     "sinon": "^1.15.4",
     "sinon-chai": "2.8.0",
-    "sinon-chrome": "0.1.2",
-    "web-ext": "^1.0.1"
+    "sinon-chrome": "0.1.2"
   }
 }
