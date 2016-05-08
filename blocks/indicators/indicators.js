@@ -106,27 +106,27 @@
 
     SetAcIndicator: function () {
       if (qs(".page_block .audio_page_player") && !byId("nowIndAC")) {
-        qs('.page_block .audio_page_player_volume_line').insertAdjacentHTML('beforebegin', Indicators.htmls.acIndicator);
+        qs('.page_block .audio_page_player_volume_slider').insertAdjacentHTML('beforebegin', Indicators.htmls.acIndicator);
         byId('nowIndAC').addEventListener('click', this.listeners.togglePauseScrobbling);
       }
     },
 
     SetPdIndicator: function () {
-      if (byId('audio_layer_tt') && !byId('nowIndPD')) {
-        qs('#audio_layer_tt .audio_page_player_volume_line').insertAdjacentHTML('beforebegin', Indicators.htmls.pdIndicator);
+      if (qs('.top_audio_layer') && !byId('nowIndPD')) {
+        qs('.top_audio_layer .audio_page_player_volume_slider').insertAdjacentHTML('beforebegin', Indicators.htmls.pdIndicator);
         byId('nowIndPD').addEventListener('click', this.listeners.togglePauseScrobbling);
       }
     },
 
     SetTwitterAC: function () {
       if (qs(".page_block .audio_page_player") && !byId("twitterDivAC")) {
-        qs('.page_block .audio_page_player_volume_line').insertAdjacentHTML('beforebegin', Indicators.htmls.twitAChtml);
+        qs('.page_block .audio_page_player_volume_slider').insertAdjacentHTML('beforebegin', Indicators.htmls.twitAChtml);
       }
     },
 
     SetTwitterPD: function () {
-      if (byId('audio_layer_tt') && !byId("twitterDivPD")) {
-        qs('#audio_layer_tt .audio_page_player_volume_line').insertAdjacentHTML('beforebegin', Indicators.htmls.twitPDhtml);
+      if (qs('.top_audio_layer') && !byId("twitterDivPD")) {
+        qs('.top_audio_layer .audio_page_player_volume_slider').insertAdjacentHTML('beforebegin', Indicators.htmls.twitPDhtml);
       }
     },
 
@@ -146,14 +146,14 @@
 
     SetLoveAC: function () {
       if (qs('.page_block .audio_page_player') && !byId('loveDivAC')) {
-        qs('.page_block .audio_page_player_volume_line').insertAdjacentHTML('beforebegin', Indicators.htmls.loveAC);
+        qs('.page_block .audio_page_player_volume_slider').insertAdjacentHTML('beforebegin', Indicators.htmls.loveAC);
         byId('loveDivAC').addEventListener('click', this._loveClickListener.bind(this));
       }
     },
 
     SetLovePD: function () {
-      if (byId('audio_layer_tt') && !byId('loveDivPD')) {
-        qs('#audio_layer_tt .audio_page_player_volume_line').insertAdjacentHTML('beforebegin', Indicators.htmls.lovePD);
+      if (qs('.top_audio_layer') && !byId('loveDivPD')) {
+        qs('.top_audio_layer .audio_page_player_volume_slider').insertAdjacentHTML('beforebegin', Indicators.htmls.lovePD);
         byId('loveDivPD').addEventListener('click', this._loveClickListener.bind(this));
       }
     },
