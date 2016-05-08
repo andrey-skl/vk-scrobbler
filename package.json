@@ -24,7 +24,10 @@
     "last.fm",
     "scrobbler"
   ],
-  "contributors": ["Andrey Skladchikov", "Stanisław Dac"],
+  "contributors": [
+    "Andrey Skladchikov",
+    "Stanisław Dac"
+  ],
   "license": "MIT",
   "dependencies": {
     "js-md5": "0.3.0"
@@ -34,7 +37,7 @@
     "codecov.io": "^0.1.2",
     "electron-prebuilt": "^0.37.6",
     "gulp": "^3.8.11",
-    "gulp-watch": "^4.2.4",
+    "gulp-jshint": "^2.0.0",
     "jshint": "^2.7.0",
     "karma": "^0.13.22",
     "karma-chrome-launcher": "^0.2",
