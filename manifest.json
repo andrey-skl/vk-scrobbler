@@ -4,7 +4,7 @@
   "icons": {
     "128": "blocks/logo/logo_128.png"
   },
-  "version": "2.0.2-ff0",
+  "version": "2.0.2",
   "manifest_version": 2,
   "minimum_chrome_version": "41.0",
   "background": {
@@ -14,6 +14,7 @@
       "blocks/lastfm-api/lastfm-api__client.js",
       "blocks/lastfm-api/lastfm-api__config.js",
       "blocks/lastfm-api/lastfm-api.js",
+      "blocks/analytics/analytics.js",
       "blocks/bus/bus__background.js",
       "blocks/content/content__messages.js",
       "blocks/background/background__auth.js",
