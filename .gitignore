@@ -6,4 +6,4 @@ coverage/
 .dropbox
 npm-debug.log
 npm-debug.log.*
-.env
+.env.json
