@@ -20,7 +20,7 @@ var path = {
     alljs: 'dist/blocks/**/*.js',
     blocks: 'dist/blocks',
     manifest: 'dist',
-    node_modules: 'dist'
+    node_modules: 'dist/components'
   },
   build: {
     itself: 'build',

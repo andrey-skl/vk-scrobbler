@@ -10,7 +10,7 @@
   "background": {
     "scripts": [
       "blocks/namespace/namespace.js",
-      "md5.min.js",
+      "components/md5.min.js",
       "blocks/lastfm-api/lastfm-api__client.js",
       "blocks/lastfm-api/lastfm-api__config.js",
       "blocks/lastfm-api/lastfm-api.js",
