@@ -9,6 +9,7 @@
   "scripts": {
     "watch": "gulp watch",
     "copy": "gulp cp",
+    "create_env": "> .env.json",
     "prebuild": "npm run lint",
     "build": "gulp build",
     "start": "npm run watch",
