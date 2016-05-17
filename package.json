@@ -13,7 +13,7 @@
     "prebuild": "npm run lint",
     "build": "gulp build",
     "build-chrome": "gulp build:chrome",
-    "build-firefox": "gulp build:firefox && gulp pack:firefox",
+    "build-firefox": "gulp build:firefox",
     "start": "npm run watch",
     "test": "node ./node_modules/karma/bin/karma start",
     "lint": "gulp lint"
@@ -53,6 +53,7 @@
     "karma-sinon-chai": "1.2.0",
     "lolex": "^1.4.0",
     "mocha": "^2.2.5",
+    "run-sequence": "^1.2.0",
     "sinon": "^1.15.4",
     "sinon-chai": "2.8.0",
     "sinon-chrome": "0.1.2"

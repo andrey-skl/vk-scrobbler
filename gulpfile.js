@@ -1,6 +1,6 @@
 /*jshint node: true*/
 var gulp = require('gulp');
-
+var runSequence = require('run-sequence');
 var exec = require('child_process').exec;
 var zip = require('gulp-zip');
 var clean = require('gulp-clean');
@@ -37,28 +37,27 @@ var path = {
   env: '.env.json'
 };
 
-// Clean build directory
 gulp.task('clean', function() {
-  return gulp.src(path.build.itself, {
-      read: false
-    })
+  return gulp.src([path.build.itself, path.dist.all], {read: false})
     .pipe(clean());
 });
 
 gulp.task('copy-blocks', function() {
-  gulp.src(path.src.blocks)
+  return gulp.src(path.src.blocks)
     .pipe(gulp.dest(path.dist.blocks));
 });
 gulp.task('copy-manifest', function() {
-  gulp.src(path.src.manifest)
+  return gulp.src(path.src.manifest)
     .pipe(gulp.dest(path.dist.manifest));
 });
 gulp.task('copy-node_modules', function() {
-  gulp.src(path.src.node_modules)
+  return gulp.src(path.src.node_modules)
     .pipe(gulp.dest(path.dist.node_modules));
 });
-// Copy task
-gulp.task('copy', ['copy-blocks', 'copy-manifest', 'copy-node_modules']);
+
+gulp.task('copy', function(finishCallback) {
+  runSequence('clean', ['copy-blocks', 'copy-manifest', 'copy-node_modules'], finishCallback);
+});
 
 // Recopy all before watch
 gulp.task('watch', ['copy'], function() {
@@ -118,9 +117,14 @@ gulp.task('pack:chrome', function() {
     .pipe(gulp.dest(path.build.chrome));
 });
 
-// Copy all changes to dist and clean `build` before packing
-gulp.task('build', ['copy', 'sign:firefox', 'pack:chrome']);
+gulp.task('build', function() {
+  runSequence('copy', 'sign:firefox', 'pack:chrome');
+});
 
-gulp.task('build:firefox', ['copy', 'sign:firefox']);
+gulp.task('build:firefox', function() {
+  runSequence('copy', 'sign:firefox', 'pack:firefox');
+});
 
-gulp.task('build:chrome', ['copy', 'pack:chrome']);
+gulp.task('build:chrome', function() {
+  runSequence('copy', 'pack:chrome');
+});
