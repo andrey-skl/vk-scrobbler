@@ -8,10 +8,12 @@
   },
   "scripts": {
     "watch": "gulp watch",
-    "copy": "gulp cp",
+    "copy": "gulp copy",
     "create_env": "echo '{}' > .env.json",
     "prebuild": "npm run lint",
     "build": "gulp build",
+    "build-chrome": "gulp build:chrome",
+    "build-firefox": "gulp build:firefox && gulp pack:firefox",
     "start": "npm run watch",
     "test": "node ./node_modules/karma/bin/karma start",
     "lint": "gulp lint"

@@ -24,7 +24,7 @@ var path = {
   },
   build: {
     itself: 'build',
-    fx: 'build/firefox',
+    firefox: 'build/firefox',
     chrome: 'build/chrome'
   },
   // environment file with API Credentials
@@ -46,27 +46,26 @@ gulp.task('clean', function() {
     .pipe(clean());
 });
 
-gulp.task('cp-blocks', function() {
+gulp.task('copy-blocks', function() {
   gulp.src(path.src.blocks)
     .pipe(gulp.dest(path.dist.blocks));
 });
-gulp.task('cp-manifest', function() {
+gulp.task('copy-manifest', function() {
   gulp.src(path.src.manifest)
     .pipe(gulp.dest(path.dist.manifest));
 });
-gulp.task('cp-node_modules', function() {
+gulp.task('copy-node_modules', function() {
   gulp.src(path.src.node_modules)
     .pipe(gulp.dest(path.dist.node_modules));
 });
 // Copy task
-gulp.task('cp', ['cp-blocks', 'cp-manifest', 'cp-node_modules']);
+gulp.task('copy', ['copy-blocks', 'copy-manifest', 'copy-node_modules']);
 
 // Recopy all before watch
-gulp.task('watch', ['cp'], function() {
-  gulp.watch(path.src.blocks, ['cp-blocks']);
-  gulp.watch(path.src.manifest, ['cp-manifest']);
-  gulp.watch(path.src.node_modules, ['cp-node_modules']);
-
+gulp.task('watch', ['copy'], function() {
+  gulp.watch(path.src.blocks, ['copy-blocks']);
+  gulp.watch(path.src.manifest, ['copy-manifest']);
+  gulp.watch(path.src.node_modules, ['copy-node_modules']);
 });
 
 // Linter
@@ -76,24 +75,24 @@ gulp.task('lint', function() {
     .pipe(jshint.reporter('default'));
 });
 
-// getting issuer and secret from env file
-env(path.env);
-
 var execSign = 'web-ext sign' +
   ' -s dist' +
-  ' -a ' + path.build.fx +
+  ' -a ' + path.build.firefox +
   ' --api-secret ' + process.env.secret +
   ' --api-key ' + process.env.issuer;
 
 // -a build dir, -s source dir
 var execPack = 'web-ext build' +
   ' -s dist' +
-  ' -a ' + path.build.fx;
+  ' -a ' + path.build.firefox;
 
 // Executing signing of Firefox WebExtension.
 // It will send package to AMO and return
 // signed extension to `build` folder
-gulp.task('sign:fx', function(cb) {
+gulp.task('sign:firefox', function(cb) {
+  // getting issuer and secret from env file
+  env(path.env);
+
   exec(execSign, function(err, stdout, stderr) {
     console.log(stdout);
     console.log(stderr);
@@ -101,7 +100,7 @@ gulp.task('sign:fx', function(cb) {
   });
 });
 
-gulp.task('pack:fx', function(cb) {
+gulp.task('pack:firefox', function(cb) {
   exec(execPack, function(err, stdout, stderr) {
     console.log(stdout);
     console.log(stderr);
@@ -121,4 +120,8 @@ gulp.task('pack:chrome', function() {
 });
 
 // Copy all changes to dist and clean `build` before packing
-gulp.task('build', ['cp', 'sign:fx', 'pack:chrome']);
+gulp.task('build', ['copy', 'sign:firefox', 'pack:chrome']);
+
+gulp.task('build:firefox', ['copy', 'sign:firefox']);
+
+gulp.task('build:chrome', ['copy', 'pack:chrome']);
