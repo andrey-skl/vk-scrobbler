@@ -2,7 +2,6 @@
 var gulp = require('gulp');
 
 var exec = require('child_process').exec;
-var env = require('gulp-env');
 var zip = require('gulp-zip');
 var clean = require('gulp-clean');
 var jshint = require('gulp-jshint');
@@ -75,23 +74,18 @@ gulp.task('lint', function() {
     .pipe(jshint.reporter('default'));
 });
 
-var execSign = 'web-ext sign' +
-  ' -s dist' +
-  ' -a ' + path.build.firefox +
-  ' --api-secret ' + process.env.secret +
-  ' --api-key ' + process.env.issuer;
-
-// -a build dir, -s source dir
-var execPack = 'web-ext build' +
-  ' -s dist' +
-  ' -a ' + path.build.firefox;
-
 // Executing signing of Firefox WebExtension.
 // It will send package to AMO and return
 // signed extension to `build` folder
 gulp.task('sign:firefox', function(cb) {
   // getting issuer and secret from env file
-  env(path.env);
+  var signParams = require('./' + path.env);
+
+  var execSign = 'web-ext sign' +
+    ' -s dist' +
+    ' -a ' + path.build.firefox +
+    ' --api-secret ' + signParams.secret +
+    ' --api-key ' + signParams.issuer;
 
   exec(execSign, function(err, stdout, stderr) {
     console.log(stdout);
@@ -101,6 +95,11 @@ gulp.task('sign:firefox', function(cb) {
 });
 
 gulp.task('pack:firefox', function(cb) {
+  // -a build dir, -s source dir
+  var execPack = 'web-ext build' +
+    ' -s dist' +
+    ' -a ' + path.build.firefox;
+
   exec(execPack, function(err, stdout, stderr) {
     console.log(stdout);
     console.log(stderr);

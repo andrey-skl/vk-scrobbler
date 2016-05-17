@@ -41,7 +41,6 @@
     "electron-prebuilt": "^0.37.6",
     "gulp": "^3.8.11",
     "gulp-clean": "^0.3.2",
-    "gulp-env": "^0.4.0",
     "gulp-jshint": "^2.0.1",
     "gulp-zip": "^3.2.0",
     "jshint": "^2.7.0",
