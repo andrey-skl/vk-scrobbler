@@ -2,10 +2,6 @@
   "name": "vk-scrobbler",
   "version": "2.0.3",
   "description": "Last.fm Scrobbler for vk.com",
-  "config": {
-    "src": "blocks",
-    "dist": "dist"
-  },
   "scripts": {
     "watch": "gulp watch",
     "copy": "gulp copy",
