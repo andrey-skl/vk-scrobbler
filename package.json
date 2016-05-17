@@ -1,6 +1,6 @@
 {
   "name": "vk-scrobbler",
-  "version": "2.0.2",
+  "version": "2.0.3",
   "description": "Last.fm Scrobbler for vk.com",
   "config": {
     "src": "blocks",
