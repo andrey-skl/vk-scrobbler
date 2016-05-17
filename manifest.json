@@ -8,40 +8,66 @@
   "manifest_version": 2,
   "minimum_chrome_version": "41.0",
   "background": {
-    "page": "blocks/background/background.html"
+    "scripts": [
+      "blocks/namespace/namespace.js",
+      "components/md5.min.js",
+      "blocks/lastfm-api/lastfm-api__client.js",
+      "blocks/lastfm-api/lastfm-api__config.js",
+      "blocks/lastfm-api/lastfm-api.js",
+      "blocks/analytics/analytics.js",
+      "blocks/bus/bus__background.js",
+      "blocks/content/content__messages.js",
+      "blocks/background/background__auth.js",
+      "blocks/background/background__actions.js",
+      "blocks/background/background.js"
+    ]
+  },
+  "applications": {
+    "gecko": {
+      "id": "vk-scrobbler@stsdc.org",
+      "strict_min_version": "47.0"
+    }
   },
   "permissions": [
     "tabs",
     "notifications",
     "*://*.vk.com/*"
   ],
-  "content_scripts": [
-    {
-      "matches": ["*://*.vk.com/*"],
-      "js": [
-        "blocks/namespace/namespace.js",
-        "blocks/indicators/indicators__utils.js",
-        "blocks/indicators/indicators.js",
-        "blocks/indicators/indicators__old.js",
-        "blocks/bus/bus__content.js",
-        "blocks/content/content__messages.js",
-        "blocks/content/content__bus-wrapper.js",
-        "blocks/content/content__script-injector.js",
-        "blocks/content/content__utils.js",
-        "blocks/content/content__player-handlers.js",
-        "blocks/content/content.js"
-      ],
-      "css": [
-        "blocks/indicators/indicators.css",
-        "blocks/indicators/indicators__old.css"
-      ]
-    }
-  ],
+  "content_scripts": [{
+    "matches": ["*://*.vk.com/*"],
+    "js": [
+      "blocks/namespace/namespace.js",
+      "blocks/indicators/indicators__utils.js",
+      "blocks/indicators/indicators.js",
+      "blocks/indicators/indicators__old.js",
+      "blocks/bus/bus__content.js",
+      "blocks/content/content__messages.js",
+      "blocks/content/content__bus-wrapper.js",
+      "blocks/content/content__script-injector.js",
+      "blocks/content/content__utils.js",
+      "blocks/content/content__player-handlers.js",
+      "blocks/content/content.js"
+    ],
+    "css": [
+      "blocks/indicators/indicators.css",
+      "blocks/indicators/indicators__old.css"
+    ]
+  }],
   "homepage_url": "http://vkontakte.ru/vk_scrobbler",
   "web_accessible_resources": [
     "blocks/indicators/__icon/*",
+    "blocks/indicators/__icon/indicators__icon-tweet.png",
+    "blocks/indicators/__icon/indicators__icon-love.png",
+    "blocks/indicators/__icon/indicators__icon-unlove.png",
+    "blocks/indicators/__icon/indicators__icon-disabled.png",
+    "blocks/indicators/__icon/indicators__icon-equalizer.gif",
+    "blocks/indicators/__icon/indicators__icon-pause.png",
+    "blocks/indicators/__icon/indicators__icon-check-blue.png",
     "blocks/namespace/*",
-    "blocks/vk-inner/*"
+    "blocks/namespace/namespace.js",
+    "blocks/vk-inner/vk-inner__player_old.js",
+    "blocks/vk-inner/vk-inner__player.js",
+    "blocks/vk-inner/vk-inner.js"
   ],
   "content_security_policy": "script-src 'self' https://ws.audioscrobbler.com https://ssl.google-analytics.com; object-src 'self'; style-src 'self' 'unsafe-inline';"
 }

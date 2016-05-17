@@ -8,6 +8,7 @@ before_install:
   - sh -e /etc/init.d/xvfb start
 
 before_script:
+  - npm run create_env
   - npm run lint
 
 script:

@@ -1,4 +1,4 @@
-﻿(function () {
+(function() {
   'use strict';
   var PlayerListener = window.vkScrobbler.PlayerListener;
   var PlayerPatcher = window.vkScrobbler.PlayerPatcherOld;
