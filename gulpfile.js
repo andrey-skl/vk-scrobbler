@@ -120,5 +120,5 @@ gulp.task('pack:chrome', function() {
     .pipe(gulp.dest(path.build.chrome));
 });
 
-// Copy all changes to dist and clean `build` before packing
+// Copy all changes to dist and pack for each browser
 gulp.task('build', ['cp', 'sign:fx', 'pack:chrome']);
