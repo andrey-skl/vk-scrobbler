@@ -1,8 +1,7 @@
 /*jshint node: true*/
 var gulp = require('gulp');
-
+var runSequence = require('run-sequence');
 var exec = require('child_process').exec;
-var env = require('gulp-env');
 var zip = require('gulp-zip');
 var clean = require('gulp-clean');
 var jshint = require('gulp-jshint');
@@ -24,7 +23,7 @@ var path = {
   },
   build: {
     itself: 'build',
-    fx: 'build/firefox',
+    firefox: 'build/firefox',
     chrome: 'build/chrome'
   },
   // environment file with API Credentials
@@ -38,35 +37,33 @@ var path = {
   env: '.env.json'
 };
 
-// Clean build directory
 gulp.task('clean', function() {
-  return gulp.src(path.build.itself, {
-      read: false
-    })
+  return gulp.src([path.build.itself, path.dist.all], {read: false})
     .pipe(clean());
 });
 
-gulp.task('cp-blocks', function() {
-  gulp.src(path.src.blocks)
+gulp.task('copy-blocks', function() {
+  return gulp.src(path.src.blocks)
     .pipe(gulp.dest(path.dist.blocks));
 });
-gulp.task('cp-manifest', function() {
-  gulp.src(path.src.manifest)
+gulp.task('copy-manifest', function() {
+  return gulp.src(path.src.manifest)
     .pipe(gulp.dest(path.dist.manifest));
 });
-gulp.task('cp-node_modules', function() {
-  gulp.src(path.src.node_modules)
+gulp.task('copy-node_modules', function() {
+  return gulp.src(path.src.node_modules)
     .pipe(gulp.dest(path.dist.node_modules));
 });
-// Copy task
-gulp.task('cp', ['cp-blocks', 'cp-manifest', 'cp-node_modules']);
+
+gulp.task('copy', function(finishCallback) {
+  runSequence('clean', ['copy-blocks', 'copy-manifest', 'copy-node_modules'], finishCallback);
+});
 
 // Recopy all before watch
-gulp.task('watch', ['cp'], function() {
-  gulp.watch(path.src.blocks, ['cp-blocks']);
-  gulp.watch(path.src.manifest, ['cp-manifest']);
-  gulp.watch(path.src.node_modules, ['cp-node_modules']);
-
+gulp.task('watch', ['copy'], function() {
+  gulp.watch(path.src.blocks, ['copy-blocks']);
+  gulp.watch(path.src.manifest, ['copy-manifest']);
+  gulp.watch(path.src.node_modules, ['copy-node_modules']);
 });
 
 // Linter
@@ -76,24 +73,19 @@ gulp.task('lint', function() {
     .pipe(jshint.reporter('default'));
 });
 
-// getting issuer and secret from env file
-env(path.env);
-
-var execSign = 'web-ext sign' +
-  ' -s dist' +
-  ' -a ' + path.build.fx +
-  ' --api-secret ' + process.env.secret +
-  ' --api-key ' + process.env.issuer;
-
-// -a build dir, -s source dir
-var execPack = 'web-ext build' +
-  ' -s dist' +
-  ' -a ' + path.build.fx;
-
 // Executing signing of Firefox WebExtension.
 // It will send package to AMO and return
 // signed extension to `build` folder
-gulp.task('sign:fx', function(cb) {
+gulp.task('sign:firefox', function(cb) {
+  // getting issuer and secret from env file
+  var signParams = require('./' + path.env);
+
+  var execSign = 'web-ext sign' +
+    ' -s dist' +
+    ' -a ' + path.build.firefox +
+    ' --api-secret ' + signParams.secret +
+    ' --api-key ' + signParams.issuer;
+
   exec(execSign, function(err, stdout, stderr) {
     console.log(stdout);
     console.log(stderr);
@@ -101,7 +93,12 @@ gulp.task('sign:fx', function(cb) {
   });
 });
 
-gulp.task('pack:fx', function(cb) {
+gulp.task('pack:firefox', function(cb) {
+  // -a build dir, -s source dir
+  var execPack = 'web-ext build' +
+    ' -s dist' +
+    ' -a ' + path.build.firefox;
+
   exec(execPack, function(err, stdout, stderr) {
     console.log(stdout);
     console.log(stderr);
@@ -120,5 +117,14 @@ gulp.task('pack:chrome', function() {
     .pipe(gulp.dest(path.build.chrome));
 });
 
-// Copy all changes to dist and pack for each browser
-gulp.task('build', ['cp', 'sign:fx', 'pack:chrome']);
+gulp.task('build', function() {
+  runSequence('copy', 'sign:firefox', 'pack:chrome');
+});
+
+gulp.task('build:firefox', function() {
+  runSequence('copy', 'sign:firefox', 'pack:firefox');
+});
+
+gulp.task('build:chrome', function() {
+  runSequence('copy', 'pack:chrome');
+});
