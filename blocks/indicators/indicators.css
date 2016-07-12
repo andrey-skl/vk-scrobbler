@@ -18,11 +18,12 @@
   top: -17px;
   padding: 2px;
   cursor: pointer;
-
+  filter: grayscale(80%) brightness(185%);
   -webkit-filter: grayscale(80%) brightness(185%);
 }
 
 .indicators__status_mini:hover {
+  filter: grayscale(80%) brightness(300%);
   -webkit-filter: grayscale(80%) brightness(300%);
 }
 
