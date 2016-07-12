@@ -1,25 +1,33 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <title>VK scrobbler подключен</title>
 
-  <meta http-equiv="content-type" content="text/html; charset=utf8"/>
+  <meta http-equiv="content-type" content="text/html; charset=utf8" />
 
-  <link rel="stylesheet" type="text/css" href="./auth.css"/>
+  <link rel="stylesheet" type="text/css" href="./auth.css" />
 </head>
 
 <body>
-<div class="auth">
-  <h1><span id=userName>Подождите...</span></h1>
+  <div class="auth">
+    <div class="user">
+      <div class="user__img">
+        <div id="loader" class="loader"></div>
+      </div>
+      <span id="userName" class="user__name"></span>
+    </div>
 
-  <h3 id="message" class="auth__message"></h3>
-</div>
+    <div id="message" class="auth__message">Минуточку&#8230;</div>
+  </div>
 
-<script src="../namespace/namespace.js"></script>
-<script src="../../components/md5.min.js"></script>
-<script src="../lastfm-api/lastfm-api__client.js"></script>
-<script src="../lastfm-api/lastfm-api__config.js"></script>
-<script src="../analytics/analytics.js"></script>
-<script src="./auth.js"></script>
+  <script src="../namespace/namespace.js"></script>
+  <script src="../../components/md5.min.js"></script>
+  <script src="../lastfm-api/lastfm-api__client.js"></script>
+  <script src="../lastfm-api/lastfm-api__config.js"></script>
+  <script src="../analytics/analytics.js"></script>
+  <script src="./auth.js"></script>
+
 </body>
+
 </html>
