@@ -2,12 +2,14 @@
   'use strict';
 
   var GET_SESSION = 'auth.getSession';
+  var GET_USER_INFO = 'user.getInfo';
   var lastFmClient = new window.LastFMClient(window.vkScrobbler.LastFmApiConfig);
 
   var token = window.location.search.replace('?token=', '');
 
   var showInformation = function(userName) {
     document.getElementById("loader").remove();
+    getUserInfo(userName).then(processUserParams);
     document.getElementById("userName").innerHTML = userName;
     document.getElementById("message").innerHTML = "VK scrobbler успешно подключен.<br>Обновите уже открытые вкладки vk.com!";
   };
@@ -34,6 +36,23 @@
       });
     }
   };
+
+  var getUserInfo = function(user) {
+    return lastFmClient.signedCall('POST', {
+      method: GET_USER_INFO,
+      user: user
+    }).catch(function(e) {
+      throw e;
+    });
+  };
+
+  var processUserParams = function(userInfo) {
+    console.log(userInfo.user.image[1]['#text']);
+    var img = document.createElement("img");
+    img.src = userInfo.user.image[0]['#text'];
+    document.getElementById("userImage").appendChild(img);
+  };
+
 
   var processAuthParams = function(data) {
     var userName = data.session.name;

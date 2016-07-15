@@ -24,6 +24,11 @@ body {
   justify-content: center;
   margin-bottom: 15px;
 }
+.user__img img{
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
 .user__name {
   font-size: 1.75rem;
 }
