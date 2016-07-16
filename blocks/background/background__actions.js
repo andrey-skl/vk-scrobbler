@@ -3,6 +3,7 @@
 
   var MSG = window.vkScrobbler.contentMessages;
   var LastFmApi = window.vkScrobbler.LastFmApi;
+  var log = window.vkScrobbler.log;
 
 
   var BackgroundActions = function (secretKey, userName) {
@@ -14,7 +15,7 @@
     _gaq.push(['_trackEvent', "scrobbled", params.artist + ":" + params.title]);
 
     return this.api.scrobble(params).then(function (response) {
-      console.info("Композиция " + params.artist + ": " + params.title + " заскробблена!", response);
+      log("Композиция " + params.artist + ": " + params.title + " заскробблена!", response);
       return response;
     });
   };
@@ -46,7 +47,7 @@
 
   BackgroundActions.prototype[MSG.GET_TRACK_INFO] = function (params) {
     return this.api.getTrackInfo(params).then(function (res) {
-      console.info("Получена информация о композиции: ", res.track);
+      console.table(res.track);
       return res;
     });
   };
