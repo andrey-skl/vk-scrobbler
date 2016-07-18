@@ -15,14 +15,14 @@
     _gaq.push(['_trackEvent', "scrobbled", params.artist + ":" + params.title]);
 
     return this.api.scrobble(params).then(function (response) {
-      log("Композиция " + params.artist + ": " + params.title + " заскробблена!", response);
+      log.s(params.artist, params.title, response);
       return response;
     });
   };
 
   BackgroundActions.prototype[MSG.NOW_PLAYING] = function (params) {
     return this.api.nowPlaying(params).then(function (response) {
-      console.info("Композиция " + params.artist + ": " + params.title + " отмечена как проигрываемая!");
+      log.p(params.artist, params.title);
       return response;
     });
   };
@@ -31,7 +31,7 @@
     _gaq.push(['_trackEvent', "loved", params.artist + ":" + params.title]);
 
     return this.api.makeLoved(params).then(function (response) {
-      console.info("Признана любовь к " + params.artist + ": " + params.title);
+      log.l(params.artist, params.title);
       return response;
     });
   };
@@ -40,7 +40,7 @@
     _gaq.push(['_trackEvent', "unloved", params.artist + ":" + params.title]);
 
     return this.api.makeNotLoved(params).then(function (response) {
-      console.info("Утеряна любовь к " + params.artist + ": " + params.title);
+      log.u(params.artist, params.title);
       return response;
     });
   };
