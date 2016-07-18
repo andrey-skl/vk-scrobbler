@@ -5,10 +5,10 @@
   var messageResume = 'resume';
   var messageStop = 'stop';
   var messagePlayStart = 'playStart';
-  var ARTIST_NUM = 4;
-  var TITLE_NUM = 3;
-  var TOTAL_NUM = 5;
-  var TRY_PATCH_INTERVAL = 300;
+  const ARTIST_NUM = 4;
+  const TITLE_NUM = 3;
+  const TOTAL_NUM = 5;
+  const TRY_PATCH_INTERVAL = 300;
 
   var PlayerListener = function () {
     this.waitForPlayerAndSubscribe();
@@ -40,7 +40,7 @@
   PlayerListener.prototype.onPause = function () {
     this.sendMessage({message: messagePause});
   };
-  
+
   PlayerListener.prototype.onStop = function () {
     this.sendMessage({message: messageStop});
   };

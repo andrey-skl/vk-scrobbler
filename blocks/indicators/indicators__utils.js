@@ -8,7 +8,7 @@
     paused: 'paused'
   };
 
-  var PATHS = {
+  const PATHS = {
     PLAYING: chrome.extension.getURL('blocks/indicators/__icon/indicators__icon-equalizer.gif'),
     DISABLED: chrome.extension.getURL('blocks/indicators/__icon/indicators__icon-disabled.png'),
     PAUSE: chrome.extension.getURL('blocks/indicators/__icon/indicators__icon-pause.png'),
