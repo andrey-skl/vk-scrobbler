@@ -1,7 +1,7 @@
 (function () {
   'use strict';
   var BusContent = window.vkScrobbler.BusContent;
-  var MSG = window.vkScrobbler.contentMessages;
+  const MSG = window.vkScrobbler.contentMessages;
 
   var ContentBusWrapper = function () {
     this.bus = new BusContent('vk-scrobbler-bus');
