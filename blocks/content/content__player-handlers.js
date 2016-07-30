@@ -65,7 +65,7 @@
     this.state.artist = data.artist;
     this.state.track = data.title;
 
-    this.state.scrobbled = false;
+    this.state.scrobbled = 0;
     this.state.playing = true;
     this.state.playedTime = 0;
     this.state.playTimeStamp = Date.now();
@@ -89,16 +89,15 @@
 
   PlayerHandlers.prototype.scrobbleIfNeeded = function (percent) {
     if (this.state.enabled &&
-      !this.state.scrobbled &&
       !this.state.scrobbling &&
       this.state.artist &&
       this.state.track &&
-      percent > SCROBBLE_PERCENTAGE) {
+      percent > SCROBBLE_PERCENTAGE + 100 * this.state.scrobbled) {
       this.state.scrobbling = true;
       this.busWrapper.sendScrobleRequest(this.state.artist, this.state.track)
         .then(function () {
           this.state.scrobbling = false;
-          this.state.scrobbled = true;
+          this.state.scrobbled++;
           Indicators.indicateScrobbled();
         }.bind(this), function onError() {
           this.state.scrobbling = false;
