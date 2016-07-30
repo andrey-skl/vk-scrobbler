@@ -9,14 +9,23 @@
   console.info('vk scrobbler. New ui detected = ', !isOldUI);
 
   function instantIndicatorsInserter() {
-    //listen to players inserting in document to instantly insert indicators nodes
-    document.body.addEventListener('DOMNodeInserted', function(e) {
-      if (e.target.classList && e.target.classList.contains('audio_page_player_volume_slider')) {
-        Indicators.SetDropdownIndicators();
-        Indicators.SetAudioPageIndicators();
-        return;
-      }
-    });
+    //observe players inserting in document to instantly insert indicators nodes
+    var playersObserver = new MutationObserver(function(mutations) {
+        mutations.map(function(mutation) {
+            // console.log("class: "+mutation.target.className);
+            if (mutation.target.classList && mutation.target.classList.contains('top_audio_layer')) {
+              Indicators.SetDropdownIndicators();
+              Indicators.SetAudioPageIndicators();
+              console.log("[vk scrobbler] Indicators inserted in the new music pad.");
+              return;
+            }
+        });
+      }),
+      options = {
+        'childList': true,
+        'subtree': true
+      };
+    playersObserver.observe(document.body, options);
 
     //If audio page is a landing page, then just attaching indicators
     Indicators.SetAudioPageIndicators();

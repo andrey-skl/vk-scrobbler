@@ -1,13 +1,63 @@
+body {
+  background-color: #EDEEF0;
+  font-family: -apple-system,BlinkMacSystemFont,Roboto,Open Sans,Helvetica Neue,sans-serif;
+  font-size: 16px;
+}
 .auth {
-  text-align: center;
   width: 500px;
-  border: solid silver 1px;
-  border-radius: 10px;
-  margin: auto;
-  font-family: arial, serif;
-  font-size: 14px;
+  background-color: #fff;
+  box-shadow: 0 1px 0 0 #d7d8db, 0 0 0 1px #e3e4e8;
+  border-radius: 2px;
+  margin: 20px auto;
+  padding: 15px 20px 20px;
+}
+.auth__message {
+  color: #2a5885;
+  text-align: center;
+  border-top: 1px solid #e7e8ec;
+  font-size: 1.4rem;
+  padding-top: 15px;
 }
 
-.auth__message {
-  color: gray;
+.user {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 15px;
+}
+.user__img img{
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.user__name {
+  font-size: 1.75rem;
+}
+.loader {
+  position: relative;
+  width: 47px;
+  height: 47px;
+  font-size: 10px;
+  text-indent: -9999em;
+  border-top: 0.6em solid rgba(80, 114, 153, 0.2);
+  border-right: 0.6em solid rgba(80, 114, 153, 0.2);
+  border-bottom: 0.6em solid rgba(80, 114, 153, 0.2);
+  border-left: 0.6em solid #507299;
+  -ms-transform: translateZ(0);
+  transform: translateZ(0);
+  animation: load8 1.1s infinite linear;
+}
+.loader,
+.loader:after {
+  border-radius: 50%;
+  width: 3em;
+  height: 3em;
+}
+
+@keyframes load8 {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
