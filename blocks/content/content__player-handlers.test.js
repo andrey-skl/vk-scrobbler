@@ -34,6 +34,7 @@ describe('Content PlayerHandlers', function () {
         playing: false,
         scrobbled: 0,
         scrobbling: false,
+        nowPlayingCanBeSet: false,
 
         artist: null,
         track: null,
