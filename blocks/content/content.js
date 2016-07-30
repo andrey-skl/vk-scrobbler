@@ -1,12 +1,13 @@
 (function() {
   'use strict';
-
   var Indicators = window.vkScrobbler.Indicators;
   var IndicatorsOld = window.vkScrobbler.IndicatorsOld;
   var playerHandlers = new window.vkScrobbler.PlayerHandlers();
   var scriptInjector = window.vkScrobbler.scriptInjector;
   var isOldUI = Boolean(document.getElementById('top_new_msg')); //new UI doesn't have this element
-  console.info('vk scrobbler. New ui detected = ', !isOldUI);
+  var log = window.vkScrobbler.log;
+
+  log.i('content.js: New ui detected = '+ !isOldUI);
 
   function instantIndicatorsInserter() {
     //observe players inserting in document to instantly insert indicators nodes
@@ -16,7 +17,7 @@
             if (mutation.target.classList && mutation.target.classList.contains('top_audio_layer')) {
               Indicators.SetDropdownIndicators();
               Indicators.SetAudioPageIndicators();
-              console.log("[vk scrobbler] Indicators inserted in the new music pad.");
+              log.i("Indicators inserted in the new music pad.");
               return;
             }
         });
@@ -47,15 +48,15 @@
           // console.log("id:"+mutation.target.id);
           if (mutation.target.id === 'pad_cont') {
             IndicatorsOld.SetAllPD();
-            console.log("[vk scrobbler] Indicators inserted in the old music pad.");
+            log.i("Indicators inserted in the old music pad.");
           }
           if (mutation.target.id === 'gp') {
             IndicatorsOld.SetAllMini();
-            console.log("[vk scrobbler] Indicators inserted in the old music left minipad.");
+            log.i("Indicators inserted in the old music left minipad.");
           }
           if (mutation.target.id === 'wrap3' && mutation.target.querySelector('#audio') !== null) {
             IndicatorsOld.SetAllAC();
-            console.log("[vk scrobbler] Indicators inserted in the old music page topbar.");
+            log.i("Indicators inserted in the old music page topbar.");
           }
         });
       }),

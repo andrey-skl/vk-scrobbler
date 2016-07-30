@@ -8,6 +8,12 @@
       nsScript.src = chrome.extension.getURL("blocks/namespace/namespace.js");
       document.body.appendChild(nsScript);
     },
+    injectLog: function () {
+      //namespace
+      var nsScript = document.createElement('script');
+      nsScript.src = chrome.extension.getURL("blocks/log/log.js");
+      document.body.appendChild(nsScript);
+    },
     injectPlayerPatcher: function () {
       //share vk-inner__player.js to vk.com
       var playerScript = document.createElement('script');
@@ -27,6 +33,7 @@
     injectPatcher: function () {
 
       scriptInjector.injectNamespace();
+      scriptInjector.injectLog();
 
       setTimeout(function () {
         scriptInjector.injectPlayerPatcher();
