@@ -14,8 +14,9 @@
     this.state = {
       enabled: true,
       playing: false,
-      scrobbled: false,
+      scrobbled: 0,
       scrobbling: false,
+      nowPlayingCanBeSet: false,
 
       artist: null,
       track: null,
@@ -39,6 +40,7 @@
     this.sendNowPlayingIfNeeded();
     var playedPercent = this.state.playedTime / data.total * 100;
     this.scrobbleIfNeeded(playedPercent);
+    this.setNowPlayingForMultiscrobble(playedPercent);
   };
 
   PlayerHandlers.prototype.pause = function () {
@@ -65,7 +67,7 @@
     this.state.artist = data.artist;
     this.state.track = data.title;
 
-    this.state.scrobbled = false;
+    this.state.scrobbled = 0;
     this.state.playing = true;
     this.state.playedTime = 0;
     this.state.playTimeStamp = Date.now();
@@ -87,18 +89,30 @@
     }
   };
 
+  PlayerHandlers.prototype.setNowPlayingForMultiscrobble = function (percent) {
+    if (this.state.enabled &&
+        this.state.nowPlayingCanBeSet &&
+        this.state.artist &&
+        this.state.track &&
+        percent > 100 * this.state.scrobbled &&
+        percent <= 100 * this.state.scrobbled + SCROBBLE_PERCENTAGE) {
+      Indicators.indicatePlayNow();
+      this.state.nowPlayingCanBeSet = false;
+    }
+  }
+
   PlayerHandlers.prototype.scrobbleIfNeeded = function (percent) {
     if (this.state.enabled &&
-      !this.state.scrobbled &&
       !this.state.scrobbling &&
       this.state.artist &&
       this.state.track &&
-      percent > SCROBBLE_PERCENTAGE) {
+      percent > SCROBBLE_PERCENTAGE + 100 * this.state.scrobbled) {
       this.state.scrobbling = true;
       this.busWrapper.sendScrobleRequest(this.state.artist, this.state.track)
         .then(function () {
           this.state.scrobbling = false;
-          this.state.scrobbled = true;
+          this.state.nowPlayingCanBeSet = true;
+          this.state.scrobbled++;
           Indicators.indicateScrobbled();
         }.bind(this), function onError() {
           this.state.scrobbling = false;
