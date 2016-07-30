@@ -14,7 +14,7 @@
     this.state = {
       enabled: true,
       playing: false,
-      scrobbled: false,
+      scrobbled: 0,
       scrobbling: false,
 
       artist: null,
