@@ -32,8 +32,9 @@ describe('Content PlayerHandlers', function () {
       handlers.state.should.be.deep.equal({
         enabled: true,
         playing: false,
-        scrobbled: false,
+        scrobbled: 0,
         scrobbling: false,
+        nowPlayingCanBeSet: false,
 
         artist: null,
         track: null,
@@ -186,7 +187,7 @@ describe('Content PlayerHandlers', function () {
     it('Should reset state', function () {
       handlers.playStart({});
 
-      handlers.state.scrobbled.should.be.false;
+      handlers.state.scrobbled.should.be.equal(0);
       handlers.state.playing.should.be.true;
       handlers.state.playedTime.should.be.equal(0);
       expect(handlers.state.nowPlayingSendTimeStamp).to.be.null;
@@ -299,7 +300,7 @@ describe('Content PlayerHandlers', function () {
       }});
       handlers.scrobbleIfNeeded(51);
       handlers.state.scrobbling.should.be.false;
-      handlers.state.scrobbled.should.be.true;
+      handlers.state.scrobbled.should.be.equal(1);
     });
 
     it('Should indicate scrobbled after successfull scrobble', function () {
