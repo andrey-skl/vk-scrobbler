@@ -2,7 +2,7 @@
   'use strict';
   var isOldUI = Boolean(document.getElementById('top_new_msg')); //new UI doesn't have this element
 
-  var SCROBBLE_PERCENTAGE = 50;
+  const SCROBBLE_PERCENTAGE = 50;
   var nowPlayingInterval = 15 * 1000;
 
   var utils = window.vkScrobbler.ContentUils;

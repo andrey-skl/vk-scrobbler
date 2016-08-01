@@ -30,6 +30,9 @@ module.exports = function(config) {
 
       'blocks/namespace/*.js',
 
+      // log
+      'blocks/log/log.js',
+
       //bus block
       'blocks/bus/*.js',
 

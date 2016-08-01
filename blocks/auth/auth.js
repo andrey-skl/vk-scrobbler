@@ -4,6 +4,7 @@
   var GET_SESSION = 'auth.getSession';
   var GET_USER_INFO = 'user.getInfo';
   var lastFmClient = new window.LastFMClient(window.vkScrobbler.LastFmApiConfig);
+  var log = window.vkScrobbler.log;
 
   var token = window.location.search.replace('?token=', '');
 
@@ -23,7 +24,7 @@
     if (!token) {
       throw new Error("Token not found for url " + window.location.href);
     } else {
-      console.info("Token: " + token);
+      log.i("Token: " + token);
 
       return lastFmClient.signedCall('POST', {
         method: GET_SESSION,
@@ -47,7 +48,6 @@
   };
 
   var processUserParams = function(userInfo) {
-    console.log(userInfo.user.image[1]['#text']);
     var img = document.createElement("img");
     img.src = userInfo.user.image[0]['#text'];
     document.getElementById("userImage").appendChild(img);
@@ -58,7 +58,7 @@
     var userName = data.session.name;
     var secretKey = data.session.key;
 
-    console.info("Name: ", userName, ", key: " + secretKey);
+    log.i("Name: ", userName, ", key: " + secretKey);
 
     sendCredentialsToBackground(secretKey, userName);
     showInformation(userName);

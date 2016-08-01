@@ -44,7 +44,7 @@ gulp.task('clean', function() {
 });
 
 gulp.task('copy-blocks', function() {
-  return gulp.src(path.src.blocks)
+  return gulp.src([path.src.blocks, path.notTests])
     .pipe(gulp.dest(path.dist.blocks));
 });
 gulp.task('copy-manifest', function() {
@@ -120,7 +120,7 @@ gulp.task('pack:chrome', function() {
 });
 
 gulp.task('build', function() {
-  runSequence('copy', 'sign:firefox', 'pack:chrome');
+  runSequence('copy', 'pack:chrome', 'sign:firefox');
 });
 
 gulp.task('build:firefox', function() {

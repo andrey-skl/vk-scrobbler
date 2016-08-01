@@ -1,14 +1,24 @@
 describe('background handlers', function () {
   var MSG = window.vkScrobbler.contentMessages;
   var Actions = window.vkScrobbler.BackgroundActions;
+  let log = window.vkScrobbler.log;
 
   var fakeKey = 'fffff';
   var fakeName = 'user';
   var fakeTrackInfo = {artist: 'Muse', title: 'Dead Inside'};
+  // This fakeScrobbleResp should probably be somewhere else
+  let fakeScrobbleResp = {
+    scrobbles: {
+      '@attr': {
+        accepted:1,
+        ignored: 0
+      }
+    }
+  };
   var selfResolvePromiseFactory = function (resp) {
     return {
       then: function (callback) {
-        callback(resp || {});
+        callback(resp || fakeScrobbleResp);
       }
     };
   };

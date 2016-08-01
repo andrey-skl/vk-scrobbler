@@ -4,6 +4,7 @@
   var backgroundAuth = window.vkScrobbler.backgroundAuth;
   var BackgroundHandlers = window.vkScrobbler.BackgroundActions;
   var BusBackground = window.vkScrobbler.BusBackground;
+  var log = window.vkScrobbler.log;
   var bus;
 
   var SECRET_KEY = "skey";
@@ -27,7 +28,7 @@
     } else {
       startConnection(secretApiKey, userName);
     }
-    console.info('Background started');
+    log.i('Background started');
   };
   activate();
 
@@ -37,7 +38,7 @@
       localStorage[USER_NAME] = userName = name;
 
       startConnection(secretKey, name);
-      console.info('Получены данные авторизации', secretKey, name);
+      log.i('Authorization data obtained: '+ secretKey + " " + name);
     }
   };
 })();

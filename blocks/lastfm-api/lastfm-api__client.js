@@ -2,10 +2,11 @@
   'use strict';
 
   var md5 = window.md5;
+  var log = window.vkScrobbler.log;
 
   function LastFMClient(options) {
-    this.apiKey = options.apiKey || console.error('LastFMClient: apiKey is required');
-    this.apiSecret = options.apiSecret || console.error('LastFMClient: apiSecret is required');
+    this.apiKey = options.apiKey || log.e('LastFMClient: apiKey is required');
+    this.apiSecret = options.apiSecret || log.e('LastFMClient: apiSecret is required');
     this.apiUrl = options.apiUrl || 'http://ws.audioscrobbler.com/2.0/';
   }
 
