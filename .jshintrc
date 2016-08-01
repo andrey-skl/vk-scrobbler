@@ -6,7 +6,6 @@
   "browser": true,
   "expr":    true,
   "globals": {
-    "jQuery":     true,
     "chrome":     true,
     "moz":        true,
     "document":   true,
