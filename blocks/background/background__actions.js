@@ -10,8 +10,8 @@
   };
 
   BackgroundActions.prototype[MSG.NEED_SCROOBLE] = function (params) {
-    _gaq.push(['_trackPageview', '/scrobbling']);//трекаем как просмотр страницы
-    _gaq.push(['_trackEvent', "scrobbled", params.artist + ":" + params.title]);
+    _ga('pageview', '/scrobbling');//трекаем как просмотр страницы
+    _ga('event', "scrobbled", params.artist + ":" + params.title);
 
     return this.api.scrobble(params).then(function (response) {
       console.info("Композиция " + params.artist + ": " + params.title + " заскробблена!", response);
@@ -27,7 +27,7 @@
   };
 
   BackgroundActions.prototype[MSG.NEED_LOVE] = function (params) {
-    _gaq.push(['_trackEvent', "loved", params.artist + ":" + params.title]);
+    _ga('event', "loved", params.artist + ":" + params.title);
 
     return this.api.makeLoved(params).then(function (response) {
       console.info("Признана любовь к " + params.artist + ": " + params.title);
@@ -36,7 +36,7 @@
   };
 
   BackgroundActions.prototype[MSG.NOT_NEED_LOVE] = function (params) {
-    _gaq.push(['_trackEvent', "unloved", params.artist + ":" + params.title]);
+    _ga('event', "unloved", params.artist + ":" + params.title);
 
     return this.api.makeNotLoved(params).then(function (response) {
       console.info("Утеряна любовь к " + params.artist + ": " + params.title);
@@ -52,7 +52,7 @@
   };
 
   BackgroundActions.prototype[MSG.TOGGLE_PAUSE] = function (params) {
-    _gaq.push(['_trackEvent', "toggle pause scrobbling", "new status: " + params.paused, params.artist + ":" + params.title]);
+    _ga('event', "toggle pause scrobbling", "new status: " + params.paused, params.artist + ":" + params.title);
     return new Promise(function (resolve) {
       resolve();
     });
