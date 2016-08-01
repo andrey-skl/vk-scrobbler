@@ -10,6 +10,7 @@ var jshint = require('gulp-jshint');
 var path = {
   src: {
     blocks: 'blocks/**',
+    javascriptSources: 'blocks/**/*.js',
     manifest: 'manifest.json',
     node_modules: 'node_modules/js-md5/build/*'
   },
@@ -68,9 +69,10 @@ gulp.task('watch', ['copy'], function() {
 
 // Linter
 gulp.task('lint', function() {
-  return gulp.src(path.dist.alljs)
+  return gulp.src(path.src.javascriptSources)
     .pipe(jshint())
-    .pipe(jshint.reporter('default'));
+    .pipe(jshint.reporter('default'))
+    .pipe(jshint.reporter('fail'));
 });
 
 // Executing signing of Firefox WebExtension.

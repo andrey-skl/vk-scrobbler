@@ -29,7 +29,7 @@
         method: GET_SESSION,
         token: token
       }).catch(function(e) {
-        _gaq.push(['_trackEvent', 'JS Error Auth', e, navigator.userAgent]);
+        _ga.push(['_trackEvent', 'JS Error Auth', e, navigator.userAgent]);
 
         document.getElementById("message").innerHTML = JSON.stringify(e.message || e);
         throw e;

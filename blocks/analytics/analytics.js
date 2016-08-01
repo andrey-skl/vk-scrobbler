@@ -15,7 +15,7 @@
       body: message
     })
       .catch((e) => {
-        console.error("Error sending report to Google Analytics.\n" + e);
+        console.error('Error sending report to Google Analytics.\n' + e);
       });
   };
 

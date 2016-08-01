@@ -12,7 +12,7 @@
     "document":   true,
     "window":     true,
     "console":    true,
-    "_gaq":       true,
+    "_ga":       true,
     "Promise":    true,
 
     "sinon":      true,

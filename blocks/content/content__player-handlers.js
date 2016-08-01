@@ -99,7 +99,7 @@
       Indicators.indicatePlayNow();
       this.state.nowPlayingCanBeSet = false;
     }
-  }
+  };
 
   PlayerHandlers.prototype.scrobbleIfNeeded = function (percent) {
     if (this.state.enabled &&

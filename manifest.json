@@ -22,12 +22,6 @@
       "blocks/background/background.js"
     ]
   },
-  "applications": {
-    "gecko": {
-      "id": "vk-scrobbler@stsdc.org",
-      "strict_min_version": "47.0"
-    }
-  },
   "permissions": [
     "tabs",
     "notifications",
