@@ -49,7 +49,7 @@
     "karma-sinon-chai": "1.2.0",
     "lolex": "^1.4.0",
     "mocha": "^2.2.5",
-    "run-sequence": "^1.2.0",
+    "run-sequence": "^1.2.2",
     "sinon": "^1.15.4",
     "sinon-chai": "2.8.0",
     "sinon-chrome": "0.1.2"

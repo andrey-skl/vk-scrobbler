@@ -5,7 +5,6 @@ describe('background handlers', function () {
 
   var fakeKey = 'fffff';
   var fakeName = 'user';
-  var gaq;
   var fakeTrackInfo = {artist: 'Muse', title: 'Dead Inside'};
   // This fakeScrobbleResp should probably be somewhere else
   let fakeScrobbleResp = {
@@ -28,9 +27,7 @@ describe('background handlers', function () {
   beforeEach(function () {
     this.sinon = sinon.sandbox.create();
     this.sinon.stub(window.console, 'info');
-    window._gaq = gaq = this.sinon.stub({
-      push: function () {}
-    });
+    _ga = this.sinon.stub();
 
     handlers = new Actions(fakeKey, fakeName);
     handlers.api = this.sinon.stub(handlers.api);
@@ -76,6 +73,6 @@ describe('background handlers', function () {
   });
   it('Should handle togglePause request', function () {
     handlers[MSG.TOGGLE_PAUSE](fakeTrackInfo);
-    gaq.push.should.have.been.called;
+    _ga.should.have.been.called;
   });
 });

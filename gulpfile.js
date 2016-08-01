@@ -10,6 +10,7 @@ var jshint = require('gulp-jshint');
 var path = {
   src: {
     blocks: 'blocks/**',
+    javascriptSources: 'blocks/**/*.js',
     manifest: 'manifest.json',
     node_modules: 'node_modules/js-md5/build/*'
   },
@@ -43,7 +44,7 @@ gulp.task('clean', function() {
 });
 
 gulp.task('copy-blocks', function() {
-  return gulp.src(path.src.blocks)
+  return gulp.src([path.src.blocks, path.notTests])
     .pipe(gulp.dest(path.dist.blocks));
 });
 gulp.task('copy-manifest', function() {
@@ -68,9 +69,10 @@ gulp.task('watch', ['copy'], function() {
 
 // Linter
 gulp.task('lint', function() {
-  return gulp.src(path.dist.alljs)
+  return gulp.src(path.src.javascriptSources)
     .pipe(jshint())
-    .pipe(jshint.reporter('default'));
+    .pipe(jshint.reporter('default'))
+    .pipe(jshint.reporter('fail'));
 });
 
 // Executing signing of Firefox WebExtension.
@@ -118,7 +120,7 @@ gulp.task('pack:chrome', function() {
 });
 
 gulp.task('build', function() {
-  runSequence('copy', 'sign:firefox', 'pack:chrome');
+  runSequence('copy', 'pack:chrome', 'sign:firefox');
 });
 
 gulp.task('build:firefox', function() {
