@@ -48,7 +48,6 @@
   };
 
   var processUserParams = function(userInfo) {
-    // console.log(userInfo.user.image[1]['#text']);
     var img = document.createElement("img");
     img.src = userInfo.user.image[0]['#text'];
     document.getElementById("userImage").appendChild(img);
