@@ -5,6 +5,7 @@ var exec = require('child_process').exec;
 var zip = require('gulp-zip');
 var clean = require('gulp-clean');
 var jshint = require('gulp-jshint');
+var bump = require('gulp-bump');
 
 
 var path = {
@@ -12,6 +13,7 @@ var path = {
     blocks: 'blocks/**',
     javascriptSources: 'blocks/**/*.js',
     manifest: 'manifest.json',
+    package: 'package.json',
     node_modules: 'node_modules/js-md5/build/*'
   },
   notTests: '!./**/*.test.js',
@@ -37,6 +39,12 @@ var path = {
 
   env: '.env.json'
 };
+
+gulp.task('bump', function(){
+  gulp.src([path.src.package, path.src.manifest])
+  .pipe(bump({type:'prerelease'}))
+  .pipe(gulp.dest('./'));
+});
 
 gulp.task('clean', function() {
   return gulp.src([path.build.itself, path.dist.all], {read: false})
@@ -120,11 +128,11 @@ gulp.task('pack:chrome', function() {
 });
 
 gulp.task('build', function() {
-  runSequence('copy', 'pack:chrome', 'sign:firefox');
+  runSequence('bump' ,'copy', 'pack:chrome', 'sign:firefox');
 });
 
 gulp.task('build:firefox', function() {
-  runSequence('copy', 'sign:firefox', 'pack:firefox');
+  runSequence('bump', 'copy', 'sign:firefox', 'pack:firefox');
 });
 
 gulp.task('build:chrome', function() {
