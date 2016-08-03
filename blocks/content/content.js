@@ -7,26 +7,37 @@
   var isOldUI = Boolean(document.getElementById('top_new_msg')); //new UI doesn't have this element
   var log = window.vkScrobbler.log;
 
-  log.i('content.js: New ui detected = '+ !isOldUI);
+  log.i('content.js: New ui detected = ' + !isOldUI);
 
   function instantIndicatorsInserter() {
-    //observe players inserting in document to instantly insert indicators nodes
-    var playersObserver = new MutationObserver(function(mutations) {
-        mutations.map(function(mutation) {
-            // console.log("class: "+mutation.target.className);
-            if (mutation.target.classList && mutation.target.classList.contains('top_audio_layer')) {
-              Indicators.SetDropdownIndicators();
-              Indicators.SetAudioPageIndicators();
-              log.i("Indicators inserted in the new music pad.");
-              return;
-            }
-        });
-      }),
-      options = {
-        'childList': true,
-        'subtree': true
-      };
-    playersObserver.observe(document.body, options);
+    // Observing document and #wrap3 to insert things instantly.
+    // There is need for two MO, because when audiopage
+    // isn't a landing page and when user opens it from menu - MO can't
+    // detect a specific mutation
+    var dropdownObserver = new MutationObserver(function(mutations) {
+      mutations.map(function(mutation) {
+        // console.log("Mutation:" + mutation.target.classList);
+        if (mutation.target.classList && mutation.target.classList.contains('top_audio_layer')) {
+          Indicators.SetDropdownIndicators();
+          log.i("Indicators inserted in the new music pad.");
+        }
+      });
+    });
+    var audioPageObserver = new MutationObserver(function(mutations) {
+      mutations.map(function(mutation) {
+        // console.log("Mutation:" + mutation.target.classList);
+        if (mutation.target.classList && mutation.target.classList.contains('_audio_additional_blocks_wrap')) {
+          Indicators.SetAudioPageIndicators();
+          log.i("Indicators inserted in the new audio page topbar.");
+        }
+      });
+    });
+    let options = {
+      'childList': true,
+      'subtree': true
+    };
+    dropdownObserver.observe(document.body, options);
+    audioPageObserver.observe(document.getElementById("wrap3"), options);
 
     //If audio page is a landing page, then just attaching indicators
     Indicators.SetAudioPageIndicators();
