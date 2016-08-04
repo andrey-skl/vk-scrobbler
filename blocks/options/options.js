@@ -1,26 +1,28 @@
 (function() {
   // Restoring options when page loads
   document.addEventListener("DOMContentLoaded", function() {
+    console.log(document.getElementById("twitter").checked);
+
     chrome.storage.local.get({
       twitter : true,
       eq: {
-        show: true,
+        showTopbar: true,
         animation: true
       }
     }, (res) => {
       document.getElementById("twitter").checked = res.twitter;
-      document.getElementById("eq-show").checked = res.eq.show;
-      document.getElementById("eq-anim").checked = res.eq.animation;
+      document.getElementById("eqShowTopbar").checked = res.eq.showTopbar;
     });
   });
 
   // Saving options
   document.getElementById("save").addEventListener("click", function(e) {
+    console.log(document.getElementById("twitter").checked);
+
     chrome.storage.local.set({
       twitter: document.getElementById("twitter").checked,
       eq: {
-        show: document.getElementById("eq-show").checked,
-        animation: document.getElementById("eq-anim").checked,
+        showTopbar: document.getElementById("eqShowTopbar").checked,
       }
     });
   });
