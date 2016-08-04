@@ -39,7 +39,8 @@ var path = {
 
   env: '.env.json'
 };
-
+// Because You can't reload to AMO an addon with the same
+// version twice, there is need to bump version everytime.
 gulp.task('bump', function(){
   gulp.src([path.src.package, path.src.manifest])
   .pipe(bump({type:'prerelease'}))

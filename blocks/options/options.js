@@ -1,14 +1,27 @@
-function saveOptions(e) {
-  chrome.storage.local.set({
-    color: document.querySelector("#color").value
+(function() {
+  // Restoring options when page loads
+  document.addEventListener("DOMContentLoaded", function() {
+    chrome.storage.local.get({
+      twitter : true,
+      eq: {
+        show: true,
+        animation: true
+      }
+    }, (res) => {
+      document.getElementById("twitter").checked = res.twitter;
+      document.getElementById("eq-show").checked = res.eq.show;
+      document.getElementById("eq-anim").checked = res.eq.animation;
+    });
   });
-}
 
-function restoreOptions() {
-  chrome.storage.local.get("color", (res) => {
-    document.querySelector("#color").value = res.color || "blue";
+  // Saving options
+  document.getElementById("save").addEventListener("click", function(e) {
+    chrome.storage.local.set({
+      twitter: document.getElementById("twitter").checked,
+      eq: {
+        show: document.getElementById("eq-show").checked,
+        animation: document.getElementById("eq-anim").checked,
+      }
+    });
   });
-}
-
-document.addEventListener("DOMContentLoaded", restoreOptions);
-document.querySelector("form").addEventListener("submit", saveOptions);
+})();
