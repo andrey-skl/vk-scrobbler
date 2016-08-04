@@ -10,7 +10,6 @@
 }
 .options__title {
   display: block;
-  background: #507299;
   padding: 0 20px;
   height: 54px;
   line-height: 54px;
@@ -18,7 +17,8 @@
   border-radius: 2px 2px 0 0;
   font-size: 16px;
   outline: none;
-  color: #fff;
+  color: #000;
+  text-align: center;
 }
 .options__panel {
   margin: 15px 20px;
@@ -34,6 +34,12 @@
   padding: 5px 10px 6px 0;
   float: left;
   line-height: 17px;
+}
+.options__footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
 }
 .control-group {
   display: inline-block;
@@ -65,20 +71,20 @@
   height: 20px;
   width: 20px;
   background: #e6e6e6;
+  border-radius: 2px;
+
 }
-.control--radio .control__indicator {
-  border-radius: 50%;
-}
+
 .control input:focus ~ .control__indicator,
 .control:hover input ~ .control__indicator {
   background: #ccc;
 }
 .control input:checked ~ .control__indicator {
-  background: #2aa1c0;
+  background: #5e81a8;
 }
 .control input:checked:focus ~ .control__indicator,
 .control:hover input:not([disabled]):checked ~ .control__indicator {
-  background: #0e647d;
+  background: #476688;
 }
 .control input:disabled ~ .control__indicator {
   background: #e6e6e6;
@@ -104,4 +110,19 @@
 }
 .control--checkbox input:disabled ~ .control__indicator:after {
   border-color: #7b7b7b;
+}
+
+.btn {
+  background-color: #5e81a8;
+  padding: 5px 10px;
+  border: 0;
+  color: #fff;
+  border-radius: 2px;
+  transition: all .15s ease-in-out;
+  text-transform: uppercase;
+  cursor: pointer;
+  font-size: 15px;
+}
+.btn:hover {
+  background-color: #6888ad;
 }
