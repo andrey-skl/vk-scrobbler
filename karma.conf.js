@@ -33,6 +33,9 @@ module.exports = function(config) {
       // log
       'blocks/log/log.js',
 
+      // options
+      'blocks/options/options-handlers.js',
+
       //bus block
       'blocks/bus/*.js',
 
