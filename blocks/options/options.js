@@ -4,8 +4,6 @@
   var optionsHandlers = window.vkScrobbler.optionsHandlers;
   // Restoring options when page loads
   document.addEventListener("DOMContentLoaded", function() {
-    console.log(document.getElementById("twitter").checked);
-
     optionsHandlers.storageGet({
       twitter: true,
       eq: {
@@ -20,7 +18,6 @@
 
   // Saving options and adding styles to button
   document.getElementById("save").addEventListener("click", function(e) {
-    console.log(document.getElementById("twitter").checked);
     optionsHandlers.storageSet({
       twitter: document.getElementById("twitter").checked,
       eq: {
