@@ -6,17 +6,21 @@ var zip = require('gulp-zip');
 var clean = require('gulp-clean');
 var jshint = require('gulp-jshint');
 var bump = require('gulp-bump');
-
+var sass = require('gulp-sass');
 
 var path = {
   src: {
     blocks: 'blocks/**',
     javascriptSources: 'blocks/**/*.js',
+    sassSources: 'blocks/**/*.scss',
     manifest: 'manifest.json',
     package: 'package.json',
     node_modules: 'node_modules/js-md5/build/*'
   },
-  notTests: '!./**/*.test.js',
+  not:{
+    tests:  '!./**/*.test.js',
+    sass: '!./**/*.scss',
+  },
   dist: {
     all: 'dist/**',
     alljs: 'dist/blocks/**/*.js',
@@ -52,8 +56,14 @@ gulp.task('clean', function() {
     .pipe(clean());
 });
 
+gulp.task('sass', function() {
+    gulp.src(path.src.sassSources)
+        .pipe(sass().on('error', sass.logError))
+        .pipe(gulp.dest(path.dist.blocks));
+});
+
 gulp.task('copy-blocks', function() {
-  return gulp.src([path.src.blocks, path.notTests])
+  return gulp.src([path.src.blocks, path.not.tests, path.not.sass])
     .pipe(gulp.dest(path.dist.blocks));
 });
 gulp.task('copy-manifest', function() {
@@ -66,11 +76,12 @@ gulp.task('copy-node_modules', function() {
 });
 
 gulp.task('copy', function(finishCallback) {
-  runSequence('clean', ['copy-blocks', 'copy-manifest', 'copy-node_modules'], finishCallback);
+  runSequence('clean', ['copy-blocks', 'copy-manifest', 'copy-node_modules', 'sass'], finishCallback);
 });
 
 // Recopy all before watch
 gulp.task('watch', ['copy'], function() {
+  gulp.watch(path.src.sassSources, ['sass']);
   gulp.watch(path.src.blocks, ['copy-blocks']);
   gulp.watch(path.src.manifest, ['copy-manifest']);
   gulp.watch(path.src.node_modules, ['copy-node_modules']);

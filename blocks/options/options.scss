@@ -1,3 +1,5 @@
+ $blueVk: #5e81a8;
+ $BlueDarkVk: darken(#5e81a8, 20%);
 .options {
   position: relative;
   /*background: #fff;*/
@@ -80,7 +82,7 @@
   background: #ccc;
 }
 .control input:checked ~ .control__indicator {
-  background: #5e81a8;
+  background: $blueVk;
 }
 .control input:checked:focus ~ .control__indicator,
 .control:hover input:not([disabled]):checked ~ .control__indicator {
