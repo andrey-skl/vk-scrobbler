@@ -21,7 +21,7 @@
   // Saving options
   document.getElementById("save").addEventListener("click", function(e) {
     console.log(document.getElementById("twitter").checked);
-    chrome.storage.local.set({
+    optionsHandlers.storageSet({
       twitter: document.getElementById("twitter").checked,
       eq: {
         showTopbar: document.getElementById("eqShowTopbar").checked,
