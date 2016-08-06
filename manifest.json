@@ -43,6 +43,7 @@
     "js": [
       "blocks/namespace/namespace.js",
       "blocks/log/log.js",
+      "blocks/options/options-handlers.js",
       "blocks/indicators/indicators__utils.js",
       "blocks/indicators/indicators.js",
       "blocks/indicators/indicators__old.js",

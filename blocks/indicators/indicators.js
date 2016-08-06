@@ -3,6 +3,7 @@
 
   var EIndicateState = window.vkScrobbler.IdicatorsUtils.EIndicateState;
   var PATHS = window.vkScrobbler.IdicatorsUtils.PATHS;
+  var optionsHandlers = window.vkScrobbler.optionsHandlers;
 
   var byId = document.getElementById.bind(document);
   var qs = document.querySelector.bind(document);
@@ -98,7 +99,7 @@
     },
 
     SetMiniIndicator: function() {
-      chrome.storage.local.get(null, (res) => {
+      optionsHandlers.storageGet(null, (res) => {
         if (res.eq.showTopbar && !byId('nowIndicator') && byId('top_audio')) {
           byId('top_audio').insertAdjacentHTML('beforebegin', Indicators.htmls.headerIndicator);
           byId('nowIndicator').addEventListener('click', this.listeners.togglePauseScrobbling);
@@ -121,7 +122,7 @@
     },
 
     SetTwitterAC: function() {
-      chrome.storage.local.get(null, (res) => {
+      optionsHandlers.storageGet(null, (res) => {
         if (res.twitter && qs(".page_block .audio_page_player") && !byId("twitterDivAC")) {
           qs('.page_block .audio_page_player_volume_slider').insertAdjacentHTML('beforebegin', Indicators.htmls.twitAChtml);
         }
@@ -129,7 +130,7 @@
     },
 
     SetTwitterPD: function() {
-      chrome.storage.local.get(null, (res) => {
+      optionsHandlers.storageGet(null, (res) => {
         if (res.twitter && qs('.top_audio_layer') && !byId("twitterDivPD")) {
           qs('.top_audio_layer .audio_page_player_volume_slider').insertAdjacentHTML('beforebegin', Indicators.htmls.twitPDhtml);
         }

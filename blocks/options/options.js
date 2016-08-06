@@ -1,9 +1,12 @@
 (function() {
+  'use strict';
+
+  var optionsHandlers = window.vkScrobbler.optionsHandlers;
   // Restoring options when page loads
   document.addEventListener("DOMContentLoaded", function() {
     console.log(document.getElementById("twitter").checked);
 
-    storageGet({
+    optionsHandlers.storageGet({
       twitter: true,
       eq: {
         showTopbar: true,
@@ -25,20 +28,11 @@
       }
     });
     this.classList.add("btn--done");
-    this.innerHTML = "✔️";
+    this.innerHTML = "&#10004;";
   });
   document.getElementById("optionsRows").addEventListener("click", function(e) {
     document.getElementById("save").classList.remove("btn--done");
     document.getElementById("save").innerHTML = "Save";
   });
 
-  // Because Firefox doesn't support syncing between
-  // Chrome browsers
-  let storageGet = function (defaults, getThings) {
-    if (chrome.storage.sync) {
-      chrome.storage.sync.get(defaults, getThings);
-    } else {
-      chrome.storage.local.get(defaults, getThings);
-    }
-  };
 })();
