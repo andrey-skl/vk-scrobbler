@@ -18,7 +18,7 @@
     });
   });
 
-  // Saving options
+  // Saving options and adding styles to button
   document.getElementById("save").addEventListener("click", function(e) {
     console.log(document.getElementById("twitter").checked);
     optionsHandlers.storageSet({
@@ -30,6 +30,8 @@
     this.classList.add("btn--done");
     this.innerHTML = "&#10004;";
   });
+
+  // Remove `done` style from button, when checkbox cklicked
   document.getElementById("optionsRows").addEventListener("click", function(e) {
     document.getElementById("save").classList.remove("btn--done");
     document.getElementById("save").innerHTML = "Save";
