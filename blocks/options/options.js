@@ -3,7 +3,7 @@
   document.addEventListener("DOMContentLoaded", function() {
     console.log(document.getElementById("twitter").checked);
 
-    chrome.storage.local.get({
+    storageGet({
       twitter: true,
       eq: {
         showTopbar: true,
@@ -31,4 +31,14 @@
     document.getElementById("save").classList.remove("btn--done");
     document.getElementById("save").innerHTML = "Save";
   });
+
+  // Because Firefox doesn't support syncing between
+  // Chrome browsers
+  let storageGet = function (defaults, getThings) {
+    if (chrome.storage.sync) {
+      chrome.storage.sync.get(defaults, getThings);
+    } else {
+      chrome.storage.local.get(defaults, getThings);
+    }
+  };
 })();

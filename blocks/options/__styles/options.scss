@@ -1,5 +1,4 @@
 @import "checkbox";
-
 .options {
   position: relative;
   /*background: #fff;*/
@@ -29,7 +28,6 @@
     padding-top: 6px;
     margin: 0 0 8px 155px;
   }
-
   &__label {
     color: #656565;
     width: 145px;
@@ -55,16 +53,23 @@
   cursor: pointer;
   font-size: 15px;
   font-weight: bold;
-  width:100px;
+  width: 100px;
   height: 50px;
+  &::-moz-focus-inner {
+    border: 0;
+  }
+  &:focus {
+    outline: none;
+  }
   &:hover {
     background-color: $blueLightVk;
   }
   &:active {
     background-color: $BlueDarkVk;
+    outline: none;
   }
   &--done {
     border-radius: 50%;
-    width:50px;
+    width: 50px;
   }
 }
