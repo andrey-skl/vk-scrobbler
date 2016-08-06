@@ -4,7 +4,7 @@
     console.log(document.getElementById("twitter").checked);
 
     chrome.storage.local.get({
-      twitter : true,
+      twitter: true,
       eq: {
         showTopbar: true,
         animation: true
@@ -18,12 +18,17 @@
   // Saving options
   document.getElementById("save").addEventListener("click", function(e) {
     console.log(document.getElementById("twitter").checked);
-
     chrome.storage.local.set({
       twitter: document.getElementById("twitter").checked,
       eq: {
         showTopbar: document.getElementById("eqShowTopbar").checked,
       }
     });
+    this.classList.add("btn--done");
+    this.innerHTML = "✔️";
+  });
+  document.getElementById("optionsRows").addEventListener("click", function(e) {
+    document.getElementById("save").classList.remove("btn--done");
+    document.getElementById("save").innerHTML = "Save";
   });
 })();

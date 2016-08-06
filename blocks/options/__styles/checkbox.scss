@@ -1,48 +1,4 @@
- $blueVk: #5e81a8;
- $BlueDarkVk: darken(#5e81a8, 20%);
-.options {
-  position: relative;
-  /*background: #fff;*/
-  border-radius: 2px;
-  /*box-shadow: 0 1px 0 0 #d7d8db, 0 0 0 1px #e3e4e8;*/
-  margin: 15px 0;
-  font-family: body-apple-system,BlinkMacSystemFont,Roboto,Open Sans,Helvetica Neue,sans-serif;
-  width: 550px;
-  font-size: 17px;
-}
-.options__title {
-  display: block;
-  padding: 0 20px;
-  height: 54px;
-  line-height: 54px;
-  border-bottom: 1px solid #e7e8ec;
-  border-radius: 2px 2px 0 0;
-  font-size: 16px;
-  outline: none;
-  color: #000;
-  text-align: center;
-}
-.options__panel {
-  margin: 15px 0;
-  padding-bottom: 10px;
-}
-.options__row {
-  padding-top: 6px;
-  margin: 0 0 8px 155px;
-}
-.options__label {
-  color: #656565;
-  width: 145px;
-  padding: 5px 10px 6px 0;
-  float: left;
-  line-height: 17px;
-}
-.options__footer {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 20px;
-}
+@import "vars";
 .control-group {
   display: inline-block;
   vertical-align: top;
@@ -74,9 +30,7 @@
   width: 20px;
   background: #e6e6e6;
   border-radius: 2px;
-
 }
-
 .control input:focus ~ .control__indicator,
 .control:hover input ~ .control__indicator {
   background: #ccc;
@@ -112,23 +66,4 @@
 }
 .control--checkbox input:disabled ~ .control__indicator:after {
   border-color: #7b7b7b;
-}
-
-.btn {
-  background-color: #5e81a8;
-  padding: 5px 10px;
-  border: 0;
-  color: #fff;
-  border-radius: 2px;
-  transition: all .15s ease-in-out;
-  text-transform: uppercase;
-  cursor: pointer;
-  font-size: 15px;
-}
-.btn:hover {
-  background-color: #6888ad;
-}
-
-.btn:active {
-  background-color: #476688;
 }

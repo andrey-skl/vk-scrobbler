@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="utf-8">
-  <link rel="stylesheet" type="text/css" href="./options.css" />
+  <link rel="stylesheet" type="text/css" href="./__styles/options.css" />
 </head>
 
 <body>
@@ -11,17 +11,19 @@
   <div class="options">
     <div class="options__panel">
       <div class="options__label">Indicators</div>
-      <div class="options__row">
-        <label class="control control--checkbox">Show Twitter share icon
-          <input id="twitter" type="checkbox" checked="" />
-          <div class="control__indicator"></div>
-        </label>
-      </div>
-      <div class="options__row">
-        <label class="control control--checkbox">Show equalizer in topbar
-          <input id="eqShowTopbar" type="checkbox" checked="" />
-          <div class="control__indicator"></div>
-        </label>
+      <div id="optionsRows">
+        <div class="options__row">
+          <label class="control control--checkbox">Show Twitter share icon
+            <input id="twitter" type="checkbox" checked="" />
+            <div class="control__indicator"></div>
+          </label>
+        </div>
+        <div class="options__row">
+          <label class="control control--checkbox">Show equalizer in topbar
+            <input id="eqShowTopbar" type="checkbox" checked="" />
+            <div class="control__indicator"></div>
+          </label>
+        </div>
       </div>
       <div class="options__footer">
         <button class="btn" id="save">Save</button>
