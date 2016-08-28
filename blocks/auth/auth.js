@@ -41,8 +41,9 @@
         token: token
       }).catch(function(e) {
         _ga.push(['_trackEvent', 'JS Error Auth', e, navigator.userAgent]);
-
-        document.getElementById("message").innerHTML = JSON.stringify(e.message || e);
+        
+        document.getElementById("message").remove();
+        recreateMessageNode(JSON.stringify(e.message || e));
         throw e;
       });
     }
