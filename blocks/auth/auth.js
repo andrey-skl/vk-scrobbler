@@ -3,6 +3,7 @@
 
   var GET_SESSION = 'auth.getSession';
   var GET_USER_INFO = 'user.getInfo';
+
   var lastFmClient = new window.LastFMClient(window.vkScrobbler.LastFmApiConfig);
   var log = window.vkScrobbler.log;
 
@@ -10,9 +11,18 @@
 
   var showInformation = function(userName) {
     document.getElementById("loader").remove();
+    document.getElementById("message").remove();
+    recreateMessageNode("VK scrobbler успешно подключен. Обновите уже открытые вкладки vk.com!");
     getUserInfo(userName).then(processUserParams);
     document.getElementById("userName").innerHTML = userName;
-    document.getElementById("message").innerHTML = "VK scrobbler успешно подключен.<br>Обновите уже открытые вкладки vk.com!";
+  };
+
+  let recreateMessageNode = function (msg) {
+    let div = document.createElement('div');
+    div.id = "message";
+    div.className = "auth__message";
+    div.appendChild(document.createTextNode(msg));
+    document.getElementById("auth").appendChild(div);
   };
 
   var sendCredentialsToBackground = function(key, name) {
