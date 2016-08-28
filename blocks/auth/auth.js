@@ -14,7 +14,7 @@
     document.getElementById("message").remove();
     recreateMessageNode("VK scrobbler успешно подключен. Обновите уже открытые вкладки vk.com!");
     getUserInfo(userName).then(processUserParams);
-    document.getElementById("userName").innerHTML = userName;
+    document.getElementById("userName").appendChild(document.createTextNode(userName));
   };
 
   let recreateMessageNode = function (msg) {
