@@ -4,7 +4,7 @@
   "icons": {
     "128": "blocks/logo/logo_128.png"
   },
-  "version": "2.0.4a",
+  "version": "2.0.4",
   "manifest_version": 2,
   "minimum_chrome_version": "41.0",
   "background": {
@@ -29,9 +29,13 @@
       "strict_min_version": "47.0"
     }
   },
+  "options_ui": {
+    "page": "blocks/options/options.html"
+  },
   "permissions": [
     "tabs",
     "notifications",
+    "storage",
     "*://*.vk.com/*"
   ],
   "content_scripts": [{
@@ -39,6 +43,7 @@
     "js": [
       "blocks/namespace/namespace.js",
       "blocks/log/log.js",
+      "blocks/options/options-handlers.js",
       "blocks/indicators/indicators__utils.js",
       "blocks/indicators/indicators.js",
       "blocks/indicators/indicators__old.js",
@@ -55,7 +60,7 @@
       "blocks/indicators/indicators__old.css"
     ]
   }],
-  "homepage_url": "http://vkontakte.ru/vk_scrobbler",
+  "homepage_url": "http://vk.com/vk_scrobbler",
   "web_accessible_resources": [
     "blocks/indicators/__icon/*",
     "blocks/indicators/__icon/indicators__icon-tweet.png",

@@ -75,8 +75,20 @@
     showInformation(userName);
   };
 
+  // Setting default values for settings
+  let presetSettings = function () {
+    log.i("Setting default options.");
+    chrome.storage.local.set({
+      twitter: true,
+      eq: {
+        showTopbar: true,
+      }
+    });
+  };
+
   var activate = function() {
     checkToken(token).then(processAuthParams);
+    presetSettings();
   };
   activate();
 })();
