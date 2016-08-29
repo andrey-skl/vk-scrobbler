@@ -1,13 +1,13 @@
 (function () {
   'use strict';
-  var isOldUI = Boolean(document.getElementById('top_new_msg')); //new UI doesn't have this element
+  const isOldUI = Boolean(document.getElementById('top_new_msg')); //new UI doesn't have this element
 
   const SCROBBLE_PERCENTAGE = 50;
-  var nowPlayingInterval = 15 * 1000;
+  const nowPlayingInterval = 15 * 1000;
 
-  var utils = window.vkScrobbler.ContentUils;
-  var Indicators = isOldUI ? window.vkScrobbler.IndicatorsOld : window.vkScrobbler.Indicators;
-  var BusWrapper = window.vkScrobbler.ContentBusWrapper;
+  const utils = window.vkScrobbler.ContentUils;
+  const Indicators = isOldUI ? window.vkScrobbler.IndicatorsOld : window.vkScrobbler.Indicators;
+  const BusWrapper = window.vkScrobbler.ContentBusWrapper;
 
   function PlayerHandlers() {
     this.busWrapper = new BusWrapper();
@@ -33,12 +33,12 @@
     if (!this.state.playing) {
       return;
     }
-    var timeDiff = Date.now() - (this.state.playTimeStamp || Date.now());
+    const timeDiff = Date.now() - (this.state.playTimeStamp || Date.now());
     this.state.playedTime += timeDiff / 1000;
 
     this.state.playTimeStamp = Date.now();
     this.sendNowPlayingIfNeeded();
-    var playedPercent = this.state.playedTime / data.total * 100;
+    const playedPercent = this.state.playedTime / data.total * 100;
     this.scrobbleIfNeeded(playedPercent);
     this.setNowPlayingForMultiscrobble(playedPercent);
   };
@@ -129,7 +129,7 @@
 
     return this.busWrapper.getTrackInfoRequest(artist, track)
       .then(function (response) {
-        var loved = response.track && response.track.userloved === '1';
+        const loved = response.track && response.track.userloved === '1';
         if (loved && this.isSameTrack(artist, track)) {
           Indicators.indicateLoved();
         }

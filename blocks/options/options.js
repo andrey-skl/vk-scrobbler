@@ -1,9 +1,10 @@
 (function() {
   'use strict';
 
-  var optionsHandlers = window.vkScrobbler.optionsHandlers;
+  const optionsHandlers = window.vkScrobbler.optionsHandlers;
+
   // Restoring options when page loads
-  document.addEventListener("DOMContentLoaded", function() {
+  document.addEventListener('DOMContentLoaded', function() {
     optionsHandlers.storageGet({
       twitter: true,
       eq: {
@@ -11,27 +12,27 @@
         animation: true
       }
     }, (res) => {
-      document.getElementById("twitter").checked = res.twitter;
-      document.getElementById("eqShowTopbar").checked = res.eq.showTopbar;
+      document.getElementById('twitter').checked = res.twitter;
+      document.getElementById('eqShowTopbar').checked = res.eq.showTopbar;
     });
   });
 
   // Saving options and adding styles to button
-  document.getElementById("save").addEventListener("click", function(e) {
+  document.getElementById('save').addEventListener('click', function() {
     optionsHandlers.storageSet({
-      twitter: document.getElementById("twitter").checked,
+      twitter: document.getElementById('twitter').checked,
       eq: {
-        showTopbar: document.getElementById("eqShowTopbar").checked,
+        showTopbar: document.getElementById('eqShowTopbar').checked,
       }
     });
-    this.classList.add("btn--done");
-    this.innerHTML = "&#10004;";
+    this.classList.add('btn--done');
+    this.innerHTML = '&#10004;';
   });
 
   // Remove `done` style from button, when checkbox cklicked
-  document.getElementById("optionsRows").addEventListener("click", function(e) {
-    document.getElementById("save").classList.remove("btn--done");
-    document.getElementById("save").innerHTML = "Save";
+  document.getElementById('optionsRows').addEventListener('click', function() {
+    document.getElementById('save').classList.remove('btn--done');
+    document.getElementById('save').innerHTML = 'Save';
   });
 
 })();

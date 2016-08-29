@@ -1,13 +1,13 @@
 describe('Last FM api', function () {
-  var api = new window.vkScrobbler.LastFmApi('key', 'testUser');
+  const api = new window.vkScrobbler.LastFmApi('key', 'testUser');
 
-  var fakeParams = {
+  const fakeParams = {
     artist: 'Foo',
     title: 'Bar'
   };
 
   beforeEach(function () {
-    var requests = this.requests = [];
+    const requests = this.requests = [];
 
     sinon.stub(window, 'fetch', function(url, options) {
       return new Promise(function(resolve, reject) {
@@ -45,7 +45,7 @@ describe('Last FM api', function () {
     });
 
     it('Should return promise', function () {
-      var promise = api.scrobble(fakeParams);
+      const promise = api.scrobble(fakeParams);
       promise.should.be.instanceOf(Promise);
     });
 
@@ -74,7 +74,7 @@ describe('Last FM api', function () {
     });
 
     it('Should send timestamp', function () {
-      var timeStamp = Math.round(new Date().getTime() / 1000);
+      const timeStamp = Math.round(new Date().getTime() / 1000);
       this.getLastRequest().requestBody.should.contain('timestamp=' + timeStamp);
     });
   });
@@ -141,7 +141,7 @@ describe('Last FM api', function () {
   });
 
   describe('getTrackInfo request', function () {
-    var promise;
+    let promise;
 
     beforeEach(function () {
       promise = api.getTrackInfo(fakeParams);
@@ -164,7 +164,7 @@ describe('Last FM api', function () {
     });
 
     it('Should return response', function (done) {
-      var fakeResponse = {
+      const fakeResponse = {
         track: {
           artist: 'testArtist',
           userloved: '1'

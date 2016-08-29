@@ -1,6 +1,6 @@
 (function () {
 
-  var BusBackground = function (handlers, onBeforeHandler) {
+  const BusBackground = function (handlers, onBeforeHandler) {
     this.handlers = handlers;
     this.beforeHandle = onBeforeHandler;
 
@@ -25,7 +25,7 @@
 
       if (this.handlers[request.message]) {
 
-        var beforeHandleResult = this.doBeforeHandleCheck(request);
+        const beforeHandleResult = this.doBeforeHandleCheck(request);
         if (beforeHandleResult) {
           return port.postMessage({messageId: request.messageId, error: beforeHandleResult});
         }
@@ -37,7 +37,7 @@
             port.postMessage({messageId: request.messageId, error: err});
           });
       } else {
-        var error = new Error('Cant find listener for message: ' + request.message);
+        const error = new Error('Cant find listener for message: ' + request.message);
         port.postMessage({messageId: request.messageId, error: error});
         throw error;
       }

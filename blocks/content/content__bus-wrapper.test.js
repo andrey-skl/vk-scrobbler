@@ -1,12 +1,12 @@
 describe('Content BUS', function () {
-  var MSG = window.vkScrobbler.contentMessages;
-  var BusContent = window.vkScrobbler.BusContent;
-  var BusWrapper = window.vkScrobbler.ContentBusWrapper;
+  const MSG = window.vkScrobbler.contentMessages;
+  const BusContent = window.vkScrobbler.BusContent;
+  const BusWrapper = window.vkScrobbler.ContentBusWrapper;
 
-  var wrapper;
+  let wrapper;
 
-  var fakeArtist = 'bar';
-  var fakeTrack = 'foo';
+  const fakeArtist = 'bar';
+  const fakeTrack = 'foo';
 
   beforeEach(function () {
     BusContent.prototype.sendMessage = sinon.stub();

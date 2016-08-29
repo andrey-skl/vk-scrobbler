@@ -1,11 +1,11 @@
 describe('Content PlayerHandlers', function () {
-  var Indicators = window.vkScrobbler.Indicators;
-  var PlayerHandlers = window.vkScrobbler.PlayerHandlers;
-  var handlers;
+  const Indicators = window.vkScrobbler.Indicators;
+  const PlayerHandlers = window.vkScrobbler.PlayerHandlers;
+  let handlers;
 
   //To make bus__content work
   beforeEach(function () {
-    var fakePort = {
+    const fakePort = {
       onMessage: {
         addListener: sinon.stub()
       }
@@ -77,8 +77,8 @@ describe('Content PlayerHandlers', function () {
     });
 
     it('Should calculate percentage and send it to scrobbleIfNeeded', function () {
-      var total = 20;
-      var half = total / 2;
+      const total = 20;
+      const half = total / 2;
       this.sinon.stub(Date, 'now').returns(33333);
       this.sinon.stub(handlers, 'scrobbleIfNeeded');
       handlers.playStart({});
@@ -236,7 +236,7 @@ describe('Content PlayerHandlers', function () {
     });
 
     it('Should not indicate track love if track is changed while performing request', function () {
-      var callback;
+      let callback;
       this.sinon.stub(Indicators, 'indicateLoved');
       this.sinon.stub(handlers.busWrapper, 'getTrackInfoRequest').returns({then: function(cb){
         callback = cb;

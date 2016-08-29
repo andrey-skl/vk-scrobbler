@@ -1,23 +1,16 @@
 (function () {
   'use strict';
 
-  var lastFmClient = new window.LastFMClient(window.vkScrobbler.LastFmApiConfig);
+  const lastFmClient = new window.LastFMClient(window.vkScrobbler.LastFmApiConfig);
 
-  var extend = function (destination, source) {
-    for (var prop in source) {
-      destination[prop] = source[prop];
-    }
-    return destination;
-  };
-
-  var LastFmApi = function (secretKey, userName, onReauth) {
+  const LastFmApi = function (secretKey, userName, onReauth) {
     this.secretKey = secretKey;
     this.userName = userName;
     this.onReauth = onReauth;
   };
 
   LastFmApi.prototype._sendRequest = function (params, data) {
-    return lastFmClient.signedCall('POST', extend({
+    return lastFmClient.signedCall('POST', Object.assign({
       artist: params.artist,
       track: params.title,
       sk: this.secretKey
@@ -31,7 +24,7 @@
   };
 
   LastFmApi.prototype.scrobble = function (params) {
-    var ts = Math.round(new Date().getTime() / 1000);
+    const ts = Math.round(new Date().getTime() / 1000);
 
     return this._sendRequest(params, {
       method: 'track.scrobble',

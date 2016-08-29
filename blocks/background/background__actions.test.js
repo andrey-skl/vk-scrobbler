@@ -1,11 +1,10 @@
 describe('background handlers', function () {
-  var MSG = window.vkScrobbler.contentMessages;
-  var Actions = window.vkScrobbler.BackgroundActions;
-  let log = window.vkScrobbler.log;
+  const MSG = window.vkScrobbler.contentMessages;
+  const Actions = window.vkScrobbler.BackgroundActions;
 
-  var fakeKey = 'fffff';
-  var fakeName = 'user';
-  var fakeTrackInfo = {artist: 'Muse', title: 'Dead Inside'};
+  const fakeKey = 'fffff';
+  const fakeName = 'user';
+  const fakeTrackInfo = {artist: 'Muse', title: 'Dead Inside'};
   // This fakeScrobbleResp should probably be somewhere else
   let fakeScrobbleResp = {
     scrobbles: {
@@ -15,14 +14,14 @@ describe('background handlers', function () {
       }
     }
   };
-  var selfResolvePromiseFactory = function (resp) {
+  const selfResolvePromiseFactory = function (resp) {
     return {
       then: function (callback) {
         callback(resp || fakeScrobbleResp);
       }
     };
   };
-  var handlers;
+  let handlers;
 
   beforeEach(function () {
     this.sinon = sinon.sandbox.create();

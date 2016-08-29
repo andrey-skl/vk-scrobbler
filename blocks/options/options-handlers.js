@@ -1,7 +1,7 @@
 (function () {
   'use strict';
 
-  var optionsHandlers = {
+  const optionsHandlers = {
     // Because Firefox doesn't support syncing between
     // Chrome browsers
     storageGet: function (defaults, getThings) {

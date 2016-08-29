@@ -5,6 +5,12 @@
   "undef":   true,
   "browser": true,
   "expr":    true,
+  "noempty": true,
+  "unused": true,
+  "varstmt": true,
+  "latedef": true,
+  "quotmark": "single",
+
   "globals": {
     "chrome":     true,
     "moz":        true,

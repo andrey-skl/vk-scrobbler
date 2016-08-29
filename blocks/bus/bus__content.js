@@ -1,15 +1,15 @@
 (function () {
 
-  var TIME_OUT = 60 * 1000;
+  const TIME_OUT = 60 * 1000;
 
-  var BusContent = function (name) {
+  const BusContent = function (name) {
     this.connection = chrome.runtime.connect({name: name});
     this.activeMessages = {};
     this.startResponsesListening();
   };
 
   BusContent.prototype.generateMessageId = function () {
-    var random = Math.random() * 1000000000000;
+    const random = Math.random() * 1000000000000;
     return random.toFixed();
   };
 
@@ -24,7 +24,7 @@
 
   BusContent.prototype.startResponsesListening = function () {
     this.connection.onMessage.addListener(function (msg) {
-      var storedMessage = this.activeMessages[msg.messageId];
+      const storedMessage = this.activeMessages[msg.messageId];
       if (msg.error) {
         storedMessage.reject(msg.error);
       } else {
@@ -36,8 +36,8 @@
   };
 
   BusContent.prototype.sendMessage = function (message, data) {
-    var promise = new Promise(function (resolve, reject) {
-      var id = this.generateMessageId();
+    const promise = new Promise(function (resolve, reject) {
+      const id = this.generateMessageId();
 
       try {
         this.connection.postMessage({

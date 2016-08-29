@@ -1,6 +1,6 @@
 describe('Background auth', function () {
-  var backgroundAuth = window.vkScrobbler.backgroundAuth;
-  var lastFmConfig = window.vkScrobbler.LastFmApiConfig;
+  const backgroundAuth = window.vkScrobbler.backgroundAuth;
+  const lastFmConfig = window.vkScrobbler.LastFmApiConfig;
 
   afterEach(function () {
     //chrome API methods already stubbed via sinon-chrome
@@ -13,7 +13,7 @@ describe('Background auth', function () {
     backgroundAuth();
 
     chrome.tabs.create.should.been.calledWith({
-      url: "http://www.lastfm.ru/api/auth?api_key=" + lastFmConfig.apiKey,
+      url: 'http://www.lastfm.ru/api/auth?api_key=' + lastFmConfig.apiKey,
       active: true
     });
   });
@@ -29,10 +29,10 @@ describe('Background auth', function () {
     backgroundAuth();
     chrome.tabs.onUpdated.applyTrigger();
 
-    var sendTab = chrome.tabs.query.firstCall.args[1];
+    const sendTab = chrome.tabs.query.firstCall.args[1];
     sendTab([{id: '123', url: 'https://vk.com/registervkscrobbler?token=fakeToken'}]);
 
-    chrome.tabs.update.should.been.calledWith('123',  {active: true, url: "blocks/auth/auth.html?token=fakeToken" });
+    chrome.tabs.update.should.been.calledWith('123',  {active: true, url: 'blocks/auth/auth.html?token=fakeToken' });
   });
 
 });

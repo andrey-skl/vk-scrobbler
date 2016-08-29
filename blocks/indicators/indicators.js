@@ -1,15 +1,15 @@
 (function() {
   'use strict';
 
-  var EIndicateState = window.vkScrobbler.IdicatorsUtils.EIndicateState;
-  var PATHS = window.vkScrobbler.IdicatorsUtils.PATHS;
-  var optionsHandlers = window.vkScrobbler.optionsHandlers;
+  const EIndicateState = window.vkScrobbler.IdicatorsUtils.EIndicateState;
+  const PATHS = window.vkScrobbler.IdicatorsUtils.PATHS;
+  const optionsHandlers = window.vkScrobbler.optionsHandlers;
 
-  var byId = document.getElementById.bind(document);
-  var qs = document.querySelector.bind(document);
-  var qsa = document.querySelectorAll.bind(document);
+  const byId = document.getElementById.bind(document);
+  const qs = document.querySelector.bind(document);
+  const qsa = document.querySelectorAll.bind(document);
 
-  var Indicators = {
+  const Indicators = {
     htmls: {
       indicate: EIndicateState.logotype,
       love: false,
@@ -108,7 +108,7 @@
     },
 
     SetAcIndicator: function() {
-      if (qs(".page_block .audio_page_player") && !byId("nowIndAC")) {
+      if (qs('.page_block .audio_page_player') && !byId('nowIndAC')) {
         qs('.page_block .audio_page_player_volume_slider').insertAdjacentHTML('beforebegin', Indicators.htmls.acIndicator);
         byId('nowIndAC').addEventListener('click', this.listeners.togglePauseScrobbling);
       }
@@ -123,7 +123,7 @@
 
     SetTwitterAC: function() {
       optionsHandlers.storageGet(null, (res) => {
-        if (res.twitter && qs(".page_block .audio_page_player") && !byId("twitterDivAC")) {
+        if (res.twitter && qs('.page_block .audio_page_player') && !byId('twitterDivAC')) {
           qs('.page_block .audio_page_player_volume_slider').insertAdjacentHTML('beforebegin', Indicators.htmls.twitAChtml);
         }
       });
@@ -131,14 +131,14 @@
 
     SetTwitterPD: function() {
       optionsHandlers.storageGet(null, (res) => {
-        if (res.twitter && qs('.top_audio_layer') && !byId("twitterDivPD")) {
+        if (res.twitter && qs('.top_audio_layer') && !byId('twitterDivPD')) {
           qs('.top_audio_layer .audio_page_player_volume_slider').insertAdjacentHTML('beforebegin', Indicators.htmls.twitPDhtml);
         }
       });
     },
 
     _loveClickListener: function(e) {
-      var pulseClassName = 'indicators__love_pulse';
+      const pulseClassName = 'indicators__love_pulse';
       if (e.target.classList.contains(pulseClassName)) {
         return;
       }
@@ -176,38 +176,38 @@
 
     indicatePlayNow: function() {
       Indicators.indicate = EIndicateState.nowplaying;
-      this.updatePlayingIndicators(PATHS.PLAYING, "VK scrobbler: now playing");
+      this.updatePlayingIndicators(PATHS.PLAYING, 'VK scrobbler: now playing');
     },
 
     indicateVKscrobbler: function() {
       Indicators.indicate = EIndicateState.logotype;
-      this.updatePlayingIndicators(PATHS.PAUSE, "VK scrobbler");
+      this.updatePlayingIndicators(PATHS.PAUSE, 'VK scrobbler');
     },
 
     indicatePauseScrobbling: function() {
       Indicators.indicate = EIndicateState.paused;
-      this.updatePlayingIndicators(PATHS.DISABLED, "VK scrobbler: paused");
+      this.updatePlayingIndicators(PATHS.DISABLED, 'VK scrobbler: paused');
     },
 
     indicateScrobbled: function() {
       Indicators.indicate = EIndicateState.scrobbled;
-      this.updatePlayingIndicators(PATHS.SCROBBLED, "VK scrobbler: scrobbled");
+      this.updatePlayingIndicators(PATHS.SCROBBLED, 'VK scrobbler: scrobbled');
     },
 
     indicateLoved: function() {
       Indicators.love = true;
-      [].forEach.call(qsa("#loveDivAC img, #loveDivPD img"), function(image) {
+      [].forEach.call(qsa('#loveDivAC img, #loveDivPD img'), function(image) {
         image.src = PATHS.HEART_BLUE;
-        image.title = "VK scrobbler: Вы любите этот трэк. Кликните, чтобы разлюбить.";
+        image.title = 'VK scrobbler: Вы любите этот трэк. Кликните, чтобы разлюбить.';
       });
 
     },
 
     indicateNotLove: function() {
       Indicators.love = false;
-      [].forEach.call(qsa("#loveDivAC img, #loveDivPD img"), function(image) {
+      [].forEach.call(qsa('#loveDivAC img, #loveDivPD img'), function(image) {
         image.src = PATHS.HEART_GRAY;
-        image.title = "VK scrobbler: Вы не любите этот трэк. Кликните, чтобы полюбить.";
+        image.title = 'VK scrobbler: Вы не любите этот трэк. Кликните, чтобы полюбить.';
       });
     }
   };

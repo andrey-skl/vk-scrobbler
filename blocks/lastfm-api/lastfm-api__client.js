@@ -1,8 +1,8 @@
 (function () {
   'use strict';
 
-  var md5 = window.md5;
-  var log = window.vkScrobbler.log;
+  const md5 = window.md5;
+  const log = window.vkScrobbler.log;
 
   function LastFMClient(options) {
     this.apiKey = options.apiKey || log.e('LastFMClient: apiKey is required');
@@ -11,21 +11,21 @@
   }
 
   LastFMClient.prototype._getApiSignature = function (data) {
-    var keys = Object.keys(data).sort();
-    var nameValueString = keys.reduce(function (prev, key) {
+    const keys = Object.keys(data).sort();
+    const nameValueString = keys.reduce(function (prev, key) {
       return prev + key + data[key];
     }, '');
     return md5(nameValueString + this.apiSecret);
   };
 
   LastFMClient.prototype._formUrlEncode = function (obj) {
-    var pairs = [];
-    for (var key in obj) {
+    const pairs = [];
+    for (let key in obj) {
       if (obj.hasOwnProperty(key)) {
-        pairs.push(encodeURIComponent(key) + "=" + encodeURIComponent(obj[key]));
+        pairs.push(encodeURIComponent(key) + '=' + encodeURIComponent(obj[key]));
       }
     }
-    return pairs.join("&");
+    return pairs.join('&');
   };
 
   LastFMClient.prototype._call = function (type, data) {

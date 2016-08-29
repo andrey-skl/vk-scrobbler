@@ -1,10 +1,10 @@
 describe('Vk-inner player', function () {
   'use strict';
-  var ARTIST_NUM = 4;
-  var TITLE_NUM = 3;
-  var TOTAL_NUM = 5;
-  var patcher;
-  var PlayerListener = window.vkScrobbler.PlayerListener;
+  const ARTIST_NUM = 4;
+  const TITLE_NUM = 3;
+  const TOTAL_NUM = 5;
+  let patcher;
+  let PlayerListener = window.vkScrobbler.PlayerListener;
 
   beforeEach(function () {
     this.sinon = sinon.sandbox.create();
@@ -35,7 +35,7 @@ describe('Vk-inner player', function () {
       });
 
       it('Should wait for ap in window and patch it', function () {
-        var p = new PlayerListener();
+        const p = new PlayerListener();
         p.subscribeToPlayerEvents = this.sinon.stub();
 
         this.clock.tick(10000);
@@ -48,16 +48,16 @@ describe('Vk-inner player', function () {
       });
 
       it('Should no try to patch ap while it not exist on page', function () {
-        var p = new PlayerListener();
+        const p = new PlayerListener();
         p.subscribeToPlayerEvents = this.sinon.stub();
         this.clock.tick(10000);
         p.subscribeToPlayerEvents.should.not.have.been.calledWith({b: 'foo'});
       });
 
       it('should add subscribers', function () {
-        var p = new PlayerListener();
+        const p = new PlayerListener();
 
-        var fakePlayer = {
+        const fakePlayer = {
           subscribers: []
         };
 

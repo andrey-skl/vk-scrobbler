@@ -1,28 +1,28 @@
 (function () {
   'use strict';
 
-  var backgroundAuth = window.vkScrobbler.backgroundAuth;
-  var BackgroundHandlers = window.vkScrobbler.BackgroundActions;
-  var BusBackground = window.vkScrobbler.BusBackground;
-  var log = window.vkScrobbler.log;
-  var bus;
+  const backgroundAuth = window.vkScrobbler.backgroundAuth;
+  const BackgroundHandlers = window.vkScrobbler.BackgroundActions;
+  const BusBackground = window.vkScrobbler.BusBackground;
+  const log = window.vkScrobbler.log;
 
-  var SECRET_KEY = "skey";
-  var USER_NAME = "userName";
+  const SECRET_KEY = 'skey';
+  const USER_NAME = 'userName';
 
-  var secretApiKey = localStorage[SECRET_KEY];
-  var userName = localStorage[USER_NAME];
+  let bus;
+  let secretApiKey = localStorage[SECRET_KEY];
+  let userName = localStorage[USER_NAME];
 
 
   function startConnection(secretApiKey, userName) {
     if (bus) {
       bus.close();
     }
-    var handlers = new BackgroundHandlers(secretApiKey, userName);
+    const handlers = new BackgroundHandlers(secretApiKey, userName);
     bus = new BusBackground(handlers);
   }
 
-  var activate = function () {
+  const activate = function () {
     if (!secretApiKey || !userName) {
       backgroundAuth();
     } else {
@@ -38,7 +38,7 @@
       localStorage[USER_NAME] = userName = name;
 
       startConnection(secretKey, name);
-      log.i('Authorization data obtained: '+ secretKey + " " + name);
+      log.i(`Authorization data obtained: ${secretKey} ${name}`);
     }
   };
 })();

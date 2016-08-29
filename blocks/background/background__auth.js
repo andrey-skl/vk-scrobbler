@@ -1,25 +1,25 @@
 (function() {
   'use strict';
 
-  var LastFmApiConfig = window.vkScrobbler.LastFmApiConfig;
-  var oauthRedirectUrl = "https://vk.com/registervkscrobbler";
-  var tokenRegEx = /\?token\=.*/;
+  const LastFmApiConfig = window.vkScrobbler.LastFmApiConfig;
+  const oauthRedirectUrl = 'https://vk.com/registervkscrobbler';
+  const tokenRegEx = /\?token\=.*/;
 
   function openLastFmAuthTab() {
     chrome.tabs.create({
-      "url": "http://www.lastfm.ru/api/auth?api_key=" + LastFmApiConfig.apiKey,
-      "active": true
+      'url': 'http://www.lastfm.ru/api/auth?api_key=' + LastFmApiConfig.apiKey,
+      'active': true
     });
   }
 
   function redirectToAuthPage(tabId, urlSearch) {
     chrome.tabs.update(tabId, {
-      url: "blocks/auth/auth.html" + urlSearch,
+      url: 'blocks/auth/auth.html' + urlSearch,
       active: true
     }, null);
   }
 
-  var backgroundAuth = function() {
+  const backgroundAuth = function() {
 
     openLastFmAuthTab();
 
@@ -31,8 +31,8 @@
           currentWindow: true
       },
         function(tabs) {
-          for (var i = 0; i < tabs.length; i++) {
-            var tabUrl = tabs[i].url;
+          for (let i = 0; i < tabs.length; i++) {
+            const tabUrl = tabs[i].url;
 
             if (tabUrl.indexOf(oauthRedirectUrl) === 0) {
               chrome.tabs.onUpdated.removeListener(handleOAuthRedirect);

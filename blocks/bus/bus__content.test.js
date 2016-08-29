@@ -1,9 +1,9 @@
 describe('Bus', function () {
-  var BusContent = window.vkScrobbler.BusContent;
-  var bus;
-  var portName = "vk-scrobbler";
-  var fakePort;
-  var MSG_ID = 'fooBar';
+  const BusContent = window.vkScrobbler.BusContent;
+  let bus;
+  const portName = 'vk-scrobbler';
+  let fakePort;
+  const MSG_ID = 'fooBar';
 
   beforeEach(function () {
     fakePort = {
@@ -33,15 +33,15 @@ describe('Bus', function () {
   });
 
   it('Should generate random message id', function () {
-    var firstId = bus.generateMessageId();
-    var secondId = bus.generateMessageId();
+    const firstId = bus.generateMessageId();
+    const secondId = bus.generateMessageId();
 
     firstId.should.not.equal(secondId);
   });
 
   describe('sendMessage', function () {
     it('Should return promise', function () {
-      var promise = bus.sendMessage(MSG_ID, {});
+      const promise = bus.sendMessage(MSG_ID, {});
       promise.should.be.instanceOf(Promise);
     });
 
@@ -60,7 +60,7 @@ describe('Bus', function () {
       fakePort.postMessage.should.been.calledWith({
         messageId: 'fakeId',
         message: MSG_ID,
-        data: {foo: "bar"}
+        data: {foo: 'bar'}
       });
     });
 
@@ -79,11 +79,11 @@ describe('Bus', function () {
       sinon.stub(bus, 'generateMessageId').returns('id1');
 
       bus.sendMessage(MSG_ID, {foo: 'bar'}).then(function (response) {
-        response.should.been.deep.equal({bar: "foo"});
+        response.should.been.deep.equal({bar: 'foo'});
         done();
       });
 
-      fakePort._fakeListenerCall({messageId: 'id1', data: {bar: "foo"}});
+      fakePort._fakeListenerCall({messageId: 'id1', data: {bar: 'foo'}});
     });
 
     it('Should remove resolved message to free the memory', function () {
@@ -91,14 +91,14 @@ describe('Bus', function () {
 
       bus.sendMessage(MSG_ID, {foo: 'bar'});
 
-      fakePort._fakeListenerCall({messageId: 'id1', data: {bar: "foo"}});
+      fakePort._fakeListenerCall({messageId: 'id1', data: {bar: 'foo'}});
 
       expect(bus.activeMessages.id1).to.be.undefined;
     });
 
     it('Should reject the promise if error field exist in response', function (done) {
       sinon.stub(bus, 'generateMessageId').returns('id1');
-      var promise = bus.sendMessage(MSG_ID, {foo: 'bar'});
+      const promise = bus.sendMessage(MSG_ID, {foo: 'bar'});
 
       promise.catch(function (err) {
         err.should.be.deep.equal({message: 'booo'});
@@ -110,7 +110,7 @@ describe('Bus', function () {
     });
 
     it('Should reject the promise if there is no response in 1 minute', function (done) {
-      var promise = bus.sendMessage(MSG_ID, {foo: 'bar'});
+      const promise = bus.sendMessage(MSG_ID, {foo: 'bar'});
 
       promise.catch(function () {
         done();

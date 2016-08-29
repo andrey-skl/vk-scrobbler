@@ -1,16 +1,16 @@
 (function () {
   'use strict';
-  var messageProgress = 'progress';
-  var messagePause = 'pause';
-  var messageResume = 'resume';
-  var messageStop = 'stop';
-  var messagePlayStart = 'playStart';
+  const messageProgress = 'progress';
+  const messagePause = 'pause';
+  const messageResume = 'resume';
+  const messageStop = 'stop';
+  const messagePlayStart = 'playStart';
   const ARTIST_NUM = 4;
   const TITLE_NUM = 3;
   const TOTAL_NUM = 5;
   const TRY_PATCH_INTERVAL = 300;
 
-  var PlayerListener = function () {
+  const PlayerListener = function () {
     this.waitForPlayerAndSubscribe();
   };
 
@@ -21,7 +21,7 @@
 
   PlayerListener.prototype.getTotal = function () {
     //_currentAudio should be used because total argument of onProgress is unstable with flash-based player (#4 issue)
-    var totalStr = this.audioPlayer._currentAudio[TOTAL_NUM];
+    const totalStr = this.audioPlayer._currentAudio[TOTAL_NUM];
     return parseInt(totalStr);
   };
 
@@ -46,7 +46,7 @@
   };
 
   PlayerListener.prototype.onPlayStart = function (track, isNewTrackStarted) {
-    var message = isNewTrackStarted ? messagePlayStart : messageResume;
+    const message = isNewTrackStarted ? messagePlayStart : messageResume;
 
     this.sendMessage({message: message, data: {
       artist: PlayerListener.decodeHtmlEntity(this.audioPlayer._currentAudio[ARTIST_NUM]),
@@ -66,7 +66,7 @@
    // Decodes html special chars into normal text
    // http://stackoverflow.com/a/9609450/1589989
   PlayerListener.decodeHtmlEntity = function(str) {
-    var tmp = document.createElement('textarea'); //use textarea to be sure that no scripts can be injected
+    const tmp = document.createElement('textarea'); //use textarea to be sure that no scripts can be injected
     if(str && typeof str === 'string') {
       // strip script/html tags
       str = str.replace(/<script[^>]*>([\S\s]*?)<\/script>/gmi, '');

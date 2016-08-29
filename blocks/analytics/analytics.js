@@ -23,7 +23,7 @@
 })();
 
 window.onerror = function (msg, url, line) {
-  var preventErrorAlert = true;
-  window._ga('event', 'JS Error', msg, navigator.userAgent + ' -> ' + url + " : " + line, 0, true);
+  const preventErrorAlert = true;
+  window._ga('event', 'JS Error', msg, `${navigator.userAgent} -> ${url} : ${line}`, 0, true);
   return preventErrorAlert;
 };

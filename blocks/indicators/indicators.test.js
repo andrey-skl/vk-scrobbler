@@ -1,8 +1,8 @@
 describe('Indicators', function() {
   'use strict';
-  var Indicators = window.vkScrobbler.Indicators;
-  var PATHS = window.vkScrobbler.IdicatorsUtils.PATHS;
-  var mainPlayer;
+  const Indicators = window.vkScrobbler.Indicators;
+  const PATHS = window.vkScrobbler.IdicatorsUtils.PATHS;
+  let mainPlayer;
 
   beforeEach(function() {
     this.sinon = sinon.sandbox.create();
@@ -105,7 +105,7 @@ describe('Indicators', function() {
   });
 
   describe('Popup (PD) indicators', function() {
-    var popupPlayer;
+    let popupPlayer;
 
     beforeEach(function() {
       popupPlayer = document.createElement('div');
@@ -140,7 +140,7 @@ describe('Indicators', function() {
   });
 
   describe('Mini indicators', function() {
-    var minPLayer;
+    let minPLayer;
 
     beforeEach(function() {
       minPLayer = document.createElement('div');
@@ -162,10 +162,10 @@ describe('Indicators', function() {
   });
 
   describe('Love buttons actions', function() {
-    var pulseClass = 'indicators__love_pulse';
-    var fakeEvent;
-    var elem;
-    var fakeToggleLove;
+    const pulseClass = 'indicators__love_pulse';
+    let fakeEvent;
+    let elem;
+    let fakeToggleLove;
 
     beforeEach(function() {
       fakeToggleLove = this.sinon.stub();

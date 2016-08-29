@@ -1,9 +1,9 @@
 describe('BusBackground', function () {
-  var BusBackground = window.vkScrobbler.BusBackground;
-  var bus;
-  var fakePort;
-  var fakeHandlers;
-  var fakeBeforeHandler;
+  const BusBackground = window.vkScrobbler.BusBackground;
+  let bus;
+  let fakePort;
+  let fakeHandlers;
+  let fakeBeforeHandler;
 
   beforeEach(function () {
     fakeBeforeHandler = sinon.stub();
@@ -11,7 +11,7 @@ describe('BusBackground', function () {
     fakeHandlers = {
       doSmth: sinon.stub().returns(new Promise(function(){})),
       successHandler: function () {
-        return new Promise(function (resolve, reject) {
+        return new Promise(function (resolve) {
           resolve({some: 'bar'});
         });
       },
@@ -72,7 +72,7 @@ describe('BusBackground', function () {
   });
 
   it('Should prevent from handling message and reject promise if beforeHandler throws error', function () {
-    var err = new Error('Foo error');
+    const err = new Error('Foo error');
     fakeBeforeHandler.throws(err);
 
     fakePort._fakeListenerCall({messageId: 'id1', message: 'doSmth', data: {foo: 'bar'}});

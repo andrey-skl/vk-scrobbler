@@ -46,7 +46,6 @@
       "blocks/options/options-handlers.js",
       "blocks/indicators/indicators__utils.js",
       "blocks/indicators/indicators.js",
-      "blocks/indicators/indicators__old.js",
       "blocks/bus/bus__content.js",
       "blocks/content/content__messages.js",
       "blocks/content/content__bus-wrapper.js",
@@ -56,8 +55,7 @@
       "blocks/content/content.js"
     ],
     "css": [
-      "blocks/indicators/indicators.css",
-      "blocks/indicators/indicators__old.css"
+      "blocks/indicators/indicators.css"
     ]
   }],
   "homepage_url": "http://vk.com/vk_scrobbler",
@@ -73,7 +71,6 @@
     "blocks/namespace/*",
     "blocks/namespace/namespace.js",
     "blocks/log/log.js",
-    "blocks/vk-inner/vk-inner__player_old.js",
     "blocks/vk-inner/vk-inner__player.js",
     "blocks/vk-inner/vk-inner.js"
   ],

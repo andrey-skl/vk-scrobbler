@@ -1,8 +1,8 @@
 describe('Last FM API client', function () {
-  var lastFmClient = new window.LastFMClient(window.vkScrobbler.LastFmApiConfig);
+  const lastFmClient = new window.LastFMClient(window.vkScrobbler.LastFmApiConfig);
 
   beforeEach(function () {
-    var requests = this.requests = [];
+    const requests = this.requests = [];
 
     sinon.stub(window, 'fetch', function(url, options) {
       return new Promise(function(resolve, reject) {
@@ -40,22 +40,22 @@ describe('Last FM API client', function () {
   });
 
   it('Should return promise', function () {
-    var promise = lastFmClient.signedCall('GET', {test: 'foo'});
+    const promise = lastFmClient.signedCall('GET', {test: 'foo'});
     promise.should.be.instanceOf(Promise);
   });
 
   it('Should correctly convert object to url encoded data', function () {
-    var encoded = lastFmClient._formUrlEncode({foo: 'bar', num: 123});
+    const encoded = lastFmClient._formUrlEncode({foo: 'bar', num: 123});
     encoded.should.be.equal('foo=bar&num=123');
   });
 
   it('Should send URL encoded data', function () {
-    var promise = lastFmClient.signedCall('POST', {test: 'foo'});
+    lastFmClient.signedCall('POST', {test: 'foo'});
     this.getLastRequest().requestBody.should.contain('test=foo&');
   });
 
   it('Should resolve promise in case of success response', function (done) {
-    var promise = lastFmClient.signedCall('POST', {test: 'foo'});
+    const promise = lastFmClient.signedCall('POST', {test: 'foo'});
 
     promise.then(function (res) {
       res.bar.should.be.equal('test');
