@@ -4,6 +4,6 @@ build/
 node_modules/
 coverage/
 .dropbox
-npm-debug.log
 npm-debug.log.*
 .env.json
+*.log
