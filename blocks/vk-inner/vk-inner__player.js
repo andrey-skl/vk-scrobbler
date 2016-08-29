@@ -63,13 +63,19 @@
     audioPlayer.subscribers.push({et: 'stop', cb: this.onStop.bind(this)});
   };
 
-  /**
-   * Decodes html special chars into normal text
-   */
+   // Decodes html special chars into normal text
+   // http://stackoverflow.com/a/9609450/1589989
   PlayerListener.decodeHtmlEntity = function(str) {
     var tmp = document.createElement('textarea'); //use textarea to be sure that no scripts can be injected
-    tmp.innerHTML = str;
-    return tmp.textContent;
+    if(str && typeof str === 'string') {
+      // strip script/html tags
+      str = str.replace(/<script[^>]*>([\S\s]*?)<\/script>/gmi, '');
+      str = str.replace(/<\/?\w(?:[^"'>]|"[^"]*"|'[^']*')*>/gmi, '');
+      tmp.innerHTML = str;
+      str = tmp.textContent;
+      tmp.textContent = '';
+    }
+    return str;
   };
 
   PlayerListener.prototype.waitForPlayerAndSubscribe = function () {
