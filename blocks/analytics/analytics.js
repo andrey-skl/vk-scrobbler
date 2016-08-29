@@ -22,8 +22,8 @@
   window._ga('pageview');
 })();
 
-window.onerror = function (msg, url, line) {
+window.onerror = function (msg, jsFileName, line) {
   const preventErrorAlert = true;
-  window._ga('event', 'JS Error', msg, `${navigator.userAgent} -> ${url} : ${line}`, 0, true);
+  window._ga('event', 'JS Error', msg, `${navigator.userAgent} -> ${jsFileName} : ${line}`, 0, true);
   return preventErrorAlert;
 };
