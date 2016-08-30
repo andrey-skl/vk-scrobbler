@@ -42,13 +42,12 @@ var path = {
 
   env: '.env.json'
 };
-// Because You can't reload to AMO an addon with the same
-// version twice, there is need to bump version everytime.
-gulp.task('bump', function(){
-  gulp.src([path.src.package, path.src.manifest])
-  .pipe(bump({type:'prerelease'}))
-  .pipe(gulp.dest('./'));
-});
+// replace BUMP :C
+// gulp.task('bump', function(){
+//   gulp.src([path.src.package, path.src.manifest])
+//   .pipe(bump({type:'prerelease'}))
+//   .pipe(gulp.dest('./'));
+// });
 
 gulp.task('clean', function() {
   return gulp.src([path.build.itself, path.dist.all], {read: false})
@@ -138,7 +137,7 @@ gulp.task('pack:chrome', function() {
 });
 
 gulp.task('build', function() {
-  runSequence('bump' ,'copy', 'pack:chrome', 'sign:firefox');
+  runSequence('copy', 'pack:chrome', 'sign:firefox');
 });
 
 gulp.task('build:firefox', function() {
