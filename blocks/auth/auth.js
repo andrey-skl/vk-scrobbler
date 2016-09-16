@@ -82,7 +82,8 @@
       eq: {
         showTopbar: true,
       },
-      loggingEnabled: false
+      loggingEnabled: false,
+      gaEnabled: true
     });
   };
 
