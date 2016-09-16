@@ -81,7 +81,8 @@
       twitter: true,
       eq: {
         showTopbar: true,
-      }
+      },
+      loggingEnabled: false
     });
   };
 

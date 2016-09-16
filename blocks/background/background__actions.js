@@ -4,6 +4,7 @@
   const MSG = window.vkScrobbler.contentMessages;
   const LastFmApi = window.vkScrobbler.LastFmApi;
   const log = window.vkScrobbler.log;
+  const consoleWrap = window.vkScrobbler.consoleWrap;
 
 
   const BackgroundActions = function (secretKey, userName) {
@@ -47,7 +48,7 @@
 
   BackgroundActions.prototype[MSG.GET_TRACK_INFO] = function (params) {
     return this.api.getTrackInfo(params).then(function (res) {
-      console.table(res.track);
+      consoleWrap.table(res.track);
       return res;
     });
   };

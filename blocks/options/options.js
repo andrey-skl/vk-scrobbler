@@ -10,10 +10,12 @@
       eq: {
         showTopbar: true,
         animation: true
-      }
+      },
+      loggingEnabled: false
     }, (res) => {
       document.getElementById('twitter').checked = res.twitter;
       document.getElementById('eqShowTopbar').checked = res.eq.showTopbar;
+      document.getElementById('loggingEnabled').checked = res.loggingEnabled;
     });
   });
 
@@ -23,7 +25,8 @@
       twitter: document.getElementById('twitter').checked,
       eq: {
         showTopbar: document.getElementById('eqShowTopbar').checked,
-      }
+      },
+      loggingEnabled: document.getElementById('loggingEnabled').checked
     });
     this.classList.add('btn--done');
     this.innerHTML = '&#10004;';
