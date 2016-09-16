@@ -1,4 +1,5 @@
 (function () {
+  const log = window.vkScrobbler.log;
   const GA_TRACKING_ID = 'UA-37330826-2';
   const GA_URL = 'https://www.google-analytics.com/collect';
   window._ga = function(type, ...args) {
@@ -15,7 +16,7 @@
       body: message
     })
       .catch((e) => {
-        console.error('Error sending report to Google Analytics.\n' + e);
+        log.e('Error sending report to Google Analytics.\n' + e);
       });
   };
 
