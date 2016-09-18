@@ -45,7 +45,7 @@ var path = {
 // version twice, there is need to bump version everytime.
 gulp.task('bump', function(){
   gulp.src([path.src.package, path.src.manifest])
-  .pipe(bump({type:'prerelease'}))
+  .pipe(bump({type:'patch'}))
   .pipe(gulp.dest('./'));
 });
 
