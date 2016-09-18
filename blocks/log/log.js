@@ -33,6 +33,10 @@
     e: function e(msg) {
       consoleWrap.info(`%cvkScrobbler%c ${msg}`, STYLE.main + STYLE.error, '');
     },
+    // Table
+    t: function t() {
+      consoleWrap.table.apply(this, arguments);
+    },
     // Scrobbled
     // Also checking the response for ignored tracks.
     s: function s(artist, track, response) {
@@ -57,5 +61,4 @@
   };
 
   window.vkScrobbler.log = log;
-  window.vkScrobbler.consoleWrap = consoleWrap;
   })();
