@@ -34,10 +34,10 @@
   "devDependencies": {
     "chai": "3.5.0",
     "codecov.io": "^0.1.2",
+    "del": "^2.2.2",
     "electron-prebuilt": "^0.37.6",
     "gulp": "3.9.1",
     "gulp-bump": "2.4.0",
-    "gulp-clean": "0.3.2",
     "gulp-jshint": "2.0.1",
     "gulp-zip": "^3.2.0",
     "jshint": "^2.7.0",

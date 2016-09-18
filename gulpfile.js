@@ -3,7 +3,7 @@ var gulp = require('gulp');
 var runSequence = require('run-sequence');
 var exec = require('child_process').exec;
 var zip = require('gulp-zip');
-var clean = require('gulp-clean');
+var del = require('del');
 var jshint = require('gulp-jshint');
 var bump = require('gulp-bump');
 
@@ -22,7 +22,6 @@ var path = {
   },
   dist: {
     all: 'dist/**',
-    alljs: 'dist/blocks/**/*.js',
     blocks: 'dist/blocks',
     manifest: 'dist',
     node_modules: 'dist/components'
@@ -51,8 +50,7 @@ gulp.task('bump', function(){
 });
 
 gulp.task('clean', function() {
-  return gulp.src([path.build.itself, path.dist.all], {read: false})
-    .pipe(clean());
+  return del([path.build.itself, path.dist.all]);
 });
 
 gulp.task('styles', function() {
