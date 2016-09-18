@@ -74,7 +74,7 @@ gulp.task('copy-manifest-and-adapt', function() {
       }
       return manifest; // must return JSON object.
     }))
-    .pipe(gulp.dest("./dist"));
+    .pipe(gulp.dest(path.dist.manifest));
 });
 
 gulp.task('copy-node_modules', function() {
@@ -90,7 +90,7 @@ gulp.task('copy', function(finishCallback) {
 gulp.task('watch', ['copy'], function() {
   gulp.watch(path.src.cssSources, ['styles']);
   gulp.watch(path.src.blocks, ['copy-blocks']);
-  gulp.watch(path.src.manifest, ['copy-manifest']);
+  gulp.watch(path.src.manifest, ['copy-manifest-and-adapt']);
   gulp.watch(path.src.node_modules, ['copy-node_modules']);
 });
 
