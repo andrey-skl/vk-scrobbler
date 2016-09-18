@@ -1,13 +1,13 @@
 // Colors in JavaScript console
 // http://stackoverflow.com/a/13017382
-(function() {
+(function () {
   const optionsHandlers = window.vkScrobbler.optionsHandlers;
   const STYLE = {
     main: 'color:#FFF;' +
-      'padding:3px 5px;' +
-      'border-radius: 3px;' +
-      'margin-right: 3px;' +
-      'line-height: 23px;',
+    'padding:3px 5px;' +
+    'border-radius: 3px;' +
+    'margin-right: 3px;' +
+    'line-height: 23px;',
     info: 'background: #536DFE;',
     error: 'background: #D32F2F;',
     play: 'background: #E91E63;',
@@ -61,4 +61,5 @@
   };
 
   window.vkScrobbler.log = log;
-  })();
+  window.vkScrobbler.log.__style = STYLE;
+})();
