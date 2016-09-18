@@ -47,7 +47,7 @@
 
   BackgroundActions.prototype[MSG.GET_TRACK_INFO] = function (params) {
     return this.api.getTrackInfo(params).then(function (res) {
-      console.table(res.track);
+      log.t(res.track);
       return res;
     });
   };

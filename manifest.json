@@ -11,6 +11,7 @@
     "scripts": [
       "blocks/namespace/namespace.js",
       "components/md5.min.js",
+      "blocks/options/options-handlers.js",
       "blocks/log/log.js",
       "blocks/lastfm-api/lastfm-api__client.js",
       "blocks/lastfm-api/lastfm-api__config.js",
@@ -42,8 +43,8 @@
     "matches": ["*://*.vk.com/*"],
     "js": [
       "blocks/namespace/namespace.js",
-      "blocks/log/log.js",
       "blocks/options/options-handlers.js",
+      "blocks/log/log.js",
       "blocks/indicators/indicators__utils.js",
       "blocks/indicators/indicators.js",
       "blocks/bus/bus__content.js",

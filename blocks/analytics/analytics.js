@@ -1,7 +1,9 @@
 (function () {
+  const log = window.vkScrobbler.log;
+  const optionsHandlers = window.vkScrobbler.optionsHandlers;
   const GA_TRACKING_ID = 'UA-37330826-2';
   const GA_URL = 'https://www.google-analytics.com/collect';
-  window._ga = function(type, ...args) {
+  const sendToGA = function(type, ...args) {
     let message = `v=1&tid=${GA_TRACKING_ID}&aip=1&ds=add-on&t=${type}`;
 
     let argumentNames = type === 'event' ? ['ec', 'ea', 'el', 'ev'] : ['dp'];
@@ -15,8 +17,16 @@
       body: message
     })
       .catch((e) => {
-        console.error('Error sending report to Google Analytics.\n' + e);
+        log.e('Error sending report to Google Analytics.\n' + e);
       });
+  };
+  window._ga = function() {
+    const args = arguments;
+    optionsHandlers.storageGet(null, (res) => {
+      if (res.gaEnabled) {
+        sendToGA.apply(this, args);
+      }
+    });
   };
 
   window._ga('pageview');

@@ -55,7 +55,7 @@
         method: GET_SESSION,
         token: token
       }).catch(function(e) {
-        _ga.push(['_trackEvent', 'JS Error Auth', e, navigator.userAgent]);
+        _ga('event', 'JS Error Auth', e, navigator.userAgent);
 
         document.getElementById('message').remove();
         recreateMessageNode(JSON.stringify(e.message || e));
@@ -81,7 +81,9 @@
       twitter: true,
       eq: {
         showTopbar: true,
-      }
+      },
+      loggingEnabled: false,
+      gaEnabled: true
     });
   };
 
