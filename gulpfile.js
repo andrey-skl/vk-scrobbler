@@ -6,6 +6,9 @@ var zip = require('gulp-zip');
 var del = require('del');
 var jshint = require('gulp-jshint');
 var bump = require('gulp-bump');
+var jeditor = require('gulp-json-editor');
+
+var isChromeOnly = process.argv.indexOf('--chromeonly') !== -1;
 
 var path = {
   src: {
@@ -62,17 +65,25 @@ gulp.task('copy-blocks', function() {
   return gulp.src([path.src.blocks, path.not.tests, path.not.css])
     .pipe(gulp.dest(path.dist.blocks));
 });
-gulp.task('copy-manifest', function() {
+
+gulp.task('copy-manifest-and-adapt', function() {
   return gulp.src(path.src.manifest)
-    .pipe(gulp.dest(path.dist.manifest));
+    .pipe(jeditor(function(manifest) {
+      if (isChromeOnly) {
+        delete manifest.applications;
+      }
+      return manifest; // must return JSON object.
+    }))
+    .pipe(gulp.dest("./dist"));
 });
+
 gulp.task('copy-node_modules', function() {
   return gulp.src(path.src.node_modules)
     .pipe(gulp.dest(path.dist.node_modules));
 });
 
 gulp.task('copy', function(finishCallback) {
-  runSequence('clean', ['copy-blocks', 'copy-manifest', 'copy-node_modules', 'styles'], finishCallback);
+  runSequence('clean', ['copy-blocks', 'copy-manifest-and-adapt', 'copy-node_modules', 'styles'], finishCallback);
 });
 
 // Recopy all before watch
