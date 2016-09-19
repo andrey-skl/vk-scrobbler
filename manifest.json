@@ -71,6 +71,7 @@
     "blocks/indicators/__icon/indicators__icon-check-blue.png",
     "blocks/namespace/*",
     "blocks/namespace/namespace.js",
+    "blocks/options/options-handlers.js",
     "blocks/log/log.js",
     "blocks/vk-inner/vk-inner__player.js",
     "blocks/vk-inner/vk-inner.js"
