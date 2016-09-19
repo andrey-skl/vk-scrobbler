@@ -16,47 +16,50 @@
 
   const consoleWrap = new Proxy(console, {
     get: (target, prop) => {
-      let loggingEnabled = false;
-      optionsHandlers.storageGet(null, (res) => {
-        loggingEnabled = res.loggingEnabled;
+      const promise = new Promise((resolve) => {
+        optionsHandlers.storageGet(null, (res) => {
+          resolve(res.loggingEnabled ? target[prop] : () => {});
+        });
       });
-      return loggingEnabled ? target[prop] : () => {};
-    }
+      return (...args) => {
+        return promise.then((func) => { func.apply(null, args); });
+      };
+    },
   });
 
   const log = {
     // Information
     i: function i(msg) {
-      consoleWrap.info(`%cvkScrobbler%c ${msg}`, `${STYLE.main}${STYLE.info}`, '');
+      return consoleWrap.info(`%cvkScrobbler%c ${msg}`, `${STYLE.main}${STYLE.info}`, '');
     },
     // Error
     e: function e(msg) {
-      consoleWrap.info(`%cvkScrobbler%c ${msg}`, STYLE.main + STYLE.error, '');
+      return consoleWrap.info(`%cvkScrobbler%c ${msg}`, STYLE.main + STYLE.error, '');
     },
     // Table
     t: function t() {
-      consoleWrap.table.apply(this, arguments);
+      return consoleWrap.table.apply(this, arguments);
     },
     // Scrobbled
     // Also checking the response for ignored tracks.
     s: function s(artist, track, response) {
       if (response.scrobbles['@attr'].ignored > 0) {
-        consoleWrap.error('%cvkScrobbler' + '%c✘%c' + artist + ' — ' + track, STYLE.main + STYLE.error, STYLE.main + STYLE.error, '');
+        return consoleWrap.error('%cvkScrobbler' + '%c✘%c' + artist + ' — ' + track, STYLE.main + STYLE.error, STYLE.main + STYLE.error, '');
       } else {
-        consoleWrap.info('%cvkScrobbler' + '%c✔%c' + artist + ' — ' + track, STYLE.main + STYLE.info, STYLE.main + STYLE.scrobble, '');
+        return consoleWrap.info('%cvkScrobbler' + '%c✔%c' + artist + ' — ' + track, STYLE.main + STYLE.info, STYLE.main + STYLE.scrobble, '');
       }
     },
     // Currently playing
     p: function p(artist, track) {
-      consoleWrap.info('%cvkScrobbler' + '%c♫%c' + artist + ' — ' + track, STYLE.main + STYLE.info, STYLE.main + STYLE.play, '');
+      return consoleWrap.info('%cvkScrobbler' + '%c♫%c' + artist + ' — ' + track, STYLE.main + STYLE.info, STYLE.main + STYLE.play, '');
     },
     // Loved
     l: function l(artist, track) {
-      consoleWrap.info('%cvkScrobbler' + '%c❤%c' + artist + ' — ' + track, STYLE.main + STYLE.info, STYLE.main + STYLE.error, '');
+      return consoleWrap.info('%cvkScrobbler' + '%c❤%c' + artist + ' — ' + track, STYLE.main + STYLE.info, STYLE.main + STYLE.error, '');
     },
     // Unloved
     u: function u(artist, track) {
-      consoleWrap.info('%cvkScrobbler' + '%c💔%c' + artist + ' — ' + track, STYLE.main + STYLE.info, STYLE.main + STYLE.error, '');
+      return consoleWrap.info('%cvkScrobbler' + '%c💔%c' + artist + ' — ' + track, STYLE.main + STYLE.info, STYLE.main + STYLE.error, '');
     },
   };
 

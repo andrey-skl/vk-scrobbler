@@ -8,6 +8,12 @@
       nsScript.src = chrome.extension.getURL('blocks/namespace/namespace.js');
       document.body.appendChild(nsScript);
     },
+    injectOptionsHandlers: function () {
+      //options-handlers
+      const nsScript = document.createElement('script');
+      nsScript.src = chrome.extension.getURL('blocks/options/options-handlers.js');
+      document.body.appendChild(nsScript);
+    },
     injectLog: function () {
       //namespace
       const nsScript = document.createElement('script');
@@ -29,6 +35,7 @@
     injectPatcher: function () {
 
       scriptInjector.injectNamespace();
+      scriptInjector.injectOptionsHandlers();
       scriptInjector.injectLog();
 
       setTimeout(function () {
