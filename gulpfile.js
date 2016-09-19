@@ -3,9 +3,12 @@ var gulp = require('gulp');
 var runSequence = require('run-sequence');
 var exec = require('child_process').exec;
 var zip = require('gulp-zip');
-var clean = require('gulp-clean');
+var del = require('del');
 var jshint = require('gulp-jshint');
 var bump = require('gulp-bump');
+var jeditor = require('gulp-json-editor');
+
+var isChromeOnly = process.argv.indexOf('--chromeonly') !== -1;
 
 var path = {
   src: {
@@ -22,7 +25,6 @@ var path = {
   },
   dist: {
     all: 'dist/**',
-    alljs: 'dist/blocks/**/*.js',
     blocks: 'dist/blocks',
     manifest: 'dist',
     node_modules: 'dist/components'
@@ -50,8 +52,7 @@ var path = {
 // });
 
 gulp.task('clean', function() {
-  return gulp.src([path.build.itself, path.dist.all], {read: false})
-    .pipe(clean());
+  return del([path.build.itself, path.dist.all]);
 });
 
 gulp.task('styles', function() {
@@ -63,24 +64,32 @@ gulp.task('copy-blocks', function() {
   return gulp.src([path.src.blocks, path.not.tests, path.not.css])
     .pipe(gulp.dest(path.dist.blocks));
 });
-gulp.task('copy-manifest', function() {
+
+gulp.task('copy-manifest-and-adapt', function() {
   return gulp.src(path.src.manifest)
+    .pipe(jeditor(function(manifest) {
+      if (isChromeOnly) {
+        delete manifest.applications;
+      }
+      return manifest; // must return JSON object.
+    }))
     .pipe(gulp.dest(path.dist.manifest));
 });
+
 gulp.task('copy-node_modules', function() {
   return gulp.src(path.src.node_modules)
     .pipe(gulp.dest(path.dist.node_modules));
 });
 
 gulp.task('copy', function(finishCallback) {
-  runSequence('clean', ['copy-blocks', 'copy-manifest', 'copy-node_modules', 'styles'], finishCallback);
+  runSequence('clean', ['copy-blocks', 'copy-manifest-and-adapt', 'copy-node_modules', 'styles'], finishCallback);
 });
 
 // Recopy all before watch
 gulp.task('watch', ['copy'], function() {
   gulp.watch(path.src.cssSources, ['styles']);
   gulp.watch(path.src.blocks, ['copy-blocks']);
-  gulp.watch(path.src.manifest, ['copy-manifest']);
+  gulp.watch(path.src.manifest, ['copy-manifest-and-adapt']);
   gulp.watch(path.src.node_modules, ['copy-node_modules']);
 });
 

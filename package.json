@@ -1,6 +1,6 @@
 {
   "name": "vk-scrobbler",
-  "version": "2.0.4.2",
+  "version": "2.1.0",
   "description": "Last.fm Scrobbler for vk.com",
   "scripts": {
     "watch": "gulp watch",
@@ -8,9 +8,10 @@
     "create_env": "echo '{}' > .env.json",
     "prebuild": "npm run lint",
     "build": "gulp build",
-    "build-chrome": "gulp build:chrome",
+    "build-chrome": "gulp build:chrome -- --chromeonly",
     "build-firefox": "gulp build:firefox",
     "start": "npm run watch",
+    "start-chrome": "npm run watch -- --chromeonly",
     "test": "node ./node_modules/karma/bin/karma start",
     "lint": "gulp lint"
   },
@@ -25,7 +26,8 @@
   ],
   "contributors": [
     "Andrey Skladchikov",
-    "Stanisław Dac"
+    "Stanisław Dac",
+    "Bogdan Sinitsyn"
   ],
   "license": "MIT",
   "dependencies": {
@@ -34,11 +36,12 @@
   "devDependencies": {
     "chai": "3.5.0",
     "codecov.io": "^0.1.2",
+    "del": "^2.2.2",
     "electron-prebuilt": "^0.37.6",
-    "gulp": "^3.9.1",
-    "gulp-bump": "^2.2.0",
-    "gulp-clean": "^0.3.2",
-    "gulp-jshint": "^2.0.1",
+    "gulp": "3.9.1",
+    "gulp-bump": "2.4.0",
+    "gulp-jshint": "2.0.1",
+    "gulp-json-editor": "^2.2.1",
     "gulp-zip": "^3.2.0",
     "jshint": "^2.7.0",
     "karma": "^0.13.22",
