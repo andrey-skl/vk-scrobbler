@@ -1,6 +1,6 @@
 {
   "name": "vk-scrobbler",
-  "version": "2.1.0",
+  "version": "2.1.1",
   "description": "Last.fm Scrobbler for vk.com",
   "scripts": {
     "watch": "gulp watch",

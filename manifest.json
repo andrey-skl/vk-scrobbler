@@ -4,7 +4,7 @@
   "icons": {
     "128": "blocks/logo/logo_128.png"
   },
-  "version": "2.1.0",
+  "version": "2.1.1",
   "manifest_version": 2,
   "minimum_chrome_version": "41.0",
   "background": {
@@ -75,6 +75,5 @@
     "blocks/log/log.js",
     "blocks/vk-inner/vk-inner__player.js",
     "blocks/vk-inner/vk-inner.js"
-  ],
-  "content_security_policy": "script-src 'self' https://ws.audioscrobbler.com https://ssl.google-analytics.com; object-src 'self'; style-src 'self' 'unsafe-inline';"
+  ]
 }

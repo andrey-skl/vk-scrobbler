@@ -35,7 +35,7 @@
     this.innerHTML = '&#10004;';
   });
 
-  // Remove `done` style from button, when checkbox cklicked
+  // Remove `done` style from button, when checkbox clicked
   document.getElementById('optionsRows').addEventListener('click', function() {
     document.getElementById('save').classList.remove('btn--done');
     document.getElementById('save').innerHTML = 'Save';
