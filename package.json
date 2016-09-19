@@ -26,7 +26,8 @@
   ],
   "contributors": [
     "Andrey Skladchikov",
-    "Stanisław Dac"
+    "Stanisław Dac",
+    "Bogdan Sinitsyn"
   ],
   "license": "MIT",
   "dependencies": {
